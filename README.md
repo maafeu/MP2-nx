@@ -28,10 +28,10 @@ See [docs/MP2-notes.md](docs/MP2-notes.md) for every decision, fix and measureme
 Switch NRO (`-DPORT_RENDERER=gl` for the OpenGL fallback). `tools/make_package.ps1` and `tools/make_package_pc.ps1`
 lay out a package for your own console or PC; `package/TESTING.md` and `package/README-PC.txt` say how to set it up.
 
-**Web installer:** [maafeu.github.io/MP2-nx-installer](https://maafeu.github.io/MP2-nx-installer/) packs your own disc
-(`.iso` or extracted folder, checked against the supported `default.xbe`) and your own build of `mp2-nx.nro` into the
-SD card layout, in your browser; it contains no game code or files
-([source](https://github.com/maafeu/MP2-nx-installer), GPL-3.0).
+**Web installer:** [maafeu.github.io/MP2-nx](https://maafeu.github.io/MP2-nx/) packs your own disc (`.iso` or
+extracted folder, checked against the supported `default.xbe`) and your own build of `mp2-nx.nro` into the SD
+card layout, in your browser; it contains no game code or files. Its source is [`installer/`](installer/)
+(GPL-3.0, published by `.github/workflows/installer-pages.yml`).
 
 ## Layout
 
@@ -43,6 +43,7 @@ SD card layout, in your browser; it contains no game code or files
 | `ferramentas/` | The kit's scripts: recompile, build, package |
 | `tools/` | This port's own scripts (disc extraction, XDK 5558 work, PC and Ryujinx runs, RenderDoc analysis, packaging, the GL helper sync) |
 | `docs/` | The kit's documentation (Portuguese) and this port's notes |
+| `installer/` | The web installer (GPL-3.0), published as https://maafeu.github.io/MP2-nx/ |
 
 The kit's layout is kept as the base has it (`COLD-FEAR-NX-PORT`'s `kit/`), so a fix here is a plain patch for the
 base.
@@ -68,5 +69,6 @@ The Switch porting method this work follows comes from the Xbox 360 ports and th
 and the renut-nx ultimate base, renut-nx, sa2-nx, NetherSX2_nx, battd_nx and the bejeweled3-nx / zuma ports. Their
 code is credited wherever any of it is used here; [docs/MP2-notes.md](docs/MP2-notes.md) says what is.
 
-This repository's own code is under the MIT licence ([LICENSE](LICENSE)), as the base's is; the parts above keep
-their own licences and notices. Max Payne 2 itself is not covered by any of them and is not included.
+This repository's own code is under the MIT licence ([LICENSE](LICENSE)), as the base's is, except `installer/`,
+which is GPL-3.0 (`installer/LICENSE`, `installer/NOTICES.md`); the parts above keep their own licences and
+notices. Max Payne 2 itself is not covered by any of them and is not included.

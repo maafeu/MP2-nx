@@ -1564,3 +1564,17 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
   as its NRO icon (`exemplos/mp2/icon.jpg`, git-ignored, so private) with the title "Max Payne 2".
 - The local `mp2-nx-installer` (with the bundled NRO, private) has the same code; the public copy is
   `mp2-nx-installer-public`.
+- **The page's icon** (the user: "Yes, make one"): an original drawing, `tools/make_icon.py` in the installer
+  repository (Pillow, drawn at 2048 px and scaled to 512; a rainy night, a bullet crossing it in slow motion with its
+  wake and a red streak; no characters, no game art, no lettering). Installer commit bea753c; live on the page.
+- **The page's icon, second version** (the user: "Original skyline icon"): heavy rain over an invented night city,
+  a red haze on the horizon and a red streak across the sky (`tools/make_icon.py` rewritten; no game art, no real
+  building, no lettering). Installer commit b949b27; live. The user's other picture (the game's hero and logo, from
+  a fan image) was not used on the public page, for the same reason as the cover art. The Switch build keeps its own
+  icon and title as they are (the user: "Leave the originals on my switch").
+- **The installer's release** (the user: "Can you create a release page please"): the annotated tag `v1.0.0` on the
+  installer's b949b27, the release "mp2-nx web installer 1.0.0" (notes: the page's link, the four steps, no game
+  code or files, tested in Chromium, credits and GPL-3.0); GitHub's API: not a draft, not a pre-release, 0 assets.
+  https://github.com/maafeu/MP2-nx-installer/releases/tag/v1.0.0. The port's own v1.0.0 release notes gained a
+  "Packing it for your Switch" section pointing to the installer (the user asked whether the two repositories
+  duplicate each other: the port builds `mp2-nx.nro`, the installer only packs a build and the player's disc).

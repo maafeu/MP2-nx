@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "builds": [
+    {
+      "edition": "Xbox disc (NTSC-U, TT-012)",
+      "exe_sha256": "13a0ef7fb8cb0f18d7d371f6fe96903db817d8965206f78600bc1c2d6a4e2bfd",
+      "nro": "mp2-nx.nro",
+      "files": [
+        {
+          "path": "mp2-nx.toml",
+          "source": "mp2-nx.toml",
+          "sha256": "c3d3c6e60da47dc1b40b40e5f4b17472e47a8ec727c6e6a78cff00a009ff32d0"
+        }
+      ]
+    }
+  ],
+  "note": "No NRO in this release: the page takes the player's own build of mp2-nx.nro (it holds the game's recompiled code)."
+}

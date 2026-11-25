@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+installer/ (the web installer) is not under this licence: it is GPL-3.0 (installer/LICENSE, installer/NOTICES.md).
 Third-party code in this repository keeps its own licence and notice (README.md, "Credits and licences"):
 XboxXBE-Recomp (sdk/XboxXBE-Recomp/LICENSE), Black-Android (exemplos/mp2/LICENSE-Black-Android), and the libraries
 listed in third_party/README.md, which are not included. Max Payne 2: The Fall of Max Payne is not covered by this
