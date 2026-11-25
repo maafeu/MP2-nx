@@ -476,3 +476,5 @@ Times are the PC's local time (ABT).
 - 11-24 23:35-23:55 The installer merged into this repository as `installer/`, published by a GitHub Actions Pages
   workflow: https://maafeu.github.io/MP2-nx/ (live, checked). The old repository redirects there (its root and any
   old path); both v1.0.0 release notes link the new address.
+- 11-24 ~00:00 The old repository maafeu/MP2-nx-installer deleted (the user's word); the installer lives only in
+  `installer/` here, at https://maafeu.github.io/MP2-nx/.

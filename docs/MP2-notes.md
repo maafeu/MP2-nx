@@ -1591,5 +1591,9 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
   `404.html` for any old path, which keeps the rest of the path. Its `sw.js` replaces the old download worker and
   unregisters itself. Checked in the browser: the old root and an old deep link land on the new page, and only the
   new page's worker is left. The installer's history stays there. Both v1.0.0 release notes now point to the new
-  address (the old one with a "Moved" line). Deleting the old repository is for the user to confirm; until then it
-  keeps the old links working.
+  address (the old one with a "Moved" line).
+- **The old repository deleted** (the user: "then we can remove the MP2-nx-installer", after being told it can't be
+  undone and that the old link would then 404): deleted in GitHub's settings on 11-24 about 00:00. GitHub's API
+  answers 404 for it; MP2-nx and https://maafeu.github.io/MP2-nx/ are untouched. The links above to the old repository,
+  its release and its page are history now and lead nowhere. The local clone `mp2-nx-installer-public` (its remote
+  is gone) and the private `mp2-nx-installer` are kept on the PC.
