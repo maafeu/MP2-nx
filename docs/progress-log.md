@@ -466,3 +466,5 @@ Times are the PC's local time (ABT).
   tracked; no personal details in the tree; LICENSE (MIT) and a current README; a single-commit `publish` branch,
   since the history holds an old user path). The NRO, exe and installer release are not published (recompiled game
   code). Creating the GitHub repository waits for the user's sign-in in the browser pane.
+- 11-24 22:25 Published: https://github.com/maafeu/MP2-nx (public; `main` = 9db517d, the source as one clean commit,
+  the MIT licence, the README). The game files (NRO, exe, installer release) not published.

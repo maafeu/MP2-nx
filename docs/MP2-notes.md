@@ -1522,3 +1522,13 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
 - **Where:** a new repository `MP2-nx` under the user's GitHub account (Git Credential Manager has the account
   stored for pushing). No GitHub CLI on this PC (installing it would be a download), and the browser pane was not
   signed in to GitHub, so creating the repository waits for the user's sign-in there.
+- **Published** (the user signed in to GitHub in the browser pane: "Signed in, continue"): the public repository
+  https://github.com/maafeu/MP2-nx, created empty (no README, .gitignore or licence from GitHub) with the description
+  "Max Payne 2 (Xbox) static recompilation port for Nintendo Switch and PC. The game is not included: build from
+  your own disc." `git push origin publish:main` through Git Credential Manager's stored account: `main` is
+  9db517d, one parentless commit of `master`'s tree (278 files; no personal details, no binaries; checked again just
+  before the push). `git ls-remote` shows only `main` at 9db517d; GitHub shows the README and the MIT licence.
+  `master` (the full local history, with the old user path in it) is not pushed.
+- **Later updates:** commit on `master` as before, then put the new tree on GitHub as a commit on top of `publish`
+  (`git commit-tree master^{tree} -p publish`, `git branch -f publish`, `git push origin publish:main`), so the old
+  history never goes out. The NRO, exe and installer release stay private.
