@@ -1578,3 +1578,18 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
   https://github.com/maafeu/MP2-nx-installer/releases/tag/v1.0.0. The port's own v1.0.0 release notes gained a
   "Packing it for your Switch" section pointing to the installer (the user asked whether the two repositories
   duplicate each other: the port builds `mp2-nx.nro`, the installer only packs a build and the player's disc).
+- **The installer merged into this repository** (the user: "Can we somehow merge the two repos together? keeping the
+  web installer?"): the installer's files are `installer/` here (85 files, unchanged; GPL-3.0, its own `LICENSE` and
+  `NOTICES.md`, which `LICENSE` and the README now say). `.github/workflows/installer-pages.yml` publishes the folder
+  as it is to GitHub Pages (Pages source: GitHub Actions) on a push to `main` that touches it, or by hand. The page
+  is now **https://maafeu.github.io/MP2-nx/**. The first run failed (deploy-pages v4 found no artifact from
+  upload-pages-artifact v3); with checkout v7, configure-pages v6, upload-pages-artifact v5 and deploy-pages v5 it
+  deploys (run 45555085255, main 27f08ed). Checked live: the own-NRO step shown, `release/mp2-nx.nro` 404 (none
+  published), the icon, the service worker registered at `/MP2-nx/`, no console errors.
+- The old repository (maafeu/MP2-nx-installer, main 5e60c21) now holds only a "moved" README, its `LICENSE` and
+  `NOTICES.md`, the icon, and a page that sends the browser to the new address: `index.html` for the root, and
+  `404.html` for any old path, which keeps the rest of the path. Its `sw.js` replaces the old download worker and
+  unregisters itself. Checked in the browser: the old root and an old deep link land on the new page, and only the
+  new page's worker is left. The installer's history stays there. Both v1.0.0 release notes now point to the new
+  address (the old one with a "Moved" line). Deleting the old repository is for the user to confirm; until then it
+  keeps the old links working.

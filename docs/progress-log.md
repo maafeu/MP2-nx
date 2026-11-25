@@ -473,3 +473,6 @@ Times are the PC's local time (ABT).
   release has none), tested end to end in Chromium (429 files byte for byte), a separate GPL-3.0 repository with
   GitHub Pages: https://maafeu.github.io/MP2-nx-installer/. The README links it. The cover art stays off the public
   page (the Switch build's own icon already uses it, privately).
+- 11-24 23:35-23:55 The installer merged into this repository as `installer/`, published by a GitHub Actions Pages
+  workflow: https://maafeu.github.io/MP2-nx/ (live, checked). The old repository redirects there (its root and any
+  old path); both v1.0.0 release notes link the new address.
