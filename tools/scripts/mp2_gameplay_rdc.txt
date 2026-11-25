@@ -1,0 +1,13 @@
+# New Game into chapter 1 (as mp2_gameplay.txt), then a RenderDoc capture of a gameplay frame (Max idle in the hospital room)
+8 A
+12 A
+16 START
+21 DOWN 10
+24 A 10
+30 A 10
+45 R 10
+50 R 10
+60 R 10
+65 R 10
+75 SHOT
+76 RDC

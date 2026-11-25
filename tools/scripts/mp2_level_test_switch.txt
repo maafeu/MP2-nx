@@ -1,0 +1,50 @@
+# input_script.txt for a level test on the Switch build (test_level = NN in mp2-nx.toml): New Game as
+# mp2_gameplay_switch.txt (spaced for Ryujinx's slower start); about 3 s after that level starts the game changes to
+# level NN (src/game/test_level.cpp); R every 2.5 s through its graphic novel, then Max walks, fires and uses bullet
+# time (ZL), and at the end A to load the last save if Max was shot. Presses held 20 frames.
+15 A 40
+24 A 40
+34 PLUS 40
+46 DOWN 40
+56 A 40
+68 A 40
+72 R 20
+74.5 R 20
+77 R 20
+79.5 R 20
+82 R 20
+84.5 R 20
+87 R 20
+89.5 R 20
+92 R 20
+94.5 R 20
+97 R 20
+99.5 R 20
+102 R 20
+104.5 R 20
+107 R 20
+109.5 R 20
+112 R 20
+114.5 R 20
+117 R 20
+119.5 R 20
+122 R 20
+124.5 R 20
+127 R 20
+135 LS 120
+140 ZR 6
+142 ZR 6
+144 ZL 20
+145 ZR 6
+148 LS 90
+152 LSL 40
+155 LS 120
+159 ZR 6
+161 ZL 20
+162 ZR 6
+165 LS 120
+170 LSR 30
+172 LS 120
+# Max has usually been shot by now: A on "Press A to load the last saved game" (in play, A jumps)
+190 A 20
+200 A 20

@@ -1,0 +1,14 @@
+# The main menu's How to Play (its first item, where the cursor starts): the pages shown, RIGHT and DOWN between shots
+8 A
+12 A
+16 START
+20 A 10
+23 SHOT
+25 RIGHT 10
+27 SHOT
+29 DOWN 10
+31 SHOT
+33 A 10
+35 SHOT
+37 RIGHT 10
+39 SHOT

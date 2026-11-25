@@ -1,0 +1,9 @@
+# the kit's options panel over the title screen: films skipped, Minus + R3 opens the panel, DOWN moves in it, then it
+# closes again. With a "capture" file beside the exe the GL renderer saves the window every 15 s (about 1, 16 and
+# 31 s in: shots/NNNN_screen.bmp), so the panel is open across 16 and 31 s
+8 A
+11 A
+14 MINUS+R3 10
+20 DOWN 10
+24 DOWN 10
+34 MINUS+R3 10

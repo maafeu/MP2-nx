@@ -1,0 +1,13 @@
+# input_script.txt for the Switch build (host-switch/input.cpp): New Game into the first level, spaced for a slow
+# frame rate (the soft renderer under Ryujinx), presses held 40 frames (0.67 s).
+15 A 40
+24 A 40
+34 PLUS 40
+46 DOWN 40
+56 A 40
+68 A 40
+90 R 40
+105 R 40
+120 R 40
+135 R 40
+150 R 40

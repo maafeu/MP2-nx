@@ -1,0 +1,18 @@
+# Max Payne 2 (MP2-nx) PC settings as shipped. Every value keeps the original picture: the game's frame is drawn at
+# 1280x720 (16:9, so the game is told the TV is widescreen and draws its own anamorphic 16:9 frames) and scaled to the
+# window or screen, letterboxed to that shape.
+display_mode = "borderless"     # borderless: the whole screen, no border ("fullscreen" is the same here); windowed:
+                                # a window you can size. F11 or Alt+Enter switches while the game runs
+width = 0                       # 0 and 0: the frame drawn at 1280x720, the port's target. Both set (e.g. 1920 and
+height = 0                      # 1080): drawn at that size instead, sharper, a picture change
+render_percent = 100            # the game's targets drawn at this share of the frame's height
+fps_cap = 60                    # 60 fps: the game times itself by the clock, so it plays at the same speed at any rate
+vsync = true
+anisotropic_filtering = 0       # 0: as the game asks
+fps_counter = false
+screen_filter = 0               # 0: none (CRT, sharpen and other looks are picture changes)
+brightness = 5                  # 5: the game's own gamma ramp
+mouse_sensitivity = 1.0         # the mouse's aim: 1.0 turns 0.05 degrees a count (2.0 twice as fast)
+left_stick_deadzone = 0         # 0: the game's own
+right_stick_deadzone = 0
+audio_output = 0                # 0: auto

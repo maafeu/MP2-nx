@@ -1,0 +1,13 @@
+# New Game, the graphic novel skipped with R, then the opening in-engine cutscene left to play: shots and a draw trace
+8 A
+12 A
+16 START
+21 DOWN 10
+24 A 10
+30 A 10
+45 R 10
+50 R 10
+58 SHOT
+60 TRACE
+62 SHOT
+70 SHOT

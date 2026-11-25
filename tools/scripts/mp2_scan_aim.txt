@@ -1,0 +1,27 @@
+# Where the game keeps the aim: the Quick Save loaded from the main menu (as mp2_stick_measure.txt), then guest
+# memory scans (host-pc/input.cpp SCAN) between known turns: right, right again, left back, up, down;
+# tools/scan_diff.py finds the values that follow them
+8 A
+12 A
+16 START
+21 DOWN 10
+23 DOWN 10
+25 DOWN 10
+27 A 10
+32 DOWN 10
+36 A 10
+40 A 10
+55 SHOT
+56.5 RX=1.0 6
+55 SCAN
+57 RX=1.0 10
+59 SCAN
+61 RX=1.0 10
+63 SCAN
+65 RX=-1.0 20
+68 SCAN
+70 RY=1.0 6
+72 SCAN
+74 RY=-1.0 6
+76 SCAN
+78 SHOT

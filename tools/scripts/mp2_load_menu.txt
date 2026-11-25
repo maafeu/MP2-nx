@@ -1,0 +1,18 @@
+# the main menu's Load (fourth item): shots of the save list, the cursor moved down once, then A to load that save
+8 A
+12 A
+16 START
+21 DOWN 10
+23 DOWN 10
+25 DOWN 10
+27 A 10
+30 SHOT
+32 DOWN 10
+34 SHOT
+36 A 10
+38 SHOT
+40 A 10
+43 SHOT
+48 SHOT
+55 SHOT
+62 SHOT

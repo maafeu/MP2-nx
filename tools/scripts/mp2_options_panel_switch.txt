@@ -1,0 +1,9 @@
+# input_script.txt for the Switch build: the films skipped, the title passed, then Minus + R3 opens the kit's options
+# panel across the port's captures at about 38 and 53 s, DOWN moves in it, and it closes at 60 s
+15 A 40
+24 A 40
+34 PLUS 40
+36 MINUS+R3 20
+45 DOWN 20
+50 DOWN 20
+60 MINUS+R3 20

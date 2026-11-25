@@ -1,0 +1,8 @@
+# the same frames for an aspect test: the main menu and the start of chapter 1
+19 SHOT
+21 DOWN 10
+24 A 10
+30 A 10
+45 R 10
+50 R 10
+62 SHOT

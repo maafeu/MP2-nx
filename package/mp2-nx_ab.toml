@@ -1,0 +1,30 @@
+# Max Payne 2 (MP2-nx) A/B settings: the shipped mp2-nx.toml with one change, render_wide = 0 (the original picture:
+# the game's frame drawn at 960x720 and stretched, against the shipped 1280x720). Run with mp2-nx.toml (A), quit,
+# copy this over it (B).
+# Every value keeps the original picture except the output shape (see display below).
+# display: the Switch's screen (1280x720 handheld, 1920x1080 docked); 16:9, so the game is told the TV is widescreen
+# and draws its own anamorphic 16:9 frames (docs/MP2-notes.md)
+render_percent = 100            # the guest targets drawn at this share of the output height (GPU renderers)
+render_wide = 0                 # 0: the original picture (960x720 stretched); the shipped settings have 1 (the
+                                # frame drawn at the output's full width, 1280x720: sharper)
+fps_cap = 60                    # 60 fps: the game times itself by the clock, so it plays at the same speed at any rate
+fps_adaptive = 1                # 1: locked to 30 while frames take over fps_adaptive_ms on average, back to 60
+                                # when they take 1.5 ms less; 0: free under 60 (uneven frames where it falls short)
+fps_adaptive_ms = 20            # 20: scenes of 50-60 fps run free (a repeated frame now and then), slower ones
+                                # lock to 30; 16 locks to 30 as soon as 60 slips
+vsync = true
+cpu_clock = 1581                # MHz for this run (the old clock comes back at exit); 0 the system's 1020. With
+                                # mem_clock 1600 the lowest pair measured that holds 60 everywhere (2026-11-23). A clock
+                                # manager (Horizon-OC, sys-clk) may hold it lower: give it the same pair (TESTING.md)
+gpu_clock = 0                   # 0: the system's
+mem_clock = 1600                # MHz: the docked rate, also in handheld (1331 there by default); 0 the system's
+thread_cores = 0
+render_thread = 1               # 1: the renderer on a core of its own (the deko3d NRO; the GL fallback draws on the title's thread)
+anisotropic_filtering = 0       # 0: as the game asks
+fps_counter = false
+screen_filter = 0               # 0: none (CRT, sharpen and other looks are picture changes)
+brightness = 5                  # 5: the game's own gamma ramp
+oled_screen = 1                 # 1: off (2 lifts the darks on an OLED console; 0 auto, which asks set:sys)
+left_stick_deadzone = 0         # 0: the game's own
+right_stick_deadzone = 0
+audio_output = 0                # 0: auto

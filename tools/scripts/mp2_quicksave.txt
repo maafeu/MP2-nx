@@ -1,0 +1,25 @@
+# Resume Game, walk, Quick Save from the pause menu (it closes the menu itself), walk and turn away, then Load Last
+# Game (A, and A again to quit the current game): the quick save must load back to where it was made
+8 A
+12 A
+16 START
+21 DOWN 10
+23 A 10
+52 LS 120
+56 START 10
+58 A 10
+61 SHOT
+62 LSR 150
+65 RSR 60
+67 LSD 90
+69 SHOT
+70 START 10
+72 DOWN 10
+73 SHOT
+74 A 10
+76 A 10
+78 SHOT
+82 SHOT
+87 SHOT
+92 SHOT
+97 SHOT

@@ -1,0 +1,26 @@
+# The main menu's Options (five DOWNs, the cursor skipping the greyed-out Save): its page, then A on each of its first
+# items with a shot and B back
+8 A
+12 A
+16 START
+20 DOWN 10
+21 DOWN 10
+22 DOWN 10
+23 DOWN 10
+24 DOWN 10
+26 A 10
+28 SHOT
+29 A 10
+31 SHOT
+32 B 10
+33 DOWN 10
+34 A 10
+36 SHOT
+37 B 10
+38 DOWN 10
+39 A 10
+41 SHOT
+42 B 10
+43 DOWN 10
+44 A 10
+46 SHOT

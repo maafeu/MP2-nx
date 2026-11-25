@@ -1,0 +1,27 @@
+# The mouse look (src/game/mouse.cpp) with scripted mouse counts (MX=, MY=; 0.05 degrees each at sensitivity 1):
+# the Quick Save loaded from the main menu, then turns between screenshots; tools/stick_shift.py measures them
+8 A
+12 A
+16 START
+21 DOWN 10
+23 DOWN 10
+25 DOWN 10
+27 A 10
+32 DOWN 10
+36 A 10
+40 A 10
+55 SHOT
+56.5 MX=200
+58 SHOT
+59.5 MX=-400
+61 SHOT
+62.5 MX=200
+64 SHOT
+65.5 MY=-80
+67 SHOT
+68.5 MY=160
+70 SHOT
+71.5 MY=-80
+73 SHOT
+74.5 RY=1.0 4
+76 SHOT

@@ -1,0 +1,10 @@
+# main menu: UP (wraps to the last item if the menu moves), then A; a shot after each
+8 A
+12 A
+16 START
+20 A
+25 UP 10
+27 SHOT
+28 A 10
+32 SHOT
+34 SHOT

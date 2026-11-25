@@ -1,0 +1,19 @@
+# Resume Game (the main menu's second item, enabled once a save exists): it loads the latest save; shots as it loads,
+# then Max walks, turns and fires in the loaded level
+8 A
+12 A
+16 START
+21 DOWN 10
+23 A 10
+26 SHOT
+30 SHOT
+35 SHOT
+40 SHOT
+45 SHOT
+50 SHOT
+52 LS 120
+56 RS 40
+58 ZR 6
+60 SHOT
+62 LS 120
+66 SHOT

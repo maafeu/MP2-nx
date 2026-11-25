@@ -1,0 +1,19 @@
+# New Game into the first level: intro films skipped (A, A), START at the title, DOWN to New Game, A, A on the game
+# mode (Detective), then R (the black button, "skip" on the controls page) through the opening graphic novel.
+8 A
+12 A
+16 START
+21 DOWN 10
+24 A 10
+30 A 10
+45 R 10
+50 R 10
+55 SHOT
+60 R 10
+65 R 10
+70 SHOT
+80 SHOT
+90 SHOT
+100 SHOT
+110 SHOT
+120 SHOT

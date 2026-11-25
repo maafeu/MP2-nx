@@ -1,0 +1,8 @@
+# The PC level sweep (test_levels in the settings file): Resume Game (with a save on the disk the main menu's second
+# item) starts a level, which test_level.cpp needs before it changes levels; then no input, Max stands where each
+# level starts, as in the console sweeps
+8 A
+12 A
+16 START
+21 DOWN 10
+23 A 10

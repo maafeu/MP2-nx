@@ -1,0 +1,20 @@
+# tools/run_pc.ps1 -Script: second, buttons [frames]. Skips the intro films (A, A), START at the title, then on the
+# main menu (cursor on How to Play) DOWN to New Game (Resume Game is greyed out), A, A on the game mode (Detective),
+# then A now and then to go through the opening graphic novel.
+8 A
+12 A
+16 START
+21 DOWN 10
+24 A 10
+30 SHOT
+40 SHOT
+50 A 10
+60 SHOT
+70 SHOT
+80 A 10
+90 SHOT
+100 A 10
+110 SHOT
+120 SHOT
+130 A 10
+140 SHOT

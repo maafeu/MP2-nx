@@ -1,0 +1,25 @@
+# New Game into chapter 1 (as mp2_gameplay.txt), then Max walks forward, turns, fires and uses bullet time, with
+# shots along the way: for checking effects (muzzle flash, blur, glow) across renderers by eye
+8 A
+12 A
+16 START
+21 DOWN 10
+24 A 10
+30 A 10
+45 R 10
+50 R 10
+60 R 10
+65 R 10
+72 SHOT
+74 LS 120
+76 SHOT
+78 RS 40
+80 SHOT
+82 ZR 6
+82.5 SHOT
+84 ZR 6
+86 ZL 20
+86.6 SHOT
+88 ZR 6
+88.4 SHOT
+92 SHOT

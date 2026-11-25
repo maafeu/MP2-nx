@@ -1,0 +1,15 @@
+# The main menu's Previously (the story so far; four DOWNs, the cursor skipping the greyed-out Save), A, then shots
+# of what it shows
+8 A
+12 A
+16 START
+20 DOWN 10
+21 DOWN 10
+22 DOWN 10
+23 DOWN 10
+26.5 SHOT
+30 A 10
+35 SHOT
+45 SHOT
+60 SHOT
+80 SHOT

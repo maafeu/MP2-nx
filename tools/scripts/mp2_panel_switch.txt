@@ -1,0 +1,32 @@
+# input_script.txt for the options panel check on the Switch build (Ryujinx timing): Resume Game, then in play the
+# panel opened by both sticks pressed 50 ms apart (Max must not crouch); it opens with the focus on its page's tab
+# (2026-11-24), so RB goes to the CONTROLLER page, DOWN enters the rows at GYROSCOPE and RIGHT steps it three times
+# (ALWAYS, WHILE FIRING (ZR), OFF); the panel closed (the other stick first), then L3 tapped for 50 ms, shorter than
+# the 80 ms wait (Max crouches), and held half a second (Max stands); then Back + R3, Back first and R3 50 ms later,
+# opens the panel, RIGHT straight away must only move between the tabs (no `render scale` or `gyro:` line at 130 s:
+# the accident of the console session), Back + R3 closes it (the game's own menu must not open behind it), a 50 ms
+# Back tap opens the game's menu (it still reaches the game) and A resumes. The scripted presses reach the panel too
+# (input.cpp NavButtons). Run with -Capture 2 for a frame every 2 s.
+15 A 40
+24 A 40
+34 PLUS 40
+46 DOWN 40
+56 A 40
+90.00 L3 30
+90.05 R3 25
+94 R 10
+97 DOWN 10
+101 RIGHT 10
+104 RIGHT 10
+107 RIGHT 10
+110.00 R3 30
+110.05 L3 25
+116 L3 3
+122 L3 30
+128.00 MINUS 25
+128.05 R3 20
+130 RIGHT 10
+133.00 MINUS 25
+133.05 R3 20
+139 MINUS 3
+144 A 20

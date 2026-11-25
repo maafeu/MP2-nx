@@ -1,0 +1,15 @@
+# the main menu with a save on the disk: a shot of it, then of each item as the cursor moves down
+8 A
+12 A
+16 START
+21 SHOT
+23 DOWN 10
+25 SHOT
+27 DOWN 10
+29 SHOT
+31 DOWN 10
+33 SHOT
+35 DOWN 10
+37 SHOT
+39 DOWN 10
+41 SHOT

@@ -1,0 +1,22 @@
+# input_script.txt for the save test on the console (real speed; the first five presses as the console's New Game
+# script, which reached the menu in time): Resume Game (the main menu's second item once a save exists), walk, Quick
+# Save from the pause menu, strafe and walk back, Load Last Game (A, and A again to quit the current game), then a
+# second Quick Save after the reload (the first becomes the Previous Quick Save). The Switch build's stick names are
+# LS LSD LSL LSR (left stick only).
+15 A 40
+24 A 40
+34 PLUS 40
+46 DOWN 40
+56 A 40
+100 LS 120
+106 PLUS 30
+111 A 30
+116 LSR 150
+121 LSD 90
+127 PLUS 30
+132 DOWN 30
+137 A 30
+142 A 30
+185 LSL 90
+190 PLUS 30
+195 A 30

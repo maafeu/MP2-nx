@@ -1,0 +1,18 @@
+# Which code writes the aim: the Quick Save loaded from the main menu (as mp2_scan_aim.txt), a write watch on the
+# per-frame yaw of the player input source (018EE62D in that run; 00C430B8 the yaw), the stick turned, then off
+8 A
+12 A
+16 START
+21 DOWN 10
+23 DOWN 10
+25 DOWN 10
+27 A 10
+32 DOWN 10
+36 A 10
+40 A 10
+54 SCAN
+55 WATCH=018EE62D
+56 RX=1.0 10
+58 RX=0.8 20
+60 WATCH=0
+61 SCAN

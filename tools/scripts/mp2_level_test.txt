@@ -1,0 +1,47 @@
+# A level test (test_level = NN in the settings file): New Game as mp2_gameplay.txt; at about 29 s the game changes to
+# level NN (src/game/test_level.cpp) and that level's graphic novel plays: R every 2.5 s through it, then Max walks,
+# turns, fires and uses bullet time; with run_pc.ps1 -Shots 10 for pictures
+8 A
+12 A
+16 START
+21 DOWN 10
+24 A 10
+30 A 10
+33 R 8
+35.5 R 8
+38 R 8
+40.5 R 8
+43 R 8
+45.5 R 8
+48 R 8
+50.5 R 8
+53 R 8
+55.5 R 8
+58 R 8
+60.5 R 8
+63 R 8
+65.5 R 8
+68 R 8
+70.5 R 8
+73 R 8
+75.5 R 8
+78 R 8
+80.5 R 8
+83 R 8
+85.5 R 8
+88 R 8
+95 LS 120
+99 RS 40
+101 ZR 6
+103 ZR 6
+105 ZL 20
+106 ZR 6
+109 LS 90
+113 RS 60
+115 LS 120
+119 ZR 6
+121 ZL 20
+122 ZR 6
+125 LS 120
+129 RS 30
+131 LS 120

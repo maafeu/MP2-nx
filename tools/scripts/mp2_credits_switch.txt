@@ -1,0 +1,12 @@
+# The main menu's Credits on the Switch build (Ryujinx timing): through the title, DOWN six times (the cursor skips
+# the greyed-out Save; with a save the menu starts on How to Play), A on Credits; the credits film then plays
+15 A 40
+24 A 40
+34 PLUS 40
+46 DOWN 20
+48 DOWN 20
+50 DOWN 20
+52 DOWN 20
+54 DOWN 20
+56 DOWN 20
+60 A 20

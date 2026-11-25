@@ -1,0 +1,19 @@
+# no game files, no code generated from them, no build output
+exemplos/*/assets/
+exemplos/*/generated/
+exemplos/*/game/
+build/
+sd/
+analise/
+ferramentas/recompilador/build/
+# local copies of the third-party trees (third_party/README.md says where each comes from)
+third_party/*/
+nvk/
+*.iso
+*.xbe
+*.elf
+*.nro
+*.log
+__pycache__/
+out/
+exemplos/*/icon.jpg

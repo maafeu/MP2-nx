@@ -1,0 +1,17 @@
+# Resume Game, a little play, then START: shots of the pause menu as the cursor moves down
+8 A
+12 A
+16 START
+21 DOWN 10
+23 A 10
+52 LS 120
+56 START 10
+58 SHOT
+60 DOWN 10
+62 SHOT
+64 DOWN 10
+66 SHOT
+68 DOWN 10
+70 SHOT
+72 DOWN 10
+74 SHOT

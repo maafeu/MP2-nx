@@ -1,0 +1,48 @@
+# The camera's answer to the right stick (for mouse aiming): the main menu's Load, its second entry (the Quick Save,
+# Max in play), then the stick held right at part of its travel for a known time between screenshots;
+# tools/stick_shift.py measures how far the picture turned between shots
+8 A
+12 A
+16 START
+21 DOWN 10
+23 DOWN 10
+25 DOWN 10
+27 A 10
+32 DOWN 10
+36 A 10
+40 A 10
+55 SHOT
+56.5 RX=1.0 6
+57.6 SHOT
+59.1 RX=0.95 8
+60.2 SHOT
+61.7333 RX=0.9 12
+62.9 SHOT
+64.4333 RX=0.85 20
+65.8 SHOT
+67.2667 RX=0.8 30
+68.8 SHOT
+70.2667 RX=0.75 40
+71.9 SHOT
+73.4333 RX=0.7 60
+75.4 SHOT
+76.9333 RX=-1.0 6
+78 SHOT
+79.5333 RX=-0.9 12
+80.7 SHOT
+82.2333 RX=-0.8 30
+83.7 SHOT
+85.2333 RX=1.0 6
+86.3 SHOT
+87.8333 RY=1.0 3
+88.9 SHOT
+90.3833 RY=-1.0 3
+91.4 SHOT
+92.9333 RY=0.9 6
+94 SHOT
+95.5333 RY=-0.9 6
+96.6 SHOT
+98.1333 RY=0.8 12
+99.3 SHOT
+100.833 RY=-0.8 12
+102 SHOT

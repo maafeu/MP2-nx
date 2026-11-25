@@ -1,0 +1,32 @@
+# The options panel on the PC build: the Quick Save loaded as mp2_mouse_test.txt, then Back + R3 (the F10 chord)
+# opens the panel with the focus on its page's tab (a RIGHT straight away must change no setting), RB to the
+# CONTROLLER page (the sticks alone on the PC), Back + R3 closes it; L3 tapped for 50 ms (shorter than
+# core/panel_chords.h's 80 ms wait: Max crouches) and held half a second (Max stands); a 50 ms Back tap opens the
+# game's own menu (it still reaches the game) and A resumes. tools/tests/window_shot.ps1 saves the window (with the
+# panel) between the steps.
+8 A
+12 A
+16 START
+21 DOWN 10
+23 DOWN 10
+25 DOWN 10
+27 A 10
+32 DOWN 10
+36 A 10
+40 A 10
+55 SHOT
+56 BACK+R3 10
+57.3 RIGHT 5
+58 SHOT
+59 R 10
+61 SHOT
+62 BACK+R3 10
+64 SHOT
+65 L3 3
+67 SHOT
+68 L3 30
+70 SHOT
+71 BACK 3
+73 SHOT
+75 A 10
+78 SHOT

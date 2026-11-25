@@ -1,0 +1,9 @@
+# the main menu's draws before and after DOWN
+8 A
+12 A
+16 START
+20 A
+24 TRACE
+25 DOWN 40
+25.5 TRACE
+27 TRACE
