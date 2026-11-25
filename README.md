@@ -28,6 +28,11 @@ See [docs/MP2-notes.md](docs/MP2-notes.md) for every decision, fix and measureme
 Switch NRO (`-DPORT_RENDERER=gl` for the OpenGL fallback). `tools/make_package.ps1` and `tools/make_package_pc.ps1`
 lay out a package for your own console or PC; `package/TESTING.md` and `package/README-PC.txt` say how to set it up.
 
+**Web installer:** [maafeu.github.io/MP2-nx-installer](https://maafeu.github.io/MP2-nx-installer/) packs your own disc
+(`.iso` or extracted folder, checked against the supported `default.xbe`) and your own build of `mp2-nx.nro` into the
+SD card layout, in your browser; it contains no game code or files
+([source](https://github.com/maafeu/MP2-nx-installer), GPL-3.0).
+
 ## Layout
 
 | Folder | What it is |

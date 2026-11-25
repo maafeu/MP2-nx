@@ -468,3 +468,8 @@ Times are the PC's local time (ABT).
   code). Creating the GitHub repository waits for the user's sign-in in the browser pane.
 - 11-24 22:25 Published: https://github.com/maafeu/MP2-nx (public; `main` = 9db517d, the source as one clean commit,
   the MIT licence, the README). The game files (NRO, exe, installer release) not published.
+- 11-24 22:35 Release v1.0.0 on GitHub: source only (0 assets), the tag on 38d1b69, release notes; Latest.
+- 11-24 23:00-23:20 The web installer published: bring your own NRO (the page asks for the player's build when the
+  release has none), tested end to end in Chromium (429 files byte for byte), a separate GPL-3.0 repository with
+  GitHub Pages: https://maafeu.github.io/MP2-nx-installer/. The README links it. The cover art stays off the public
+  page (the Switch build's own icon already uses it, privately).

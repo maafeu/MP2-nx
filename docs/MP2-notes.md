@@ -1532,3 +1532,35 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
 - **Later updates:** commit on `master` as before, then put the new tree on GitHub as a commit on top of `publish`
   (`git commit-tree master^{tree} -p publish`, `git branch -f publish`, `git push origin publish:main`), so the old
   history never goes out. The NRO, exe and installer release stay private.
+- **Release v1.0.0** (the user: "Can we create a release now?"): a source release, no binaries attached (the NRO and
+  exe hold the game's recompiled code). The annotated tag `v1.0.0` on 38d1b69 (the published `main`), pushed alone;
+  the release "MP2-nx 1.0.0" made on GitHub's page with the notes (what works, building from your own disc, known
+  limits, credits and licence; the text kept in the session's scratchpad as release_notes_v1.0.0.md). GitHub's API:
+  not a draft, not a pre-release, 0 assets (only the automatic source zip and tarball); marked Latest.
+  https://github.com/maafeu/MP2-nx/releases/tag/v1.0.0
+
+## The web installer, published (2026-11-24 night; the user: "can we create a web installer page?")
+
+- **Bring your own NRO.** The installer (renut_nx_ultimate_installer, GPL-3.0) bundled `release/mp2-nx.nro`, which
+  holds the game's recompiled code, so it could not go online as it was. Now a release without an NRO (no
+  `nro_sha256` in `release/manifest.json`) shows a step "Choose your build of the port": the player's own
+  `mp2-nx.nro` (checked for "NRO0" at 0x10), handed to the worker in place of a release NRO (`worker.js`). The disc is
+  checked as before (`default.xbe`'s SHA-256, `DATA.RAS`); the zip holds the player's NRO, the shipped
+  `mp2-nx.toml` and the game under `switch/mp2-nx/game/`. The steps number themselves; step 4 says to start the
+  game from hbmenu with R held on an installed game (the tested way), not the template's Sphaira forwarder.
+- **Tested end to end** (Chromium in the browser pane, the template's `serve.py` with `--test-files` the extracted
+  game, `--test-packages` the package's NRO folder; `test/browser.html?compile=0&nro=/_pkg/mp2-nx.nro`, new): 429
+  files, 1.79 GB, 132 s; a checker of the session's (the template's `check_zip.py` needs pip's lz4, not installed)
+  found the NRO (3132159B) and settings (c3d3c6e6) byte for byte and all 429 game files byte for byte, none missing
+  or extra, every CRC good. The test zip (game data) deleted. On the page: a non-NRO rejected, the NRO accepted,
+  Create held off until both are chosen.
+- **Published:** a separate repository (its GPL-3.0 kept apart from this repository's MIT),
+  https://github.com/maafeu/MP2-nx-installer, one commit (8aa6a8e; 84 files, 36 MB; no NRO, zip, disc image, XBE or
+  save; no personal details: the only scan hits are Python's own docstring and author credits inside Pyodide), with
+  GitHub Pages from `main` (`.nojekyll`): **https://maafeu.github.io/MP2-nx-installer/**. Live: the own-NRO step
+  shown, `release/mp2-nx.nro` 404, the download service worker registered.
+- **The icon:** the page keeps its plain generated pattern. The user offered the game's cover art for it; that art
+  and the logo are the publishers' and the page is public, so not there. The Switch build already uses that image
+  as its NRO icon (`exemplos/mp2/icon.jpg`, git-ignored, so private) with the title "Max Payne 2".
+- The local `mp2-nx-installer` (with the bundled NRO, private) has the same code; the public copy is
+  `mp2-nx-installer-public`.
