@@ -75,7 +75,7 @@ file(GLOB GAME_HOST_SOURCES CONFIGURE_DEPENDS ${GAME}/*/*.cpp)
 file(GLOB PC_SOURCES CONFIGURE_DEPENDS ${HOST}/*.cpp)
 set(SHARED_SWITCH_SOURCES ${SWITCH_HOST}/vulkan.cpp ${SWITCH_HOST}/vk_shader.cpp ${SWITCH_HOST}/ui.cpp
     ${SWITCH_HOST}/game_host.cpp ${SDK}/harness/reference_renderer.cpp)
-# MP2-nx: the Switch's OpenGL renderer (PORT_RENDERER=gl), run on the PC with MP2_GL=1 against the Vulkan one
+# MaxPayne2-nx: the Switch's OpenGL renderer (PORT_RENDERER=gl), run on the PC with MP2_GL=1 against the Vulkan one
 set(SPIRV_CROSS_SOURCES ${THIRD}/spirv-cross/spirv_cross.cpp ${THIRD}/spirv-cross/spirv_parser.cpp
     ${THIRD}/spirv-cross/spirv_cross_parsed_ir.cpp ${THIRD}/spirv-cross/spirv_cfg.cpp ${THIRD}/spirv-cross/spirv_glsl.cpp)
 list(APPEND SHARED_SWITCH_SOURCES ${SWITCH_HOST}/gl_backend.cpp ${SWITCH_HOST}/gl_shader.cpp ${SPIRV_CROSS_SOURCES})
@@ -102,10 +102,10 @@ target_link_libraries(host_check PRIVATE tomlplusplus::tomlplusplus)
 
 target_link_libraries(${PORT_NAME}_pc PRIVATE tomlplusplus::tomlplusplus glslang $<$<TARGET_EXISTS:SPIRV>:SPIRV> glslang-default-resource-limits
     ${VULKAN_SDK_DIR}/Lib/vulkan-1.lib xinput xaudio2 ole32 dbghelp winmm ws2_32 user32 gdi32 opengl32)
-# lld keeps the recompiled weak functions overridable by the host ones. MP2-nx (2026-11-24): a window program, no
+# lld keeps the recompiled weak functions overridable by the host ones. MaxPayne2-nx (2026-11-24): a window program, no
 # console beside it (the log is in logs/ beside the exe, stderr.log unbuffered), so the PC build is a release too
 target_link_options(${PORT_NAME}_pc PRIVATE -fuse-ld=lld -g -Wl,/subsystem:windows -Wl,/entry:mainCRTStartup)
-# MP2-nx (2026-11-24): the port's icon (icon.jpg, the NRO's) on the exe and its window, made into an .ico at configure
+# MaxPayne2-nx (2026-11-24): the port's icon (icon.jpg, the NRO's) on the exe and its window, made into an .ico at configure
 # time when Python has Pillow; without either the exe keeps Windows' default icon
 set(PORT_ICON ${GAME_DIR}/icon.jpg)
 if(EXISTS ${PORT_ICON})
@@ -126,9 +126,9 @@ if(EXISTS ${PORT_ICON})
         message(STATUS "icon: not made (Python with Pillow needed)")
     endif()
 endif()
-# MP2-nx: line numbers for the CPU renderer's faults (MP2_SOFT=1)
+# MaxPayne2-nx: line numbers for the CPU renderer's faults (MP2_SOFT=1)
 set_property(SOURCE ${SDK}/harness/reference_renderer.cpp APPEND PROPERTY COMPILE_OPTIONS -g -gcodeview)
-# MP2-nx: RenderDoc's in-app API header (a capture trigger, host-pc/main.cpp); the installed RenderDoc's, else none
+# MaxPayne2-nx: RenderDoc's in-app API header (a capture trigger, host-pc/main.cpp); the installed RenderDoc's, else none
 if(EXISTS "C:/Program Files/RenderDoc/renderdoc_app.h")
     target_include_directories(${PORT_NAME}_pc PRIVATE "C:/Program Files/RenderDoc")
 else()

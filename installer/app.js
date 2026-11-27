@@ -33,12 +33,12 @@ function numberSteps() {
 
 // the texts of game.json (trusted: the port's own file, as the page's HTML is)
 game.then((g) => {
-  document.title = `${g.package} web installer`;
+  document.title = `${g.name || g.package} web installer`; // name: the port's name; package: its SD card folder
   for (const el of document.querySelectorAll('[data-game]')) el.textContent = g[el.dataset.game];
   for (const el of document.querySelectorAll('[data-text]')) el.innerHTML = g.texts?.[el.dataset.text] || '';
   $('dlc-step').hidden = !g.dlc;
   $('compile-row').hidden = !g.shaders;
-  create.textContent = `Create ${g.package}.zip`;
+  create.textContent = `Create ${g.name || g.package}.zip`;
   manifest.then((m) => {
     $('version').textContent = `version ${m.version}`;
     byo = !m.builds.some((b) => b.nro_sha256);
@@ -220,7 +220,8 @@ create.addEventListener('click', async () => {
     log(`Error: ${error.message}`, true);
     return;
   }
-  const zipName = `${(await game).package}.zip`;
+  const g = await game;
+  const zipName = `${g.name || g.package}.zip`;
   busy = true;
   create.disabled = true;
   bar.hidden = false;

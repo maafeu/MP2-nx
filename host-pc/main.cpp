@@ -49,7 +49,7 @@ bool g_windowed_arg = false;  // --windowed: a window whatever the settings say 
 std::atomic<uint32_t> g_surface_epoch{0};
 std::filesystem::path g_exe_dir;
 std::filesystem::path g_game_arg;
-// MP2-nx (2026-11-24): the window is a resizable window or a borderless one over its whole screen (display_mode;
+// MaxPayne2-nx (2026-11-24): the window is a resizable window or a borderless one over its whole screen (display_mode;
 // "fullscreen" is taken as borderless), F11 or Alt+Enter switching; the frame is drawn at the output's size
 // (ScreenMode) and scaled to the window, letterboxed to the game's aspect, by the renderers' last pass
 std::atomic<bool> g_borderless{false};
@@ -237,7 +237,7 @@ Mode Desktop() { return ScreenMode(); }
 Mode Output() { return Desktop(); }
 
 bool Widescreen() {
-    if (std::getenv("MP2_43")) return false;  // MP2-nx test: the game told the TV is 4:3
+    if (std::getenv("MP2_43")) return false;  // MaxPayne2-nx test: the game told the TV is 4:3
     Mode m = Output();
     return m.width * 2 >= m.height * 3;  // 3:2 or wider
 }
@@ -344,7 +344,7 @@ LONG WINAPI Crash(EXCEPTION_POINTERS* ep) {
 }  // namespace
 
 namespace input {
-// host-pc/input.cpp (MP2-nx, 2026-11-24): the mouse for the game's mouse look and the pad's buttons
+// host-pc/input.cpp (MaxPayne2-nx, 2026-11-24): the mouse for the game's mouse look and the pad's buttons
 void PcMouseMove(int dx, int dy);
 void PcMouseWheel(int notches);
 void PcMouseCaptured(bool on, bool by_click);
@@ -352,7 +352,7 @@ void PcMouseCaptured(bool on, bool by_click);
 
 namespace {
 
-// MP2-nx (2026-11-24): the window has the mouse while it is the active window and either borderless or clicked into:
+// MaxPayne2-nx (2026-11-24): the window has the mouse while it is the active window and either borderless or clicked into:
 // the pointer hidden and kept inside it, raw counts to the game's mouse look. Losing the focus (Alt+Tab) gives it back
 std::atomic<bool> g_captured{false};
 
@@ -471,7 +471,7 @@ HWND MakeWindow() {
     app::Mode m = ScreenMode();
     RECT r{0, 0, LONG(m.width), LONG(m.height)};
     AdjustWindowRect(&r, kWindowedStyle, FALSE);
-    std::wstring title = std::wstring(app::kGame.title) + L" (MP2-nx PC, build " + std::wstring(PORT_BUILD, PORT_BUILD + std::strlen(PORT_BUILD)) + L")";
+    std::wstring title = std::wstring(app::kGame.title) + L" (MaxPayne2-nx PC, build " + std::wstring(PORT_BUILD, PORT_BUILD + std::strlen(PORT_BUILD)) + L")";
     HWND h = CreateWindowExW(0, wc.lpszClassName, title.c_str(), kWindowedStyle, 40, 40, r.right - r.left,
                              r.bottom - r.top, nullptr, nullptr, wc.hInstance, nullptr);
     // in front for a player; the scripted test runs (--windowed) stay behind whatever the user is doing
@@ -490,7 +490,7 @@ void Fatal(const char* text) {
 
 }  // namespace
 
-// MP2-nx test aid: the sampling profiler (host-pc/profiler.cpp, MP2_PROF=START:SECONDS)
+// MaxPayne2-nx test aid: the sampling profiler (host-pc/profiler.cpp, MP2_PROF=START:SECONDS)
 void StartProfiler(const std::filesystem::path& exe_dir);
 
 int main(int argc, char** argv) {
@@ -550,7 +550,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // MP2-nx: started under RenderDoc (renderdoccmd capture), an "rdc" file beside the exe captures the next frame
+    // MaxPayne2-nx: started under RenderDoc (renderdoccmd capture), an "rdc" file beside the exe captures the next frame
     // (tools/run_pc.ps1 -RenderDoc, script step RDC)
     RENDERDOC_API_1_1_2* rdc = nullptr;
     if (HMODULE m = GetModuleHandleA("renderdoc.dll")) {

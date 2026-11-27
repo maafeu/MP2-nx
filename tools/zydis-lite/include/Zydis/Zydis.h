@@ -1,7 +1,7 @@
 // zydis-lite: the part of Zydis 4.1's decoder API that XboxXBE-Recomp's tools (xbe_recomp, xbe_symbols) use, for
 // 32-bit x86 as the original Xbox's Pentium III runs it (integer, x87, MMX, SSE; SSE2 decoded for lengths).
 //
-// Written for MP2-nx because the recompiler fetches Zydis from GitHub and this work allows no downloads. It is not
+// Written for MaxPayne2-nx because the recompiler fetches Zydis from GitHub and this work allows no downloads. It is not
 // Zydis: the names and fields match what the tools read, the values follow the Intel manual, and the operand order
 // of the x87 forms is the one the code generator expects (docs/MP2-notes.md, "the x86 decoder"). Tested against
 // LLVM's disassembler over every instruction of the game's code sections (tools/zydis-lite/test).

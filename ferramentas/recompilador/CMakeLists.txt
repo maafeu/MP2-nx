@@ -1,7 +1,7 @@
 # The x86 to C++ recompiler (xbe_recomp) and the XDK symbol finder (xbe_symbols), for ferramentas/recompilar.ps1:
 # Clang (clang-cl) with the MSVC headers and linker, so the build needs Visual Studio's C++ tools and a Clang
 #
-# MP2-nx: nothing is fetched. The x86 decoder is tools/zydis-lite (Zydis's API, written for this port) and toml++ is
+# MaxPayne2-nx: nothing is fetched. The x86 decoder is tools/zydis-lite (Zydis's API, written for this port) and toml++ is
 # third_party/tomlplusplus (a local copy). -DXBE_RECOMP_FETCH=ON brings back the kit's FetchContent of Zydis v4.1.1 and
 # toml++ v3.4.0 from GitHub.
 

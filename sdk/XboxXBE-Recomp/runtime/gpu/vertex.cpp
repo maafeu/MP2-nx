@@ -16,7 +16,7 @@ constexpr uint32_t kTypeFloat2H = 0x72;  // FLOAT2H
 // D3DVSDT_NONE: a FLOAT with no components, the register reads no stream data
 constexpr uint32_t kTypeNone = 0x02;
 
-// D3DVSDT: low nibble the kind, high nibble the component count (MP2-nx: the reference for ConvertKind below, which
+// D3DVSDT: low nibble the kind, high nibble the component count (MaxPayne2-nx: the reference for ConvertKind below, which
 // the converted path uses)
 [[maybe_unused]] void Convert(uint32_t type, const uint8_t* p, float* o) {
     o[0] = 0;
@@ -76,7 +76,7 @@ constexpr uint32_t kTypeNone = 0x02;
     }
 }
 
-// MP2-nx: Convert's divisions as tables, each entry Convert's own expression for that integer, worked out once (at
+// MaxPayne2-nx: Convert's divisions as tables, each entry Convert's own expression for that integer, worked out once (at
 // compile time, IEEE single precision either way), so the same floats without a division per component (the packed
 // normals and bytes of Max Payne 2's skinned characters, whose second stream's 9 byte stride sends the whole draw
 // down the converted path, were most of ConvertKind's time at level 27)
@@ -94,7 +94,7 @@ constexpr UnitTables MakeUnitTables() {
 }
 constexpr UnitTables kUnits = MakeUnitTables();
 
-// MP2-nx: Convert's cases one at a time, chosen once per element and draw (ConvertRun) instead of per vertex: the same
+// MaxPayne2-nx: Convert's cases one at a time, chosen once per element and draw (ConvertRun) instead of per vertex: the same
 // expressions as Convert's, so the same floats (its switch per vertex was most of the converted path's cost: 3.7% of
 // the title's thread at Max Payne 2's level 27, whose rain draws have a 9 byte stride)
 template <uint32_t KIND>
@@ -210,7 +210,7 @@ HostElement HostFormat(uint32_t type) {
 }
 
 // the index list for a primitive the input assembler has no topology for, or for converted vertices
-// MP2-nx: the list is sized once and written in place (the same indices in the same order as the insert-per-
+// MaxPayne2-nx: the list is sized once and written in place (the same indices in the same order as the insert-per-
 // primitive version, which the console's frame paid for on every converted draw)
 template <typename F>
 void ListIndices(uint32_t prim, uint32_t count, F local, NoInitVector<uint32_t>& ix, Topology& topology) {
@@ -344,7 +344,7 @@ IndexBounds IndexRange(const uint8_t* ip, uint32_t count) {
     uint16_t lo16 = 0xFFFF;
     uint16_t hi16 = 0;
     uint32_t i = 0;
-    // MP2-nx: eight indices a step (GCC/clang vector extensions: NEON on the Switch, SSE on the PC); the same minimum
+    // MaxPayne2-nx: eight indices a step (GCC/clang vector extensions: NEON on the Switch, SSE on the PC); the same minimum
     // and maximum as the loop below, which finishes the tail (vertex assembly was 4.1% of the title's thread, run 9)
     if (count >= 16) {
         typedef uint16_t v8u __attribute__((vector_size(16)));
@@ -515,7 +515,7 @@ bool AssembleConverted(const State& s, const Inputs& inputs, const DrawRange& d,
     using namespace kernel;
     int nregs = inputs.nregs;
     bool ranged = uint64_t(d.span) <= uint64_t(d.count) * kRangedSpanPerVertex + kRangedSpanSlack;
-    // MP2-nx: kept between draws in out.seq (a new vector a draw was allocated and zero filled each time). Ranged: each
+    // MaxPayne2-nx: kept between draws in out.seq (a new vector a draw was allocated and zero filled each time). Ranged: each
     // draw vertex's place in the converted range, which is the index list; else the guest vertex ConvertRun reads for
     // it (the same numbers the per-index seq[i] - first_vertex gave)
     out.seq.resize(d.count);

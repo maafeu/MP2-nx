@@ -31,7 +31,7 @@ static int MmIndex(const ZydisDecodedOperand& o) {
     return -1;
 }
 
-// ---- MP2-nx: the block's x87 cache (codegen.h)
+// ---- MaxPayne2-nx: the block's x87 cache (codegen.h)
 
 void CodeGen::XcFlush() {
     if (!xc_on_) return;

@@ -41,14 +41,14 @@ if(NOT PORT_NAME OR NOT PORT_TITLE)
     message(FATAL_ERROR "port.cmake must set PORT_NAME and PORT_TITLE")
 endif()
 
-# MP2-nx: the renderer. nvk = host-switch/vulkan.cpp on the NVK driver in nvk/ (the kit's); gl = gl_backend.cpp, the same
+# MaxPayne2-nx: the renderer. nvk = host-switch/vulkan.cpp on the NVK driver in nvk/ (the kit's); gl = gl_backend.cpp, the same
 # draws through OpenGL 4.3 on devkitPro's switch-mesa (nouveau, EGL), the GPU renderer when no NVK build is at hand;
 # soft = the SDK's CPU reference renderer and libnx's framebuffer (soft_backend.cpp): no GPU, slow, for bring-up;
 # dk = dk_backend.cpp, the same draws through deko3d (libnx's, the GPU's own API: no Mesa on the CPU), its shaders
 # compiled on the console by uam (third_party/uam)
 if(EXISTS ${NVK_SDK}/lib/libvulkan.a)
     set(PORT_RENDERER_DEFAULT nvk)
-# MP2-nx (2026-11-22): deko3d the default once checked on the console (chapter 1 locked at 60 fps at 1020 MHz where
+# MaxPayne2-nx (2026-11-22): deko3d the default once checked on the console (chapter 1 locked at 60 fps at 1020 MHz where
 # GL gave 57; docs/MP2-notes.md, "The deko3d renderer")
 elseif(EXISTS ${DEVKITPRO}/libnx/lib/libdeko3d.a AND EXISTS ${KIT}/third_party/uam/uam_api.h)
     set(PORT_RENDERER_DEFAULT dk)
@@ -89,7 +89,7 @@ set(BUILD_EXTERNAL OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 # its precompiled header is named by an MSYS path (/c/...) the Windows-hosted GCC cannot open
 set(CMAKE_DISABLE_PRECOMPILE_HEADERS ON)
-# MP2-nx: with msys2's make, GCC's dependency files (C:/... paths) of targets in a subdirectory become rules make
+# MaxPayne2-nx: with msys2's make, GCC's dependency files (C:/... paths) of targets in a subdirectory become rules make
 # cannot parse ("multiple target patterns" in glslang's compiler_depend.make). Off for glslang's directory only (its
 # sources never change; build_switch.sh writes the stamps CMake still names); this directory keeps them, so a header
 # change rebuilds what includes it (with them off everywhere it did not: depend.make stayed empty)
@@ -98,7 +98,7 @@ set(CMAKE_DEPENDS_USE_COMPILER FALSE)
 add_subdirectory(${THIRD}/glslang ${CMAKE_CURRENT_BINARY_DIR}/glslang EXCLUDE_FROM_ALL)
 set(CMAKE_DEPENDS_USE_COMPILER TRUE)
 endif()
-# MP2-nx: glslang adds its OSDependent library for Windows and Unix targets only, and the Switch toolchain is
+# MaxPayne2-nx: glslang adds its OSDependent library for Windows and Unix targets only, and the Switch toolchain is
 # neither ("cannot find -lOSDependent"): its pthread version, which libnx's newlib carries
 if(NOT PORT_RENDERER STREQUAL "soft" AND NOT TARGET OSDependent)
     add_library(OSDependent STATIC ${THIRD}/glslang/glslang/OSDependent/Unix/ossource.cpp)
@@ -140,7 +140,7 @@ elseif(PORT_RENDERER STREQUAL "gl" OR PORT_RENDERER STREQUAL "dk")
 else()
     list(FILTER SWITCH_SOURCES EXCLUDE REGEX "/(soft_backend|gl_backend|gl_shader|dk_backend)\.cpp$")
 endif()
-# MP2-nx: the deko3d renderer's shader compiler, uam as a library (third_party/uam: its own CMakeLists, uamlib)
+# MaxPayne2-nx: the deko3d renderer's shader compiler, uam as a library (third_party/uam: its own CMakeLists, uamlib)
 if(PORT_RENDERER STREQUAL "dk")
     set(CMAKE_DEPENDS_USE_COMPILER FALSE)
     add_subdirectory(${THIRD}/uam ${CMAKE_CURRENT_BINARY_DIR}/uam EXCLUDE_FROM_ALL)
@@ -161,7 +161,7 @@ set_source_files_properties(${IMGUI_SOURCES} PROPERTIES COMPILE_DEFINITIONS IMGU
 set_source_files_properties(${HOST_SOURCES} PROPERTIES COMPILE_OPTIONS "-include;${HOST}/compat/crt.h")
 set_source_files_properties(${GEN_SOURCES} PROPERTIES COMPILE_OPTIONS "-O2;-w;-fno-strict-aliasing;-fsigned-char")
 set_source_files_properties(${HOST}/vk_shader.cpp PROPERTIES COMPILE_DEFINITIONS ENABLE_HLSL)
-# MP2-nx: profile-guided optimisation of the recompiled code and the host (docs/MP2-notes.md, "The game's own code").
+# MaxPayne2-nx: profile-guided optimisation of the recompiled code and the host (docs/MP2-notes.md, "The game's own code").
 # generate: counters in every object, written by the port itself (host-switch/pgo.cpp) to pgo/ on the card during a
 # training run; use: the build reads them back (tools/pgo_collect.py puts them beside this build's objects; the same
 # build folder for both). Code the training never ran is optimised as without a profile (-fprofile-partial-training).
@@ -181,7 +181,7 @@ elseif(PORT_PGO STREQUAL "use")
                  -Wno-coverage-mismatch)
     message(STATUS "PGO: built with the training run's profile")
 endif()
-# MP2-nx: link-time optimisation of the recompiled code and the host (docs/MP2-notes.md, "60 at 1020 MHz"). The
+# MaxPayne2-nx: link-time optimisation of the recompiled code and the host (docs/MP2-notes.md, "60 at 1020 MHz"). The
 # generated code calls every function through its weak alias (sub_X, which a hand-written replacement may take over),
 # and GCC never inlines a call to a weak symbol, not even within one file; at link time the linker plugin tells it which
 # definitions prevail, so small game functions can inline into their callers across all the files. The same semantics.

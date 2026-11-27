@@ -1,4 +1,4 @@
-// MP2-nx: the console's CPU, GPU and memory clocks for the run, from the settings file (cpu_clock, gpu_clock,
+// MaxPayne2-nx: the console's CPU, GPU and memory clocks for the run, from the settings file (cpu_clock, gpu_clock,
 // mem_clock in MHz; 0 leaves the system's). Ported from the COLD-FEAR-NX-PORT base's clock code (src/switch_nx.c):
 // through clkrst (8.0.0+) or pcv, as sys-clk does; the closest rate the hardware lists, never above the request, capped
 // at 1785 / 921.6 / 1600 MHz; the old rates come back at exit. The system resets clocks on dock, undock and after
@@ -96,7 +96,7 @@ void Restore() {
 Handle g_main = 0;  // the host's main thread, for the census
 double MeasureMhzOwnTicks();
 
-// MP2-nx: every 10 s while in focus, the guest threads' CPU (the kernel's ticks for each, 13.0.0+) with their preferred
+// MaxPayne2-nx: every 10 s while in focus, the guest threads' CPU (the kernel's ticks for each, 13.0.0+) with their preferred
 // core and core mask, the main thread's, and the CPU's clock measured on this thread's own ticks (so a busy core
 // cannot skew it). For the 60 fps work: which threads share which core, and whether the clock stays where it was set.
 void Census() {
@@ -140,7 +140,7 @@ uint32_t NroOff(uint64_t a) {
     return a >= b && a - b < 0xFFFFFFFFull ? uint32_t(a - b) : 0xFFFFFFFFu;
 }
 
-// MP2-nx (2026-11-23): a stall report. Two level changes on the console (sweeps A and B, logs mp2_049 / mp2_050) hung
+// MaxPayne2-nx (2026-11-23): a stall report. Two level changes on the console (sweeps A and B, logs mp2_049 / mp2_050) hung
 // with the title's thread at 100% and no frame drawn, which neither the PC nor the PC with the render thread ever did.
 // Every second this notes which guest threads used over half a core; once no frame has been paced for 10 s it pauses
 // each busy one for a moment (svcSetThreadActivity, as the profiler does), reads its pc, lr and five return addresses
@@ -206,7 +206,7 @@ void StallCheck() {
     }
 }
 
-// MP2-nx (2026-11-23), guest_quantum_ms (a test aid): the Xbox's kernel shares a core between threads of one priority
+// MaxPayne2-nx (2026-11-23), guest_quantum_ms (a test aid): the Xbox's kernel shares a core between threads of one priority
 // by quantum; Horizon lets a thread keep its core until it waits or yields, and the guest threads all have one priority
 // (on one core with thread_cores = 0). A guest thread that spins waiting for another guest thread on its core would then
 // spin for good. Every guest_quantum_ms this takes each guest thread that used its whole core off it for a moment

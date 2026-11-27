@@ -1,4 +1,4 @@
-"""MP2-nx: tables from the console profiler's samples (host-switch/prof.cpp, logs/prof_NNN.bin).
+"""MaxPayne2-nx: tables from the console profiler's samples (host-switch/prof.cpp, logs/prof_NNN.bin).
 
     python tools/prof_report.py prof_NNN.bin build/mp2/mp2-nx.elf [--from S] [--to S] [--slot N] [--top 40]
 

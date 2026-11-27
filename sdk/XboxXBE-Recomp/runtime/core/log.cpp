@@ -19,7 +19,7 @@ static FILE* g_file = nullptr;
 static std::string g_path;
 static auto g_start = std::chrono::steady_clock::now();
 
-// MP2-nx: the last 100 runs' logs are kept (about 15 MB on the SD at 150 KB a run), the older ones removed at start
+// MaxPayne2-nx: the last 100 runs' logs are kept (about 15 MB on the SD at 150 KB a run), the older ones removed at start
 // (30 removed a test run's log on the console after 30 runs)
 constexpr int kKeep = 100;
 
@@ -50,7 +50,7 @@ void Init(const std::string& dir, const std::string& prefix, bool append) {
     g_path = (fs::path(dir) / name).string();
     g_file = std::fopen(g_path.c_str(), "w");
 #ifdef __SWITCH__
-    // MP2-nx: lines gather in 64 KB; warnings and errors flush at once, the host's heartbeat every 5 s (main.cpp)
+    // MaxPayne2-nx: lines gather in 64 KB; warnings and errors flush at once, the host's heartbeat every 5 s (main.cpp)
     static char buffer[64 << 10];
     if (g_file) std::setvbuf(g_file, buffer, _IOFBF, sizeof(buffer));
 #endif
@@ -75,7 +75,7 @@ void Write(Level lv, const char* fmt, ...) {
     n = std::min(n, int(sizeof(line)) - 1);
     if (g_file) {
         std::fwrite(line, 1, size_t(n), g_file);
-        // MP2-nx: on the Switch every line was flushed, and written again to stderr (unbuffered, logs/stderr.log): two
+        // MaxPayne2-nx: on the Switch every line was flushed, and written again to stderr (unbuffered, logs/stderr.log): two
         // SD writes a line. The title's thread logs a few lines every 300 frames, and those frames took about 40 ms
         // on the console (2026-11-22, run 6). Warnings and errors still flush at once, a crash logs at error level, and
         // the host's heartbeat flushes the rest every 5 s; stderr.log keeps the driver's own output.

@@ -23,22 +23,22 @@ struct Settings {
     bool vsync = true;
     uint32_t aniso = 0;              // 0 as the game asks
     std::string join_ip;                   // co-op: a host past the LAN the system link search also asks
-    // MP2-nx, the Switch: the console's clocks for the run in MHz, 0 the system's (host-switch/clocks.cpp)
+    // MaxPayne2-nx, the Switch: the console's clocks for the run in MHz, 0 the system's (host-switch/clocks.cpp)
     uint32_t cpu_clock = 0, gpu_clock = 0, mem_clock = 0;
-    // MP2-nx, the Switch: 1 lets every guest thread run on the application's three cores (kernel/threads.cpp)
+    // MaxPayne2-nx, the Switch: 1 lets every guest thread run on the application's three cores (kernel/threads.cpp)
     uint32_t thread_cores = 0;
-    // MP2-nx, the Switch: with fps_cap 60, 1 locks to 30 while frames take over fps_adaptive_ms on average and goes
+    // MaxPayne2-nx, the Switch: with fps_cap 60, 1 locks to 30 while frames take over fps_adaptive_ms on average and goes
     // back to 60 once they take 1.5 ms less (host-switch/main.cpp, app::Pace); 0 leaves it free under 60. 20 ms (the
     // user's choice, 2026-11-23): scenes of 50-60 fps run free, slower ones lock to 30; 16 locks as soon as 60 slips
     uint32_t fps_adaptive = 1;
     uint32_t fps_adaptive_ms = 20;
-    // MP2-nx, the Switch: 1 runs the renderer on a thread of its own (the title's thread records each call and goes
+    // MaxPayne2-nx, the Switch: 1 runs the renderer on a thread of its own (the title's thread records each call and goes
     // on, gpu/render_thread.cpp), where the renderer allows it (the deko3d build; GL's context is the title thread's)
     uint32_t render_thread = 1;
-    // MP2-nx, the Switch, test aids read but never written back: 1 starts the sampling profiler (host-switch/prof.cpp),
+    // MaxPayne2-nx, the Switch, test aids read but never written back: 1 starts the sampling profiler (host-switch/prof.cpp),
     // from profile_after seconds
     uint32_t profile = 0, profile_after = 0;
-    // MP2-nx, the Switch, a test aid read but never written back (2026-11-23): every guest_quantum_ms a guest thread
+    // MaxPayne2-nx, the Switch, a test aid read but never written back (2026-11-23): every guest_quantum_ms a guest thread
     // that used its whole core is taken off it for a moment (host-switch/clocks.cpp), as the Xbox's kernel shares a core
     // between threads of one priority by quantum and Horizon does not; 0 off
     uint32_t guest_quantum_ms = 0;
@@ -119,9 +119,9 @@ void Pace();
 // a frame rate the game needs for now, over the fps cap (a film made for 30 frames a second); 0 none. The game
 // sets it each frame it holds: it lapses on its own a moment after the game stops
 void HoldFrameRate(uint32_t fps);
-// MP2-nx, the Switch host: the frame cap the last Pace used (after fps_adaptive and HoldFrameRate); 0 none yet
+// MaxPayne2-nx, the Switch host: the frame cap the last Pace used (after fps_adaptive and HoldFrameRate); 0 none yet
 uint32_t FrameCapNow();
-// MP2-nx, the Switch host: the render thread's handle (render_thread), whose CPU time Pace's adaptive cap weighs too
+// MaxPayne2-nx, the Switch host: the render thread's handle (render_thread), whose CPU time Pace's adaptive cap weighs too
 void SetRenderThread(uint32_t handle);
 
 }  // namespace app

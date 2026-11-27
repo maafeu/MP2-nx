@@ -46,7 +46,7 @@ $rev = (& git -C $root rev-parse --short HEAD)
 $lines = @(
     "NRO: $((Get-FileHash $nro -Algorithm SHA256).Hash)",
     "ELF: mp2-nx-$hash.elf (the NRO's own build; tools\patch_gcs.py applied to both)",
-    "Sources: mp2-nx-src-$rev.zip = git $rev of MP2-nx (the recompiled C++ is not in it: exemplos\mp2\generated, made",
+    "Sources: mp2-nx-src-$rev.zip = git $rev of MaxPayne2-nx (the recompiled C++ is not in it: exemplos\mp2\generated, made",
     "  again from the player's default.xbe by ferramentas\recompilar.ps1 exemplos\mp2, the same for the same XBE; nor",
     "  third_party\, whose sources third_party\README.md names)",
     "Renderer: PORT_RENDERER=$renderer")

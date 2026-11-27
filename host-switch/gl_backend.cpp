@@ -1,4 +1,4 @@
-// MP2-nx: the title's Direct3D 8 calls drawn with OpenGL 4.3 core (PORT_RENDERER=gl). The Switch build without NVK:
+// MaxPayne2-nx: the title's Direct3D 8 calls drawn with OpenGL 4.3 core (PORT_RENDERER=gl). The Switch build without NVK:
 // mesa-switch's nouveau GL driver through EGL on the applet's NWindow (devkitPro's switch-mesa, libdrm_nouveau). The
 // PC build runs the same code on WGL (MP2_GL=1) to check it against the Vulkan renderer.
 //
@@ -148,7 +148,7 @@ namespace {
     X(PFNGLCLEARBUFFERIVPROC, glClearBufferiv)                            \
     X(PFNGLCLEARBUFFERFIPROC, glClearBufferfi)
 
-// MP2-nx: optional entry points. Persistent mapped upload rings (ARB_buffer_storage, GL 4.4) with fences, and timer
+// MaxPayne2-nx: optional entry points. Persistent mapped upload rings (ARB_buffer_storage, GL 4.4) with fences, and timer
 // queries for the GPU's lag; without them the orphaned buffers and no GPU figure
 #define GL_OPT_FUNCS(X)                                                   \
     X(PFNGLBUFFERSTORAGEPROC, glBufferStorage)                            \
@@ -169,7 +169,7 @@ GL_OPT_FUNCS(GL_DECLARE)
 
 constexpr GLsizeiptr kStreamSize = 32 << 20;   // vertices and indices, orphaned when full
 constexpr GLsizeiptr kUniformSize = 8 << 20;   // b0 and b1 per draw
-// MP2-nx: the persistent rings' segments. Each ring is written front to back; leaving a segment puts a fence after
+// MaxPayne2-nx: the persistent rings' segments. Each ring is written front to back; leaving a segment puts a fence after
 // the draws that read it, and entering one waits for its fence from the last lap (long signalled at 4 segments).
 // Orphaning instead (glBufferData) made Mesa allocate a new 32 MB buffer every 30-40 frames on the console: 15-40 ms
 // each, the once-a-second long frame (run 3, 2026-11-22: "gl: long frame" lines, all in the renderer's "rest").
@@ -453,7 +453,7 @@ constexpr uint32_t kSigWholeMax = 65536;
 constexpr uint32_t kSigSamples = 64;
 constexpr uint32_t kSigSampleBytes = 64;
 
-// MP2-nx: a texture signature's hash. gpu::Hash is one chain, each step waiting on the last 64 x 64 -> 128 bit
+// MaxPayne2-nx: a texture signature's hash. gpu::Hash is one chain, each step waiting on the last 64 x 64 -> 128 bit
 // multiply: on the console it was 1.25 ms of the renderer's frame in chapter 1 (run 7); four lanes of that mix were
 // still 3.6% of the title's thread (run 9), the A57's multiplies being slow. So four independent CRC32C lanes over the
 // 8-byte words of each 32-byte block (the A57's CRC instructions, SSE4.2's on the PC: the same polynomial), folded
@@ -1066,7 +1066,7 @@ private:
     UboBinding ubo_bind_[2];
     // the last b0 / b1 uploaded, reused while the game's constants stay the same
     std::array<std::array<float, 4>, 192> last_vc_{};
-    // MP2-nx: the last draw constants uploaded, in a fixed buffer (a std::vector's assign per changed draw was 0.9% of
+    // MaxPayne2-nx: the last draw constants uploaded, in a fixed buffer (a std::vector's assign per changed draw was 0.9% of
     // the title's thread on the console, run 9)
     alignas(16) uint8_t last_dc_[sizeof(DrawConstants)] = {};
     bool last_dc_valid_ = false;
@@ -1077,13 +1077,13 @@ private:
     uint64_t up_bytes_ = 0, calls_ = 0, skipped_ = 0;
     uint64_t cpu_ns_ = 0;  // CpuTimer's total over the same frames
     uint64_t syncs_ = 0, sync_ns_ = 0;  // the game's read-backs (Sync) over the same frames, and their time
-    // MP2-nx, for the 60 fps work: parts of the draws' time (vertex assembly, the stages' textures: hashing, decoding
+    // MaxPayne2-nx, for the 60 fps work: parts of the draws' time (vertex assembly, the stages' textures: hashing, decoding
     // and uploads, and the GL calls from the framebuffer bind to the draw), over the same frames; and one frame's
     // figures at the previous present, for the long-frame lines
     uint64_t asm_ns_ = 0, tex_ns_ = 0, gl_ns_ = 0;
     uint64_t frame_cpu0_ = 0, frame_asm0_ = 0, frame_tex0_ = 0, frame_gl0_ = 0, frame_up0_ = 0, frame_draws0_ = 0;
     uint32_t long_logged_ = 0;
-    // MP2-nx: the persistent rings (kRingSegments): mapped pointers, the segment being written and each segment's
+    // MaxPayne2-nx: the persistent rings (kRingSegments): mapped pointers, the segment being written and each segment's
     // fence; waits on a fence (should stay 0) over the 300 frames
     bool persistent_ = false;
     uint8_t* stream_ptr_ = nullptr;
@@ -1094,7 +1094,7 @@ private:
     void NextSegment(bool ubo);
     void EnsureStream(GLsizeiptr need);
     void EnsureUniforms(GLsizeiptr need);
-    // MP2-nx: the GPU's lag at the end of each frame (a timestamp query after the frame's last command against the GL
+    // MaxPayne2-nx: the GPU's lag at the end of each frame (a timestamp query after the frame's last command against the GL
     // time when it was issued), read kGpuQueries frames later; summed over the 300 frames
     GLuint gpu_q_[kGpuQueries] = {};
     GLint64 gpu_issue_[kGpuQueries] = {};
@@ -1263,7 +1263,7 @@ bool GlBackend::CreateContext() {
 
 void* GlBackend::Proc(const char* name) { return reinterpret_cast<void*>(eglGetProcAddress(name)); }
 
-// MP2-nx: with vsync on, the swap interval follows the frame cap: 2 vblanks a frame at 30, 1 at 60 (app::Pace then
+// MaxPayne2-nx: with vsync on, the swap interval follows the frame cap: 2 vblanks a frame at 30, 1 at 60 (app::Pace then
 // adds no timer of its own, so a frame always lands on a vblank)
 void GlBackend::SwapWindow() {
     if (vsync_) {
@@ -1354,7 +1354,7 @@ bool GlBackend::Init(uint32_t width, uint32_t height) {
     glPixelStorei(GL_PACK_ALIGNMENT, 1);
     glGenVertexArrays(1, &vao_);
     glBindVertexArray(vao_);
-    // MP2-nx: the upload rings persistent and mapped where the driver can (gl_flags.txt "nopersist" keeps the
+    // MaxPayne2-nx: the upload rings persistent and mapped where the driver can (gl_flags.txt "nopersist" keeps the
     // orphaned buffers, for an A/B)
     if (glBufferStorage && glMapBufferRange && glFenceSync && glClientWaitSync && glDeleteSync &&
         flags_.find("nopersist") == std::string::npos) {
@@ -1483,7 +1483,7 @@ void GlBackend::OrphanUniforms() {
     ubo_gen_++;
 }
 
-// MP2-nx: the persistent rings. Leaving segment i fences the draws so far (they are the last to read it); entering
+// MaxPayne2-nx: the persistent rings. Leaving segment i fences the draws so far (they are the last to read it); entering
 // segment j waits for j's fence from the previous lap, then writes from its start. A uniform segment change also moves
 // ubo_gen_, so no draw reuses a constant block's offset across it.
 void GlBackend::NextSegment(bool ubo) {
@@ -2367,7 +2367,7 @@ void GlBackend::Draw(const State& s, uint32_t prim, uint32_t start, uint32_t cou
     EnsureStream(need);
     EnsureUniforms(GLsizeiptr(2 * (kVsConstants + sizeof(c) + 2 * ubo_align_)));
     GLintptr vc, dc;
-    // MP2-nx: nothing wrote the constants since the last upload (State::vsc_gen): no 3 KB comparison (memcmp was 1.3%
+    // MaxPayne2-nx: nothing wrote the constants since the last upload (State::vsc_gen): no 3 KB comparison (memcmp was 1.3%
     // of the title's thread on the console, run 9); written with the same values: compared, as before
     if (s.vsc_gen_tracked && last_vc_gen_ == ubo_gen_ && last_vsc_gen_ == s.vsc_gen) {
         vc = last_vc_off_;

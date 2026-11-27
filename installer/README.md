@@ -1,18 +1,18 @@
-# mp2-nx web installer
+# MaxPayne2-nx web installer
 
-**The page: https://maafeu.github.io/MP2-nx/**
+**The page: https://maafeu.github.io/MaxPayne2-nx/**
 
 This folder is published as that page by `.github/workflows/installer-pages.yml` whenever it changes. It keeps its own licence (GPL-3.0, `LICENSE` here); the rest of the repository is MIT.
 
 A copy of renut_nx_ultimate_installer (GPL-3.0: `README_TEMPLATE.md`, `LICENSE`, `NOTICES.md`) set up for
-[MP2-nx](https://github.com/maafeu/MP2-nx), the Nintendo Switch port of the original Xbox Max Payne 2.
+[MaxPayne2-nx](https://github.com/maafeu/MaxPayne2-nx), the Nintendo Switch port of the original Xbox Max Payne 2.
 
 **This page contains no game code and no game files.** It packs the player's own files into the SD card layout the
 port expects:
 
 1. **The game:** the player's NTSC-U disc (`TT-012`) as an `.iso` or an extracted folder. The page checks
    `default.xbe` against the supported version's SHA-256 (`release/manifest.json`) and that `DATA.RAS` is there.
-2. **The port:** the player's own build of `mp2-nx.nro`, made from the MP2-nx source. The NRO holds the game's
+2. **The port:** the player's own build of `mp2-nx.nro`, made from the MaxPayne2-nx source. The NRO holds the game's
    recompiled code, so it is never part of this page; the page only checks that the chosen file is a Switch NRO.
 3. **The zip:** `switch/mp2-nx/mp2-nx.nro`, `switch/mp2-nx/mp2-nx.toml` (the port's shipped settings, from
    `release/`) and the game's files under `switch/mp2-nx/game/`, streamed to the browser's downloads while it is

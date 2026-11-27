@@ -1,6 +1,6 @@
 # XDK 5558 library data layouts the runtime reads or writes. Each value is proven by Max Payne 2's default.xbe
 # (TT-012, all libraries 5558) at the address given. Every field checked holds the same offset as in 5849
-# (xdk/5849/layout.toml); MP2-nx docs/MP2-notes.md, "XDK 5558".
+# (xdk/5849/layout.toml); MaxPayne2-nx docs/MP2-notes.md, "XDK 5558".
 [layout]
 # D3D8 CDevice, the static device D3D__pDevice (0x29AD48) points at
 CDevice_Push          = 0x0     # D3DDevice_SetPalette 0x28AA23 reads it, 0x28AA25 compares with +4, calls MakeSpace 0x28F910

@@ -117,7 +117,7 @@ constexpr uint32_t kPsConstants = 16;
 
 gpu::State g_state;
 
-// MP2-nx: every write to vsc goes through here: vsc_gen moves (the renderers' "nothing wrote the constants" check) and
+// MaxPayne2-nx: every write to vsc goes through here: vsc_gen moves (the renderers' "nothing wrote the constants" check) and
 // the written registers widen vsc_lo..vsc_hi (the render thread compares only those; gpu/state.h)
 void VscWritten(uint32_t reg, uint32_t count) {
     g_state.vsc_gen++;
@@ -257,7 +257,7 @@ void UpdateViewportConstants() {
     float y = v.y + g_state.ss_offset_y + hh;
     g_state.vsc[kViewportOffset] = {x, y, v.min_z * g_state.zscale, 0};
     static_assert(kViewportOffset == kViewportScale + 1);
-    VscWritten(kViewportScale, 2);  // MP2-nx: every write to vsc goes through VscWritten (gpu/state.h)
+    VscWritten(kViewportScale, 2);  // MaxPayne2-nx: every write to vsc goes through VscWritten (gpu/state.h)
 }
 
 void SetComplex(uint32_t rs, uint32_t v) {
@@ -342,7 +342,7 @@ void CreateBuffers(const PresentParams& p) {
 void EnsureBackend(uint32_t w, uint32_t h) {
     if (g_backend) return;
 #ifdef _WIN32
-    // MP2-nx: MP2_SOFT=1 runs the PC build on the Switch soft build's CPU renderer (host-pc/soft_pc.cpp)
+    // MaxPayne2-nx: MP2_SOFT=1 runs the PC build on the Switch soft build's CPU renderer (host-pc/soft_pc.cpp)
     // MP2_GL=1: the Switch's OpenGL renderer (host-switch/gl_backend.cpp), on the title's thread as on the Switch
     bool title_thread = std::getenv("MP2_GL") != nullptr;
     if (std::getenv("MP2_SOFT")) g_backend = gpu::CreateSoftBackend();
@@ -353,7 +353,7 @@ void EnsureBackend(uint32_t w, uint32_t h) {
 #endif
     g_backend = gpu::CreateBackend();
     if (!g_backend->Init(w, h)) LOGE("d3d: renderer init failed");
-    // MP2-nx: render_thread in the settings (1 by default) where the build allows a render thread (XBE_RENDER_THREAD:
+    // MaxPayne2-nx: render_thread in the settings (1 by default) where the build allows a render thread (XBE_RENDER_THREAD:
     // the deko3d and PC builds; GL's context is the title thread's)
     if (kRenderThread && !title_thread && app::Get().render_thread)
         g_backend = gpu::CreateThreadedBackend(std::move(g_backend));
@@ -392,7 +392,7 @@ HLE_STDCALL(Direct3D_CreateDevice, 6) {
                 XDK_KEY(DirtyFlags_Texture), XDK_KEY(TextureState_Stage), XDK_KEY(Stream_Size),
                 XDK_KEY(Stream_Stride), XDK_KEY(Stream_Buffer));
     std::lock_guard<std::recursive_mutex> lock(g_lock);
-    // MP2-nx: this layer moves vsc_gen at every write to vsc (gpu/state.h), so the GL renderer may trust it
+    // MaxPayne2-nx: this layer moves vsc_gen at every write to vsc (gpu/state.h), so the GL renderer may trust it
     g_state.vsc_gen_tracked = true;
     uint32_t pp = a[4];  // D3DPRESENT_PARAMETERS
     PresentParams p = ReadPresentParams(pp);
@@ -452,7 +452,7 @@ HLE_STDCALL(D3D_BlockOnResource, 1) {
             uint32_t data = mem::VirtualFromPhysical(R32(res + kResData));
             LogBlockOnce(ctx, data);
             g_backend->Sync(data, 0);
-            // MP2-nx: and, as the console's BlockOnResource, until the draws that read it have run (a render thread's
+            // MaxPayne2-nx: and, as the console's BlockOnResource, until the draws that read it have run (a render thread's
             // queue may still hold them; the title is about to write it); nothing to wait for on the title's thread
             g_backend->WaitResource(res);
         } else {
@@ -721,7 +721,7 @@ struct FrameTimes {
     static double Ms(Clock::time_point a, Clock::time_point b) { return std::chrono::duration<double, std::milli>(b - a).count(); }
     Clock::time_point last{}, swap_end{}, since{};
     double game = 0, present = 0, gpu = 0, pace = 0, longest = 0, longest_game = 0;
-    // MP2-nx (2026-11-22): of the frames over 40 ms, those whose game part alone passed 30 ms (the title's own code,
+    // MaxPayne2-nx (2026-11-22): of the frames over 40 ms, those whose game part alone passed 30 ms (the title's own code,
     // the renderer's work inside it included) and the longest game part: says where a long frame's time went
     uint32_t frames = 0, slow = 0, slow_game = 0;
 
@@ -772,7 +772,7 @@ HLE_STDCALL(D3DDevice_Swap, 1) {
         app::FinishHandover();
     }
     std::lock_guard<std::recursive_mutex> lock(g_lock);
-    // MP2-nx: hardware commands the title pushed itself since the last walk (an inlined Begin/End: the Bink films'
+    // MaxPayne2-nx: hardware commands the title pushed itself since the last walk (an inlined Begin/End: the Bink films'
     // quad, drawn with no hooked call) are drawn before the frame is shown, not at the next push buffer request
     if (g_trace_frame) {
         LOGI("trace: pushed %u bytes since the last walk (%08X..%08X)", Dev(kDevPush) - g_walk, g_walk, Dev(kDevPush));
@@ -1597,7 +1597,7 @@ void ApplyImmediateMethod(uint32_t m, uint32_t v) {
     if (a == g_im_attr && last) g_im_vertices.insert(g_im_vertices.end(), g_im_attr, g_im_attr + kImFloats);
 }
 
-// MP2-nx: a primitive pushed as an inline array between a begin and an end (an inlined DrawVerticesUP: the Bink
+// MaxPayne2-nx: a primitive pushed as an inline array between a begin and an end (an inlined DrawVerticesUP: the Bink
 // films' quad), drawn at the end with the bound format's stride, as EndPush does
 uint32_t g_walk_prim = 0;
 std::vector<uint32_t> g_walk_inline;

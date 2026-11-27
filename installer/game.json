@@ -1,5 +1,6 @@
 {
   "title": "Max Payne 2",
+  "name": "MaxPayne2-nx",
   "package": "mp2-nx",
   "nro": "mp2-nx.nro",
   "exe": "default.xbe",
@@ -17,7 +18,7 @@
     "dlc": "",
     "settings": "The port writes its settings file, <code>mp2-nx.toml</code>, at its first start; this package carries the default one.",
     "footer": "Max Payne is a trademark of its owners. This is an unofficial fan port; not affiliated with or endorsed by the game's publishers, Microsoft or Nintendo.",
-    "nro": "Your own build of the port, <code>mp2-nx.nro</code>, made from the source at <a href=\"https://github.com/maafeu/MP2-nx\">github.com/maafeu/MP2-nx</a> (the deko3d build: <code>-DPORT_RENDERER=dk</code>). This page does not include it: it holds the game's recompiled code, which only your own copy of the game should make.",
-    "launch": "Start it from <strong>hbmenu</strong> while holding <strong>R</strong> on an installed game (title mode: the game needs all the console's memory). The console settings that hold 60 fps everywhere, an optional Horizon-OC profile, are in <a href=\"https://github.com/maafeu/MP2-nx/blob/main/package/TESTING.md\">TESTING.md</a>."
+    "nro": "Your own build of the port, <code>mp2-nx.nro</code>, made from the source at <a href=\"https://github.com/maafeu/MaxPayne2-nx\">github.com/maafeu/MaxPayne2-nx</a> (the deko3d build: <code>-DPORT_RENDERER=dk</code>). This page does not include it: it holds the game's recompiled code, which only your own copy of the game should make.",
+    "launch": "Start it from <strong>hbmenu</strong> while holding <strong>R</strong> on an installed game (title mode: the game needs all the console's memory). The console settings that hold 60 fps everywhere, an optional Horizon-OC profile, are in <a href=\"https://github.com/maafeu/MaxPayne2-nx/blob/main/package/TESTING.md\">TESTING.md</a>."
   }
 }

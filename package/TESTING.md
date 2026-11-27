@@ -1,4 +1,4 @@
-# MP2-nx — console test package
+# MaxPayne2-nx — console test package
 
 Max Payne 2: The Fall of Max Payne (Xbox, NTSC-U, `TT-012`) as a Switch homebrew. **Private:** the NRO holds the game's
 recompiled code; do not publish this package.

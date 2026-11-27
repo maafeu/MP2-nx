@@ -1,5 +1,5 @@
 #pragma once
-// MP2-nx: the OpenGL renderer's shaders (gl_backend.cpp). The same HLSL the Vulkan renderer compiles goes to SPIR-V
+// MaxPayne2-nx: the OpenGL renderer's shaders (gl_backend.cpp). The same HLSL the Vulkan renderer compiles goes to SPIR-V
 // through vk_shader.cpp (glslang, its disk cache), then to GLSL 4.30 through SPIRV-Cross. Vulkan's separate textures
 // and samplers become combined samplers, one texture unit per pair the shader uses; Pair says which of the draw's
 // textures (t0-t3) and samplers (s0-s3) each unit takes.

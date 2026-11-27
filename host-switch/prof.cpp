@@ -1,4 +1,4 @@
-// MP2-nx: a sampling profiler for the console, ported from the COLD-FEAR-NX-PORT base's (src/switch_nx.c,
+// MaxPayne2-nx: a sampling profiler for the console, ported from the COLD-FEAR-NX-PORT base's (src/switch_nx.c,
 // RECOMP_NX_PROFILE). The console has no profiler and the emulator's and the PC's costs are not the console's. A thread
 // above the game's wakes every millisecond, pauses each busy guest thread (svcSetThreadActivity), reads its pc, lr and
 // up to five return addresses up the x29 chain (svcGetThreadContext3) and lets it run again. "Busy" is decided every

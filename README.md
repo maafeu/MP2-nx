@@ -1,4 +1,4 @@
-# MP2-nx — Max Payne 2 (Xbox) for Nintendo Switch
+# MaxPayne2-nx — Max Payne 2 (Xbox) for Nintendo Switch
 
 An experimental static recompilation port of the original Xbox **Max Payne 2: The Fall of Max Payne**: the Xbox's
 x86 executable is turned into C++ and compiled for the Switch's ARM64 (and, as a test build, for Windows). It is not
@@ -28,7 +28,7 @@ See [docs/MP2-notes.md](docs/MP2-notes.md) for every decision, fix and measureme
 Switch NRO (`-DPORT_RENDERER=gl` for the OpenGL fallback). `tools/make_package.ps1` and `tools/make_package_pc.ps1`
 lay out a package for your own console or PC; `package/TESTING.md` and `package/README-PC.txt` say how to set it up.
 
-**Web installer:** [maafeu.github.io/MP2-nx](https://maafeu.github.io/MP2-nx/) packs your own disc (`.iso` or
+**Web installer:** [maafeu.github.io/MaxPayne2-nx](https://maafeu.github.io/MaxPayne2-nx/) packs your own disc (`.iso` or
 extracted folder, checked against the supported `default.xbe`) and your own build of `mp2-nx.nro` into the SD
 card layout, in your browser; it contains no game code or files. Its source is [`installer/`](installer/)
 (GPL-3.0, published by `.github/workflows/installer-pages.yml`).
@@ -43,7 +43,7 @@ card layout, in your browser; it contains no game code or files. Its source is [
 | `ferramentas/` | The kit's scripts: recompile, build, package |
 | `tools/` | This port's own scripts (disc extraction, XDK 5558 work, PC and Ryujinx runs, RenderDoc analysis, packaging, the GL helper sync) |
 | `docs/` | The kit's documentation (Portuguese) and this port's notes |
-| `installer/` | The web installer (GPL-3.0), published as https://maafeu.github.io/MP2-nx/ |
+| `installer/` | The web installer (GPL-3.0), published as https://maafeu.github.io/MaxPayne2-nx/ |
 
 The kit's layout is kept as the base has it (`COLD-FEAR-NX-PORT`'s `kit/`), so a fix here is a plain patch for the
 base.

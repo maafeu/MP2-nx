@@ -1,4 +1,4 @@
-Max Payne 2: The Fall of Max Payne (Xbox) on the PC - MP2-nx
+Max Payne 2: The Fall of Max Payne (Xbox) on the PC - MaxPayne2-nx
 ==============================================================
 
 The Xbox game (NTSC-U, TT-012), recompiled to run natively on Windows. Private: the exe holds the recompiled game,

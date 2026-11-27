@@ -64,7 +64,7 @@ std::string CodeGen::EmitFunction(uint32_t entry) {
                     if (x->set && !x->ret) targets.insert(x->to);
     }
     body_.clear();
-    // MP2-nx: the block x87 cache (codegen_fp.cpp) starts empty in every function
+    // MaxPayne2-nx: the block x87 cache (codegen_fp.cpp) starts empty in every function
     xc_on_ = false;
     xc_used_ = false;
     xc_rel_ = 0;
@@ -217,7 +217,7 @@ void CodeGen::EmitHooks(uint32_t va, bool after) {
 }
 
 bool CodeGen::Run() {
-    // MP2-nx: RECOMP_X87_CACHE=0 emits the x87 stack through ctx at every instruction, as before the block cache
+    // MaxPayne2-nx: RECOMP_X87_CACHE=0 emits the x87 stack through ctx at every instruction, as before the block cache
     if (const char* e = std::getenv("RECOMP_X87_CACHE")) xc_enabled_ = std::string(e) != "0";
     std::printf("x87 block cache: %s\n", xc_enabled_ ? "on" : "off");
     std::vector<uint32_t> funcs(an_.functions.begin(), an_.functions.end());

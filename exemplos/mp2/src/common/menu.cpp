@@ -385,7 +385,7 @@ bool StepDisplayRow(int id, int step, Settings& s, char (&text)[64]) {
             return true;
         }
         case kRenderWide:
-            // MP2-nx, the GL renderer: the game's frame drawn at the output's full width (1280x720), not stretched
+            // MaxPayne2-nx, the GL renderer: the game's frame drawn at the output's full width (1280x720), not stretched
             if (step) o.render_wide = uint32_t(StepIndex(int(o.render_wide), step, 2));
             std::snprintf(text, sizeof(text), "%s", o.render_wide ? "ON" : "OFF");
             return true;

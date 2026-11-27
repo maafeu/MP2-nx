@@ -1,4 +1,4 @@
-# Max Payne 2 (MP2-nx) settings as shipped. The port writes this file at its first start when it is missing; these
+# Max Payne 2 (MaxPayne2-nx) settings as shipped. The port writes this file at its first start when it is missing; these
 # are its defaults, written out, except render_wide (the port's own default is 0). Every value keeps the original
 # picture except the output shape (see display below) and render_wide (on: the frame drawn sharper).
 # display: the Switch's screen (1280x720 handheld, 1920x1080 docked); 16:9, so the game is told the TV is widescreen

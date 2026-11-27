@@ -1,4 +1,4 @@
-# Max Payne 2 (MP2-nx) PC settings as shipped. Every value keeps the original picture: the game's frame is drawn at
+# Max Payne 2 (MaxPayne2-nx) PC settings as shipped. Every value keeps the original picture: the game's frame is drawn at
 # 1280x720 (16:9, so the game is told the TV is widescreen and draws its own anamorphic 16:9 frames) and scaled to the
 # window or screen, letterboxed to that shape.
 display_mode = "borderless"     # borderless: the whole screen, no border ("fullscreen" is the same here); windowed:

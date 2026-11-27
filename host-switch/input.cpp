@@ -105,7 +105,7 @@ void Init() {
     LOGI("input: libnx HID, 4 ports, gyro aiming %s (gyro.toml)", gyro::ModeName());
 }
 
-// MP2-nx: scripted presses for emulator and console test runs. input_script.txt beside the NRO: lines of
+// MaxPayne2-nx: scripted presses for emulator and console test runs. input_script.txt beside the NRO: lines of
 // "second BUTTONS [frames]" (seconds since the first poll, buttons joined by +: A B X Y L R ZL ZR PLUS MINUS UP DOWN
 // LEFT RIGHT L3 R3, LS LSD LSL LSR for the left stick; held for frames at 60 Hz, 8 without), # comments. The same
 // format as the PC build's tools/run_pc.ps1 scripts (tools/scripts).

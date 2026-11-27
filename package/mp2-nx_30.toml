@@ -1,4 +1,4 @@
-# Max Payne 2 (MP2-nx) settings for 30 fps at the system's clock (cooler, longer on battery): copy over
+# Max Payne 2 (MaxPayne2-nx) settings for 30 fps at the system's clock (cooler, longer on battery): copy over
 # mp2-nx.toml. The shipped settings with fps_cap 30 and cpu_clock 0.
 # Every value keeps the original picture except the output shape (see display below) and render_wide (on: the frame
 # drawn sharper).

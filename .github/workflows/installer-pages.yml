@@ -1,4 +1,4 @@
-# The web installer (installer/) on GitHub Pages: https://maafeu.github.io/MP2-nx/
+# The web installer (installer/) on GitHub Pages: https://maafeu.github.io/MaxPayne2-nx/
 # Publishes the folder as it is (a static page: no build step) whenever it changes on main, or by hand.
 name: Web installer
 

@@ -11,7 +11,7 @@ takes only commands that cannot reach the card or write memory. The Album is rea
 console run needs the console owner's word first. One exception, given by the console owner on 2026-11-23: the hoc-*
 commands below reach Horizon-OC's config.ini (listed, read, one title section appended, never rewritten).
 
-MP2-nx's copy (2026-11-22) adds mkdir and put-tree, for the disc's files (a folder tree) on the card: both refuse any
+MaxPayne2-nx's copy (2026-11-22) adds mkdir and put-tree, for the disc's files (a folder tree) on the card: both refuse any
 path outside the port's folder, like put, and neither deletes anything. sys-ftpd-light refused every connection that
 morning, so it also adds netload (hbmenu's nxlink protocol, the file name always inside the port's folder) and the r*
 commands for tools/console_recv, a receiver that runs in the foreground and serves only the port's folder.

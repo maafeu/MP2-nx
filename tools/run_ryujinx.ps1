@@ -1,4 +1,4 @@
-# MP2-nx: one emulator run of the NRO in the user's Ryujinx with this port's own data folder (Ryujinx\MP2, made from
+# MaxPayne2-nx: one emulator run of the NRO in the user's Ryujinx with this port's own data folder (Ryujinx\MP2, made from
 # the SSX port's system folders: bis firmware and system keys, no sdcard). Refuses to start while any Ryujinx runs or
 # when the free commit memory is under -MinCommitGB; stops only the process it started; puts the SD's mp2-nx.toml back
 # as it was after the run. Based on katamari-nx's tools/run_ryujinx.ps1.

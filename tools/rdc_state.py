@@ -1,6 +1,6 @@
 # Runs inside RenderDoc (tools/rdc_run.ps1 -Script tools/rdc_state.py): one line per draw with the state that
 # decides its pixels (cull, front face, depth, stencil, blend, the pixel shader's textures and samplers), the same
-# fields whichever API made the capture, so two renderers' captures of a frame diff line by line (MP2-nx: Vulkan
+# fields whichever API made the capture, so two renderers' captures of a frame diff line by line (MaxPayne2-nx: Vulkan
 # and OpenGL). RDC_PICK = "x,y" in guest pixels also reads the main target there after each draw (slower).
 import os
 

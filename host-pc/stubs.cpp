@@ -83,7 +83,7 @@ std::u16string TakeChars() { return {}; }
 
 namespace input {
 bool GyroAiming() { return false; }
-// TakeMouse: host-pc/input.cpp (MP2-nx, 2026-11-24: the raw mouse)
+// TakeMouse: host-pc/input.cpp (MaxPayne2-nx, 2026-11-24: the raw mouse)
 }  // namespace input
 
 // the handheld screen's shadows (host-switch/screen.cpp): the PC's monitor is left alone

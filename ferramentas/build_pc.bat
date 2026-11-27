@@ -1,7 +1,7 @@
 @echo off
 rem The PC test build of a port (host-pc): build_pc.bat <game folder> [target]
 rem   build\<name>-pc\<name>_pc.exe <folder with default.xbe> [--docked]
-rem MP2-nx: Visual Studio's Clang when it has one, else LLVM's (C:\Program Files\LLVM); the Vulkan headers and
+rem MaxPayne2-nx: Visual Studio's Clang when it has one, else LLVM's (C:\Program Files\LLVM); the Vulkan headers and
 rem import library from third_party\vulkan when there is no LunarG SDK (third_party\README.md); JOBS limits the
 rem compile jobs (the generated code takes 1-2 GB per job).
 setlocal

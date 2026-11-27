@@ -20,7 +20,7 @@ namespace screen {
 namespace {
 
 std::mutex g_lock;
-float g_handheld = 1.0f;  // the exponent in handheld, 1 none. MP2-nx: 1 by default (0.8 lifts the shadows: a picture change)
+float g_handheld = 1.0f;  // the exponent in handheld, 1 none. MaxPayne2-nx: 1 by default (0.8 lifts the shadows: a picture change)
 bool g_loaded = false;
 
 std::filesystem::path File() { return app::ExeDir() / "screen.toml"; }

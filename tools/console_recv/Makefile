@@ -39,7 +39,7 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	mp2-nx-recv
 APP_TITLE	:=	mp2-nx-recv
-APP_AUTHOR	:=	MP2-nx
+APP_AUTHOR	:=	MaxPayne2-nx
 APP_VERSION	:=	1.0.0
 BUILD		:=	build
 SOURCES		:=	source

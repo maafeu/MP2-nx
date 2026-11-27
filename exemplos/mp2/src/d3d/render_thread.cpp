@@ -87,7 +87,7 @@ std::vector<Range> StateRanges() {
         {At(s, &s.simple[kMPsFinalConstant0 >> 2]), SimpleBytes(kMPsFinalConstant0, kMPsFinalConstant1)},
         {At(s, &s.rs), At(s, &s.textures) - At(s, &s.rs)},
         {At(s, &s.index_buffer), At(s, &s.vs) - At(s, &s.index_buffer)},
-        // MP2-nx: the vertex shader constants (3 KB) are ranges_[kVscRange], skipped while vsc_gen has not moved
+        // MaxPayne2-nx: the vertex shader constants (3 KB) are ranges_[kVscRange], skipped while vsc_gen has not moved
         {At(s, &s.vsc), sizeof(s.vsc)},
         {At(s, &s.vsc_gen), At(s, &s.rt) - At(s, &s.vsc_gen)},
         {At(s, &s.scissor_count), At(s, &s.transforms) - At(s, &s.scissor_count)},
@@ -377,7 +377,7 @@ private:
         const uint8_t* now = reinterpret_cast<const uint8_t*>(&s);
         Cmd c{Op::State};
         size_t first = cur_->bytes.size();
-        // MP2-nx: the D3D layer moves vsc_gen at every write to the constants (vsc_gen_tracked): unmoved since the last
+        // MaxPayne2-nx: the D3D layer moves vsc_gen at every write to the constants (vsc_gen_tracked): unmoved since the last
         // send, they equal what the render thread has, and the 3 KB comparison is skipped (2026-11-23: the state scan
         // was most of the 1.4 ms a frame the hand-over cost the title's thread at level 27)
         const bool vsc_same = s.vsc_gen_tracked && sent_.vsc_gen_tracked && s.vsc_gen == sent_.vsc_gen && vsc_sent_;
@@ -471,7 +471,7 @@ private:
 #if defined(__aarch64__)
         pthread_setname_np(pthread_self(), "render");
 #endif
-        // MP2-nx: the renderer is this thread's from here on (deko3d's checks its caller; Init ran on the title's)
+        // MaxPayne2-nx: the renderer is this thread's from here on (deko3d's checks its caller; Init ran on the title's)
         inner_->Adopt();
         for (;;) {
             Batch* b;

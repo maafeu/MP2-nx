@@ -36,6 +36,6 @@ $dirty = (& git -C $root status --porcelain -- host-pc sdk exemplos/mp2/src | Me
 Set-Content -Path (Join-Path $Out 'analysis\BUILD.txt') -Encoding ascii -Value @(
     "EXE: $hash",
     "PDB: mp2-nx_pc-$($hash.Substring(0, 8)).pdb (the exe's own build)",
-    "Sources: git $rev of MP2-nx$(if ($dirty) { " plus $dirty uncommitted files" })",
+    "Sources: git $rev of MaxPayne2-nx$(if ($dirty) { " plus $dirty uncommitted files" })",
     "Visual C++ runtime: $($crt.FullName)")
 Get-ChildItem $Out -Recurse -File | Select-Object @{n = 'File'; e = { $_.FullName.Substring($Out.Length + 1) } }, Length

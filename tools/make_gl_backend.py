@@ -1,4 +1,4 @@
-"""MP2-nx: keeps host-switch/gl_backend.cpp's copy of vulkan.cpp's console helpers in step with vulkan.cpp.
+"""MaxPayne2-nx: keeps host-switch/gl_backend.cpp's copy of vulkan.cpp's console helpers in step with vulkan.cpp.
 
 The OpenGL renderer fills the same constants, keys and palettes from the console's state as the Vulkan one; those
 functions live in vulkan.cpp's anonymous namespace, so gl_backend.cpp carries a verbatim copy between the markers
