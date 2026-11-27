@@ -481,3 +481,8 @@ Times are the PC's local time (ABT).
 - 11-26 18:05-18:20 Renamed MaxPayne2-nx: the GitHub repository, the installer page
   (https://maafeu.github.io/MaxPayne2-nx/), every MP2-nx in the files and the v1.0.0 release; the file names
   (`mp2-nx.nro`, `switch/mp2-nx/`) kept.
+- 11-26 18:20-20:05 Renamed MPayne2-nx everywhere, the game's files and SD folder included (another port uses
+  `switch/mp2-nx`): the source, the local folders, all four builds made again and tested (Ryujinx, PC, the installer
+  end to end), the console's folder moved with the owner's word (settings and saves kept, the new NRO read back; the
+  17 old test NROs deleted on the owner's word), `pc-test`, the private installer, the GitHub repository
+  (maafeu/MPayne2-nx), the page and release v1.0.1.

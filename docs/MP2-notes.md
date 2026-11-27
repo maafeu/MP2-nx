@@ -1608,3 +1608,38 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
   (the tools' paths), and these history notes, which keep the name each step had. The v1.0.0 release is "MaxPayne2-nx
   1.0.0", its link updated. Checked live: the page's heading, button, links and service worker under the new name,
   the zip's folder still `switch/mp2-nx/`, no console errors.
+- **Renamed MPayne2-nx, files and folders too** (the user, 11-26: another game's files share the SD card folder
+  `switch/mp2-nx`, "so can we change all the entries to that of MPayne2-nx", and the repository from MaxPayne2-nx
+  too). In the source (d2887a0): `PORT_NAME MPayne2-nx` in `exemplos/mp2/port.cmake`, which names the NRO
+  (`MPayne2-nx.nro`), its folder (`sdmc:/switch/MPayne2-nx`) and the PC exe (`MPayne2-nx_pc.exe`); the settings file
+  `MPayne2-nx.toml` (`game_info.cpp`) and the package's variants (`package/MPayne2-nx*.toml`); the console receiver's
+  root; the scripts; the installer (game.json `name`, `package` and `nro`; the manifest's names and the settings
+  file's SHA-256); every `MaxPayne2-nx` and `mp2-nx` in the text (301 places in 84 files, line endings kept).
+  `exemplos/mp2` and these notes' file names stay. The checksum slip of the MaxPayne2-nx rename (it changed a comment
+  in `release/mp2-nx.toml`, so the live page refused that file and could make no package) was fixed first (e1e7e23).
+- The local folders: `MP2-nx` -> `MPayne2-nx`, `mp2-nx-installer` -> `MPayne2-nx-installer` (private: its release now
+  carries the new NRO and settings, 0.1.13), `mp2-nx-installer-public` -> `MPayne2-nx-installer-public` (the leftover
+  clone of the deleted repository); Ryujinx's SD folder `switch/MPayne2-nx`; `.claude/launch.json`'s installer test
+  serves `MPayne2-nx/installer`. The build folders were made again from nothing (their caches held the old path):
+  deko3d 5 min, OpenGL 3 min (its configure needs `-DPYTHON_EXECUTABLE` on a fresh folder), CPU 1 min, PC 1 min.
+  Every NRO names only `sdmc:/switch/MPayne2-nx`; nothing in any build says mp2-nx. The PC build must be started from
+  PowerShell (Git Bash drops `ProgramFiles(x86)`); its `vswhere` message is the kit script's quoting and harmless (the
+  build uses `C:\Program Files\LLVM` 23.1.5 as before; Visual Studio's own LLVM is not installed, and the user was
+  advised against installing it: it would quietly switch the PC compiler).
+- Checked: Ryujinx (level 27 from `sdmc:/switch/MPayne2-nx/game`, 60 fps; the 13 "wait stall" lines every run has),
+  the PC (menu and music after 60 s), the installer end to end (429 game files, the NRO and the settings byte for byte
+  under `switch/MPayne2-nx/`, 1.79 GB in 137 s; the test zip deleted), the package made again (`out/package`; the old
+  one kept as `out/package_1124`).
+- **The console** (the owner's word, 11-26, the console on Home): `tools/switch_remote.py` gained `rename` and
+  `move-root` (the target must not exist, the state read back, no delete). `/switch/mp2-nx` became
+  `/switch/MPayne2-nx`, `mp2-nx.toml` -> `MPayne2-nx.toml` (the owner's settings kept), the new NRO in place (read
+  back: cef3fcfd, the build's), the receiver rebuilt for the new root (e6f01e07); `out/switch_sd_root.txt` is now
+  `/switch/MPayne2-nx`. Then, on the owner's word ("Go ahead and delete the old test builds"), the 17 old test NROs
+  (`mp2-nx_*.nro`, `mp2-nx-dk.nro`, `mp2-nx-pgo.nro`; they looked for the old folder) were deleted by a one-off
+  script that matched only those names; everything else on the card stayed.
+- `pc-test` (the owner's PC folder): `mp2-nx.toml` -> `MPayne2-nx.toml` (kept), the new `MPayne2-nx_pc.exe` in place of
+  `mp2-nx_pc.exe`, the README and the shortcut's target updated; the saves (`hdd`) untouched.
+- **GitHub:** the repository is https://github.com/maafeu/MPayne2-nx (GitHub forwards MP2-nx and MaxPayne2-nx there),
+  the page https://maafeu.github.io/MPayne2-nx/ (the MaxPayne2-nx page address is a 404). Release **v1.0.1** ("MPayne2-nx
+  1.0.1", Latest, tag on 15ed1f8): v1.0.0's notes with the new names and how to move a 1.0.0 install; v1.0.0 is
+  "MPayne2-nx 1.0.0" with a line saying 1.0.1 supersedes it (its source still builds `mp2-nx.nro`).
