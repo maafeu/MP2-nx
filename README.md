@@ -1,4 +1,4 @@
-# MaxPayne2-nx — Max Payne 2 (Xbox) for Nintendo Switch
+# MPayne2-nx — Max Payne 2 (Xbox) for Nintendo Switch
 
 An experimental static recompilation port of the original Xbox **Max Payne 2: The Fall of Max Payne**: the Xbox's
 x86 executable is turned into C++ and compiled for the Switch's ARM64 (and, as a test build, for Windows). It is not
@@ -12,7 +12,7 @@ for the host.
 **Status (2026-11-24):** complete on both targets, played through by hand.
 
 - **Nintendo Switch** (the deko3d renderer, 1280x720): every level plays at 60 fps on the console in handheld with the
-  shipped settings (`package/mp2-nx.toml`: CPU 1581 MHz, memory 1600 MHz; a Horizon-OC profile holding them, with the
+  shipped settings (`package/MPayne2-nx.toml`: CPU 1581 MHz, memory 1600 MHz; a Horizon-OC profile holding them, with the
   handheld GPU at 460.8 MHz for level 19's GPU-heavy stretch: `package/TESTING.md`). Films, menus, saving and
   loading, chapters played through, the ending and the credits; the port's options panel (Minus + R3 or both sticks)
   with gyro aiming. The game's frame is drawn at the full 1280x720 (`render_wide = 1`).
@@ -28,8 +28,8 @@ See [docs/MP2-notes.md](docs/MP2-notes.md) for every decision, fix and measureme
 Switch NRO (`-DPORT_RENDERER=gl` for the OpenGL fallback). `tools/make_package.ps1` and `tools/make_package_pc.ps1`
 lay out a package for your own console or PC; `package/TESTING.md` and `package/README-PC.txt` say how to set it up.
 
-**Web installer:** [maafeu.github.io/MaxPayne2-nx](https://maafeu.github.io/MaxPayne2-nx/) packs your own disc (`.iso` or
-extracted folder, checked against the supported `default.xbe`) and your own build of `mp2-nx.nro` into the SD
+**Web installer:** [maafeu.github.io/MPayne2-nx](https://maafeu.github.io/MPayne2-nx/) packs your own disc (`.iso` or
+extracted folder, checked against the supported `default.xbe`) and your own build of `MPayne2-nx.nro` into the SD
 card layout, in your browser; it contains no game code or files. Its source is [`installer/`](installer/)
 (GPL-3.0, published by `.github/workflows/installer-pages.yml`).
 
@@ -43,7 +43,7 @@ card layout, in your browser; it contains no game code or files. Its source is [
 | `ferramentas/` | The kit's scripts: recompile, build, package |
 | `tools/` | This port's own scripts (disc extraction, XDK 5558 work, PC and Ryujinx runs, RenderDoc analysis, packaging, the GL helper sync) |
 | `docs/` | The kit's documentation (Portuguese) and this port's notes |
-| `installer/` | The web installer (GPL-3.0), published as https://maafeu.github.io/MaxPayne2-nx/ |
+| `installer/` | The web installer (GPL-3.0), published as https://maafeu.github.io/MPayne2-nx/ |
 
 The kit's layout is kept as the base has it (`COLD-FEAR-NX-PORT`'s `kit/`), so a fix here is a plain patch for the
 base.

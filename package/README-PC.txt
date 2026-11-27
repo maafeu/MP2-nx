@@ -1,4 +1,4 @@
-Max Payne 2: The Fall of Max Payne (Xbox) on the PC - MaxPayne2-nx
+Max Payne 2: The Fall of Max Payne (Xbox) on the PC - MPayne2-nx
 ==============================================================
 
 The Xbox game (NTSC-U, TT-012), recompiled to run natively on Windows. Private: the exe holds the recompiled game,
@@ -13,9 +13,9 @@ What you need
 
 Setting up
 ----------
-1. Copy the disc's files into the "game" folder beside mp2-nx_pc.exe, so that game\default.xbe exists.
-   (Or start the exe with the folder as its argument: mp2-nx_pc.exe "D:\MP2 disc", or set XBE_GAME_DIR.)
-2. Start mp2-nx_pc.exe.
+1. Copy the disc's files into the "game" folder beside MPayne2-nx_pc.exe, so that game\default.xbe exists.
+   (Or start the exe with the folder as its argument: MPayne2-nx_pc.exe "D:\MP2 disc", or set XBE_GAME_DIR.)
+2. Start MPayne2-nx_pc.exe.
 
 The game runs at 60 frames a second at 1280x720 and fills the screen without a border. F11 or Alt+Enter switches
 between that and a window you can size. The picture keeps the game's 16:9 shape, with black bars on screens of
@@ -54,7 +54,7 @@ looks down); the mouse always looks up when moved up. With the mouse you may wan
 
 Settings
 --------
-mp2-nx.toml beside the exe; each line says what it does. The shipped values keep the original picture. "width" and
+MPayne2-nx.toml beside the exe; each line says what it does. The shipped values keep the original picture. "width" and
 "height" (both set, e.g. 1920 and 1080) draw the game at that size instead of 1280x720: sharper, but not the
 original picture.
 

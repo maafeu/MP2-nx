@@ -86,7 +86,7 @@ inline uint32_t Call(X86Context& ctx, uint32_t fn, const Map& m, std::initialize
     for (int k = 1; k < 8; k++) ctx.*kReg[k] = saved[k];
     return r;
 }
-// MaxPayne2-nx diagnostic: while g_trace is set (the PC build's one-frame "trace" file, src/d3d/d3d8.cpp), every hooked
+// MPayne2-nx diagnostic: while g_trace is set (the PC build's one-frame "trace" file, src/d3d/d3d8.cpp), every hooked
 // guest function logs its name and the guest's return address
 inline std::atomic<bool> g_trace{false};
 void TraceCall(const char* name, uint32_t ret);

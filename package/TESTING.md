@@ -1,4 +1,4 @@
-# MaxPayne2-nx — console test package
+# MPayne2-nx — console test package
 
 Max Payne 2: The Fall of Max Payne (Xbox, NTSC-U, `TT-012`) as a Switch homebrew. **Private:** the NRO holds the game's
 recompiled code; do not publish this package.
@@ -10,12 +10,12 @@ recompiled code; do not publish this package.
   renderer draws (the console's frames side by side, 2026-11-22). Its shaders are compiled on the console by uam (the
   deko3d shader compiler, built into the NRO) the first time each one is seen and kept in `shadercache/` (files
   `*_dk3.bin`): the first run has short hitches where new materials appear, later runs none.
-- `fallback/mp2-nx-gl.nro`: the same build with the **OpenGL** renderer (`PORT_RENDERER=gl`, devkitPro's
+- `fallback/MPayne2-nx-gl.nro`: the same build with the **OpenGL** renderer (`PORT_RENDERER=gl`, devkitPro's
   switch-mesa), the one shipped before deko3d; checked in Ryujinx only (2026-11-24: menus, Resume Game, play, the
-  options panel opening on its tabs, its chords and the gyro row). Copy it over `mp2-nx.nro` if the deko3d one does
+  options panel opening on its tabs, its chords and the gyro row). Copy it over `MPayne2-nx.nro` if the deko3d one does
   not start.
 - Output: 1280x720, the game told the TV is widescreen (it draws its own anamorphic 16:9). Docked, the system scales
-  the 720p picture to the TV. The game's frame is drawn at the full 1280x720 (`render_wide = 1` in `mp2-nx.toml`,
+  the 720p picture to the TV. The game's frame is drawn at the full 1280x720 (`render_wide = 1` in `MPayne2-nx.toml`,
   your choice of 2026-11-24: sharper than the original 960x720 stretched to 1280, which `render_wide = 0` gives).
   Measured on the console (2026-11-24, handheld, the GPU at 460.8 MHz from the Horizon-OC profile): 60 fps
   everywhere except level 19's GPU-heavy stretch (`19_Third_Address_Unknown`, about 10 s), where it gives 59.0-59.6
@@ -26,7 +26,7 @@ recompiled code; do not publish this package.
   `fps_adaptive_ms = 16` locks to 30 as soon as 60 slips (the behaviour before 2026-11-23). The game times itself by
   the clock, so it plays at the same speed at 30 and 60. `cpu_clock = 1581` with `mem_clock = 1600` asks for the CPU
   at 1581 MHz and the memory at its docked 1600 MHz for the run (the old clocks come back at exit): the lowest pair
-  measured that holds 60 in every level tested (below). **`mp2-nx_30.toml`**: 30 fps locked at the system's 1020 MHz
+  measured that holds 60 in every level tested (below). **`MPayne2-nx_30.toml`**: 30 fps locked at the system's 1020 MHz
   (cooler, longer on battery).
 - **Measured on the console (2026-11-22, the CPU at 1020 MHz):** with deko3d chapter 1 holds **60 fps locked** (12-13
   ms of work a frame; the OpenGL build gave 57 fps); level 27, the heaviest, about 46 fps free (21 ms a frame; OpenGL
@@ -53,22 +53,22 @@ recompiled code; do not publish this package.
   no input while it is open); the FPS counter is one of its settings. Its **CONTROLLER** page has the gyro aiming
   (MOTION CONTROLS: GYROSCOPE off by default; ALWAYS, or WHILE FIRING (ZR): turning the console, or the right Joy-Con
   or Pro Controller, turns the view; sensitivity, vertical speed, drift correction and inversion below it) and the
-  sticks' dead zones and sensitivities. Changing a setting there rewrites `mp2-nx.toml` without its comments (the same
-  values; `mp2-nx_shipped.toml` in this package has them). Minus, L3 or R3 pressed alone reaches the game 80 ms late,
+  sticks' dead zones and sensitivities. Changing a setting there rewrites `MPayne2-nx.toml` without its comments (the same
+  values; `MPayne2-nx_shipped.toml` in this package has them). Minus, L3 or R3 pressed alone reaches the game 80 ms late,
   so the chords never reach it (checked on the console, 2026-11-24: no crouch, no game menu behind the panel) while a
   quick tap of any of them still does.
 - The Bink films (the intro logos and the story films) are shown; their colour conversion is native (about 8.7 ms a
   film frame on the console at 1020 MHz), well inside a film's own rate.
-- `fallback/mp2-nx-soft.nro` (when present): the same build with the CPU (software) renderer, for if no GPU one
+- `fallback/MPayne2-nx-soft.nro` (when present): the same build with the CPU (software) renderer, for if no GPU one
   starts: 2–5 fps, 3D picture wrong, films and menus right (checked in Ryujinx, 2026-11-24: the intro films
   to the title).
 
 ## SD card
 
 ```text
-sdmc:/switch/mp2-nx/
-  mp2-nx.nro            (sd/switch/mp2-nx/ in this package)
-  mp2-nx.toml           (the shipped settings; the port writes it if missing)
+sdmc:/switch/MPayne2-nx/
+  MPayne2-nx.nro            (sd/switch/MPayne2-nx/ in this package)
+  MPayne2-nx.toml           (the shipped settings; the port writes it if missing)
   game/                 the disc's files: default.xbe, DATA.RAS, assets/, movies/, dsstdfx.bin, assets.txt
                         (or the .iso; the full redump image works)
   logs/                 written by the port: mp2_NNN.log, stderr.log
@@ -113,7 +113,7 @@ fallback reads `gl_flags.txt` the same way (`selftest`; `nopersist` keeps its ol
 the interval in seconds, `0` turns it off (each capture stalls the game while it is written: never leave it on for
 a timed run).
 
-**Any level** (a test aid, not a setting): `test_level = NN` added to `mp2-nx.toml` (2 to 30, `game/assets.txt`'s
+**Any level** (a test aid, not a setting): `test_level = NN` added to `MPayne2-nx.toml` (2 to 30, `game/assets.txt`'s
 order: 2 `04_Warehouse` ... 30 `21_The_Manor_B_split2`) changes to level NN about 3 seconds after New Game's (or
 the loaded save's) level starts, through the game's own `GM_InitSingleLevel` script command. Remove the line to play
 normally; the port never writes it. The log names every level it loads (`game: level init ...`).
@@ -127,7 +127,7 @@ everything they write and logs `native: ... mismatch` if they ever differ (slowe
 
 - `logs/mp2_NNN.log` (the newest) and `logs/stderr.log`.
 - A photo or capture of the screen in chapter 1 if anything looks wrong.
-- A crash names an address (`crash: ... pc ...`): `analysis/mp2-nx-<hash>.elf` is this NRO's own ELF, and
+- A crash names an address (`crash: ... pc ...`): `analysis/MPayne2-nx-<hash>.elf` is this NRO's own ELF, and
   `ferramentas/endereco_crash.sh` in the source snapshot turns the address into a function.
 
 ## Performance data ("console profile")
@@ -146,8 +146,8 @@ What the port records, always on (`log_summary.py` in this package makes one tab
 - `app: frames take N ms on average (over L): 30 fps until they take under M` / `back to 60 fps`: the adaptive cap's
   switches (L is `fps_adaptive_ms`, M 1.5 ms less).
 - **A function-level profile** (a test aid): `profile = 1` (and `profile_after = 100`, the seconds to wait) in
-  `mp2-nx.toml` samples the game's busy threads at 1 kHz into `logs/prof_NNN.bin` beside the log; `tools/prof_report.py
-  prof_NNN.bin analysis/mp2-nx-<hash>.elf` (in the source snapshot) makes the tables. The port never writes the key.
+  `MPayne2-nx.toml` samples the game's busy threads at 1 kHz into `logs/prof_NNN.bin` beside the log; `tools/prof_report.py
+  prof_NNN.bin analysis/MPayne2-nx-<hash>.elf` (in the source snapshot) makes the tables. The port never writes the key.
 - every 300 frames: `dk: present N, <draws> draws, <textures> textures, <targets> targets, <programs> programs; a frame:
   <KB> uploaded, <n> state calls, <n> skipped as unchanged, renderer <ms> on the title's thread`. The renderer draws on
   the game's own thread: `renderer` is its draws, clears, copies and read-backs (all inside `game` above) plus its
@@ -158,19 +158,19 @@ What the port records, always on (`log_summary.py` in this package makes one tab
 
 | File | What |
 | --- | --- |
-| `sd/switch/mp2-nx/mp2-nx.nro` | the port (deko3d renderer) |
-| `fallback/mp2-nx-gl.nro` | the same build with the OpenGL renderer (the one shipped before deko3d) |
+| `sd/switch/MPayne2-nx/MPayne2-nx.nro` | the port (deko3d renderer) |
+| `fallback/MPayne2-nx-gl.nro` | the same build with the OpenGL renderer (the one shipped before deko3d) |
 | `dk_flags.txt` | the deko3d renderer's self-test, for one diagnostic run |
-| `sd/switch/mp2-nx/mp2-nx.toml`, `mp2-nx_shipped.toml` | the shipped settings (the defaults, written out) |
-| `mp2-nx_ab.toml` | A/B: the shipped settings with `render_wide = 0` (the original picture) |
-| `mp2-nx_30.toml` | 30 fps locked at the system's clock (`fps_cap = 30`, `cpu_clock = 0`) |
+| `sd/switch/MPayne2-nx/MPayne2-nx.toml`, `MPayne2-nx_shipped.toml` | the shipped settings (the defaults, written out) |
+| `MPayne2-nx_ab.toml` | A/B: the shipped settings with `render_wide = 0` (the original picture) |
+| `MPayne2-nx_30.toml` | 30 fps locked at the system's clock (`fps_cap = 30`, `cpu_clock = 0`) |
 | `log_summary.py` | one table from a log (fps, frame times, the renderer's parts, notes) |
-| `mp2-nx_play.toml` | for playing: the same settings; the diagnostics in this kit are files (`input_script.txt`, `gl_flags.txt`, `capture`), none of them in the SD folder by default |
+| `MPayne2-nx_play.toml` | for playing: the same settings; the diagnostics in this kit are files (`input_script.txt`, `gl_flags.txt`, `capture`), none of them in the SD folder by default |
 | `input_script.txt` | scripted presses to chapter 1 |
 | `gl_flags.txt` | the OpenGL fallback's self-test, for one diagnostic run with it |
-| `fallback/mp2-nx-soft.nro` | (when present) the CPU-renderer build, if no GPU one starts |
+| `fallback/MPayne2-nx-soft.nro` | (when present) the CPU-renderer build, if no GPU one starts |
 | `analysis/` | the ELFs, the source snapshot and `BUILD.txt` (hashes) |
 
-A/B (the same NRO, one session): `mp2-nx_ab.toml` is the shipped settings with `render_wide = 0`; run with
-`mp2-nx.toml` (A), quit, copy `mp2-nx_ab.toml` over it (B), run again, and compare the `d3d: Swap` lines. The
+A/B (the same NRO, one session): `MPayne2-nx_ab.toml` is the shipped settings with `render_wide = 0`; run with
+`MPayne2-nx.toml` (A), quit, copy `MPayne2-nx_ab.toml` over it (B), run again, and compare the `d3d: Swap` lines. The
 options panel's WIDE RENDERING row flips the same setting during a run.

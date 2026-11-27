@@ -41,7 +41,7 @@ static constexpr uint32_t kNxGranule = 1u << 20;
 static constexpr uint32_t kLowBacking = 64u << 20;
 static std::vector<uint8_t> g_nx_backed((1ull << 32) / kNxGranule, 0);
 
-// MaxPayne2-nx (2026-11-23): code memory objects are scarce: the console refused the 11th the process asked for
+// MPayne2-nx (2026-11-23): code memory objects are scarce: the console refused the 11th the process asked for
 // (svcCreateCodeMemory 0xCE01, out of resource; console logs mp2_051 and mp2_052, at the same block both times), and
 // MP2 used six at its start (the two 64 MB blocks, then 1 MB granules of the system pool and of the stacks, two each),
 // so the granules that the leaked guest stacks added used up the other four in about 23 threads. The system pool

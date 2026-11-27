@@ -19,10 +19,10 @@ struct Options {
     // 7 night vision, 8 VHS
     uint32_t screen_filter = 0;
     uint32_t brightness = 5;
-    // MaxPayne2-nx, the GL renderer: 1 draws the game's targets at the output's full width as well as its height (MP2's
+    // MPayne2-nx, the GL renderer: 1 draws the game's targets at the output's full width as well as its height (MP2's
     // anamorphic 16:9 frame at 1280x720 instead of 960x720 stretched to 1280). Sharper, so a picture change: off
     uint32_t render_wide = 0;
-    // MaxPayne2-nx, a test aid read from the settings file but never written to it: 2..30 makes New Game start in level NN
+    // MPayne2-nx, a test aid read from the settings file but never written to it: 2..30 makes New Game start in level NN
     // (game\assets.txt's order: 2 04_Warehouse ... 30 21_The_Manor_B_split2) instead of 03_First_Hospital
     // (src/game/test_level.cpp). 0 (or 1) off. test_level_command: the game mode's script command that changes level
     uint32_t test_level = 0;
@@ -40,12 +40,12 @@ struct Options {
     std::string test_gpu_clocks;
     // test aid as well: one script line run on the game mode at the same moment instead (never saved)
     std::string test_script;
-    // MaxPayne2-nx, test aids (never saved): test_native false runs the recompiled originals of the game functions the port
+    // MPayne2-nx, test aids (never saved): test_native false runs the recompiled originals of the game functions the port
     // has native versions of (src/game/native_*.cpp), for A/B timing; test_shadow true runs both on every call,
     // compares everything each one writes and keeps the original's result (logs "native: ... mismatch")
     bool test_native = true;
     bool test_shadow = false;
-    // the darks lifted further for the OLED model's screen: 0 auto (OLED, out of the dock), 1 off, 2 on. MaxPayne2-nx: off by
+    // the darks lifted further for the OLED model's screen: 0 auto (OLED, out of the dock), 1 off, 2 on. MPayne2-nx: off by
     // default (it changes the picture; and AUTO asks set:sys for the product model, which Ryujinx does not answer)
     uint32_t oled = 1;
     // the lamps' shadows: passes that subtract with REVERSE_SUBTRACT, reading the lamp's depth map. Drawn since the

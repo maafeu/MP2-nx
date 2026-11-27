@@ -193,7 +193,7 @@ static uint32_t WaitFor(const std::vector<ObjectRef>& objs, bool wait_all, int64
     uint32_t me = Me();
     bool infinite = timeout == INT64_MAX;
     int64_t deadline = infinite ? 0 : ToDeadline(timeout);
-    // MaxPayne2-nx (2026-11-22): the stall report measured its "seconds" in wakes of g_cv, which every signal of any object
+    // MPayne2-nx (2026-11-22): the stall report measured its "seconds" in wakes of g_cv, which every signal of any object
     // notifies, so an idle worker (Max Payne 2 has one that waits about 2 s at a time) logged "blocked 2/4/8/16 s"
     // and a 32-entry stack trace within a second, every time it waited; and it logged with g_dispatch held, which
     // every other thread's waits and signals need (on the Switch each log line is a write and a flush to the card,

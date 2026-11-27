@@ -1,4 +1,4 @@
-# input_script.txt for a level test on the Switch build (test_level = NN in mp2-nx.toml): New Game as
+# input_script.txt for a level test on the Switch build (test_level = NN in MPayne2-nx.toml): New Game as
 # mp2_gameplay_switch.txt (spaced for Ryujinx's slower start); about 3 s after that level starts the game changes to
 # level NN (src/game/test_level.cpp); R every 2.5 s through its graphic novel, then Max walks, fires and uses bullet
 # time (ZL), and at the end A to load the last save if Max was shot. Presses held 20 frames.

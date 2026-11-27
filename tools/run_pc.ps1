@@ -14,7 +14,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $exeDir = Resolve-Path "$PSScriptRoot\..\build\mp2-pc"
-$exe = Join-Path $exeDir 'mp2-nx_pc.exe'
+$exe = Join-Path $exeDir 'MPayne2-nx_pc.exe'
 $game = (Resolve-Path $Game).Path
 # a window, not the borderless screen the shipped settings ask for (2026-11-24): the test runs stay out of the way
 $args2 = @("`"$game`"", '--windowed')
@@ -35,7 +35,7 @@ if ($RenderDoc) {
     $p = $null
     for ($i = 0; $i -lt 40 -and -not $p; $i++) {
         Start-Sleep -Milliseconds 250
-        $c = Get-CimInstance Win32_Process -Filter "ParentProcessId = $($launcher.Id)" | Where-Object { $_.Name -eq 'mp2-nx_pc.exe' }
+        $c = Get-CimInstance Win32_Process -Filter "ParentProcessId = $($launcher.Id)" | Where-Object { $_.Name -eq 'MPayne2-nx_pc.exe' }
         if ($c) { $p = Get-Process -Id $c.ProcessId }
     }
     if (-not $p) { $p = $launcher }

@@ -1,4 +1,4 @@
-// MaxPayne2-nx: the title's Direct3D 8 calls drawn with deko3d, the Switch GPU's own API (PORT_RENDERER=dk). No Mesa between
+// MPayne2-nx: the title's Direct3D 8 calls drawn with deko3d, the Switch GPU's own API (PORT_RENDERER=dk). No Mesa between
 // the renderer and the GPU: a draw is a few words written into a command buffer, where the OpenGL renderer
 // (gl_backend.cpp) spent 3 ms of a level 27 frame in Mesa's driver on the console's CPU (run 12, 2026-11-22).
 //
@@ -222,7 +222,7 @@ float Bits(uint32_t v) {
     return f;
 }
 
-// MaxPayne2-nx (deko3d renderer): byte / 255.0f from a table of the same quotients (a draw converts about 20 colours, 80
+// MPayne2-nx (deko3d renderer): byte / 255.0f from a table of the same quotients (a draw converts about 20 colours, 80
 // divisions; Color was 5.7% of the draw path's own time at level 27, console run dk4)
 const std::array<float, 256> kByteUnit = [] {
     std::array<float, 256> t{};
@@ -372,7 +372,7 @@ constexpr uint32_t kSigWholeMax = 65536;
 constexpr uint32_t kSigSamples = 64;
 constexpr uint32_t kSigSampleBytes = 64;
 
-// MaxPayne2-nx: a texture signature's hash. gpu::Hash is one chain, each step waiting on the last 64 x 64 -> 128 bit
+// MPayne2-nx: a texture signature's hash. gpu::Hash is one chain, each step waiting on the last 64 x 64 -> 128 bit
 // multiply: on the console it was 1.25 ms of the renderer's frame in chapter 1 (run 7); four lanes of that mix were
 // still 3.6% of the title's thread (run 9), the A57's multiplies being slow. So four independent CRC32C lanes over the
 // 8-byte words of each 32-byte block (the A57's CRC instructions, SSE4.2's on the PC: the same polynomial), folded

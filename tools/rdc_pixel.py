@@ -1,6 +1,6 @@
 # Runs inside RenderDoc (tools/rdc_run.ps1 -Script tools/rdc_pixel.py): the pixel history of a few pixels of the
 # frame's main colour target, draw by draw, with each draw's shaders' textures and samplers. For comparing two
-# renderers' captures of the same frame (MaxPayne2-nx: the Vulkan and the OpenGL renderer).
+# renderers' captures of the same frame (MPayne2-nx: the Vulkan and the OpenGL renderer).
 #   env RDC_FILE = the .rdc, RDC_OUT = a folder for the report, RDC_PIXELS = "x,y;x,y" in guest pixels (640x480)
 import os
 

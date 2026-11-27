@@ -533,7 +533,7 @@ static uint32_t Transfer(const Args& a, bool write, uint32_t pages) {
     if (write && f->entry) return kAccessDenied;
     ResetEvent(*f);
     std::lock_guard<std::mutex> lock(f->io);
-    // MaxPayne2-nx: a transfer over 8 ms is logged (the first 60, then every 100th; the log line names the thread): the
+    // MPayne2-nx: a transfer over 8 ms is logged (the first 60, then every 100th; the log line names the thread): the
     // console's once-a-second long frames, to tell a synchronous SD read on the title's thread from the rest
     struct SlowLog {
         const File& f;

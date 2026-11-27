@@ -17,7 +17,7 @@ let entries = null;
 let dlc = [];  // [{ path (under dlc/), size, file }]
 let busy = false;
 let downloadFrame = null;
-// mp2-nx (2026-11-24): a release without the port's NRO (no nro_sha256 in the manifest: the public page, since the NRO
+// MPayne2-nx (2026-11-24): a release without the port's NRO (no nro_sha256 in the manifest: the public page, since the NRO
 // holds the game's recompiled code) takes the player's own build of it
 let byo = false;
 let userNro = null;
@@ -87,7 +87,7 @@ nroInput.addEventListener('change', async (event) => {
   const head = new Uint8Array(await file.slice(0, 0x80).arrayBuffer());
   const magic = head.length >= 0x14 ? String.fromCharCode(...head.slice(0x10, 0x14)) : '';
   if (magic !== 'NRO0') {
-    show('bad', `${file.name} is not a Switch NRO: choose the mp2-nx.nro your build made.`, nroDetected);
+    show('bad', `${file.name} is not a Switch NRO: choose the MPayne2-nx.nro your build made.`, nroDetected);
     return;
   }
   const g = await game;
@@ -103,7 +103,7 @@ async function choose(list, what) {
   const g = await game;
   const total = list.reduce((n, e) => n + e.size, 0);
   chosen.textContent = `${what}: ${list.length} files, ${formatSize(total)}`;
-  // mp2-nx: the executable game.json names (an original Xbox port: default.xbe)
+  // MPayne2-nx: the executable game.json names (an original Xbox port: default.xbe)
   const exeName = g.exe || 'default.xex';
   const xex = list.find((e) => e.path.toLowerCase() === exeName.toLowerCase());
   if (!xex) {

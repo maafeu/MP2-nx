@@ -1,5 +1,5 @@
-# Max Payne 2 (MaxPayne2-nx) A/B settings: the shipped mp2-nx.toml with one change, render_wide = 0 (the original picture:
-# the game's frame drawn at 960x720 and stretched, against the shipped 1280x720). Run with mp2-nx.toml (A), quit,
+# Max Payne 2 (MPayne2-nx) A/B settings: the shipped MPayne2-nx.toml with one change, render_wide = 0 (the original picture:
+# the game's frame drawn at 960x720 and stretched, against the shipped 1280x720). Run with MPayne2-nx.toml (A), quit,
 # copy this over it (B).
 # Every value keeps the original picture except the output shape (see display below).
 # display: the Switch's screen (1280x720 handheld, 1920x1080 docked); 16:9, so the game is told the TV is widescreen

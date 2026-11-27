@@ -75,7 +75,7 @@ worker.onmessage = ({ data }) => {
 worker.onerror = (e) => log(`worker error: ${e.message}`, 'bad');
 const query = new URLSearchParams(location.search);
 const compile = query.get('compile') !== '0';
-// mp2-nx (2026-11-24): ?nro=<url> gives the worker that NRO as the player's own build (a release without one: the
+// MPayne2-nx (2026-11-24): ?nro=<url> gives the worker that NRO as the player's own build (a release without one: the
 // public page), as the page does with the file the player chooses
 let nro = null;
 if (query.get('nro')) {

@@ -1,5 +1,5 @@
-# Max Payne 2 (MaxPayne2-nx) settings for 30 fps at the system's clock (cooler, longer on battery): copy over
-# mp2-nx.toml. The shipped settings with fps_cap 30 and cpu_clock 0.
+# Max Payne 2 (MPayne2-nx) settings for 30 fps at the system's clock (cooler, longer on battery): copy over
+# MPayne2-nx.toml. The shipped settings with fps_cap 30 and cpu_clock 0.
 # Every value keeps the original picture except the output shape (see display below) and render_wide (on: the frame
 # drawn sharper).
 # display: the Switch's screen (1280x720 handheld, 1920x1080 docked); 16:9, so the game is told the TV is widescreen

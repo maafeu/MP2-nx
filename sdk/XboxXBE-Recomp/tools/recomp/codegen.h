@@ -63,7 +63,7 @@ private:
     size_t insn_count_ = 0;
     int ret_bytes_ = -1;
 
-    // MaxPayne2-nx: the x87 stack cached in locals within a block (codegen_fp.cpp). From a block's first x87 instruction,
+    // MPayne2-nx: the x87 stack cached in locals within a block (codegen_fp.cpp). From a block's first x87 instruction,
     // x87t holds ctx.top and the eight slots x87t + 0..7 live in x87r0..7, loaded on first read; the depth since then
     // is tracked here, so every st(i) is a fixed local. Labels, jumps, calls, returns, hooks and the x87 instructions
     // that read the stack another way write the dirty slots and ctx.top back first (XcFlush). Each operation computes

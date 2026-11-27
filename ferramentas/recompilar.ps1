@@ -11,7 +11,7 @@
 # O caminho do kit e do jogo nao pode ter acento: o recompilador abre os arquivos com caminhos ANSI, e
 # "Area de Trabalho" com acento quebra. Por isso o kit fica em C:\XboxSwitchPortKit.
 #
-# MaxPayne2-nx: sem -VsDir, acha o Visual Studio pelo vswhere (2022, 18 ou outro); sem o Clang do Visual Studio, usa o do
+# MPayne2-nx: sem -VsDir, acha o Visual Studio pelo vswhere (2022, 18 ou outro); sem o Clang do Visual Studio, usa o do
 # LLVM (C:\Program Files\LLVM). Nada e baixado: o decodificador x86 e tools\zydis-lite e o toml++ e
 # third_party\tomlplusplus (ferramentas\recompilador\CMakeLists.txt).
 param(

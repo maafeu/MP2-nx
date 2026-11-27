@@ -43,7 +43,7 @@ namespace {
 
 std::mutex g_lock;
 
-// MaxPayne2-nx (2026-11-24): the mouse, while the window has it (host-pc/main.cpp): raw counts for the game's mouse look
+// MPayne2-nx (2026-11-24): the mouse, while the window has it (host-pc/main.cpp): raw counts for the game's mouse look
 // (input::TakeMouse, src/game/mouse.cpp), the buttons and the wheel as the pad's
 std::mutex g_mouse_lock;
 int g_mouse_x = 0, g_mouse_y = 0;
@@ -82,7 +82,7 @@ struct Script {
     uint64_t b = 0;
     int16_t lx = 0, ly = 0, rx = 0, ry = 0;
     int left = 0;
-    // MaxPayne2-nx: held for the frames as time (60 Hz) as well as for that many polls: a title that polls its pads
+    // MPayne2-nx: held for the frames as time (60 Hz) as well as for that many polls: a title that polls its pads
     // several times a frame saw an 8 poll press for under one frame
     std::chrono::steady_clock::time_point until{};
 } g_script;
@@ -104,7 +104,7 @@ uint64_t ButtonByName(const std::string& n) {
     return 0;
 }
 
-// MaxPayne2-nx test aid (2026-11-24): "SCAN" in the cmd file writes the guest's readable memory below 64 MB to
+// MPayne2-nx test aid (2026-11-24): "SCAN" in the cmd file writes the guest's readable memory below 64 MB to
 // scans/NNN.bin beside the exe (records: guest address and length as two 32-bit words, then the bytes), for finding
 // where the game keeps a value (tools/scan_diff.py)
 void DumpGuest() {
@@ -134,7 +134,7 @@ void DumpGuest() {
     LOGI("pc: scan %s, %llu bytes of guest memory", name, (unsigned long long)total);
 }
 
-// MaxPayne2-nx test aid (2026-11-24): "WATCH=XXXXXXXX" in the cmd file puts a hardware write watch (debug register 0, 4
+// MPayne2-nx test aid (2026-11-24): "WATCH=XXXXXXXX" in the cmd file puts a hardware write watch (debug register 0, 4
 // bytes, or 1 at an address not 4-aligned) on that guest address in every thread of the process; each write logs the host instruction after it and the
 // recompiled function it is in (from the PDB), the first 4 times for each instruction. "WATCH=0" takes it off.
 std::atomic<int> g_watch_hits{0};
@@ -244,12 +244,12 @@ void ReadCmd() {
         else if (n == "RSD") s.ry = -32767;
         else if (n == "RSL") s.rx = -32767;
         else if (n == "RSR") s.rx = 32767;
-        // MaxPayne2-nx (2026-11-24): a stick at part of its travel, -1..1 (RX=0.25): the camera's response measured
+        // MPayne2-nx (2026-11-24): a stick at part of its travel, -1..1 (RX=0.25): the camera's response measured
         else if (n.rfind("RX=", 0) == 0) s.rx = Axis(std::strtof(n.c_str() + 3, nullptr));
         else if (n.rfind("RY=", 0) == 0) s.ry = Axis(std::strtof(n.c_str() + 3, nullptr));
         else if (n.rfind("LX=", 0) == 0) s.lx = Axis(std::strtof(n.c_str() + 3, nullptr));
         else if (n.rfind("LY=", 0) == 0) s.ly = Axis(std::strtof(n.c_str() + 3, nullptr));
-        // MaxPayne2-nx (2026-11-24): mouse counts, once (MX=200: right, MY=-100: up), as the raw mouse gives them
+        // MPayne2-nx (2026-11-24): mouse counts, once (MX=200: right, MY=-100: up), as the raw mouse gives them
         else if (n.rfind("MX=", 0) == 0 || n.rfind("MY=", 0) == 0) {
             std::lock_guard lock(g_mouse_lock);
             (n[1] == 'X' ? g_mouse_x : g_mouse_y) += int(std::strtol(n.c_str() + 3, nullptr, 10));
@@ -280,7 +280,7 @@ Raw ReadKeyboard() {
                        {VK_ESCAPE, HidNpadButton_Minus}, {'1', HidNpadButton_L},          {'2', HidNpadButton_R},
                        {VK_CONTROL, HidNpadButton_ZL},   {VK_SHIFT, HidNpadButton_ZR},    {'F', HidNpadButton_StickL},
                        {'G', HidNpadButton_StickR},      {VK_F10, HidNpadButton_Minus | HidNpadButton_StickR},
-                       // MaxPayne2-nx (2026-11-24), for play with the mouse: Space jumps (A), R reloads (X), C crouches
+                       // MPayne2-nx (2026-11-24), for play with the mouse: Space jumps (A), R reloads (X), C crouches
                        {VK_SPACE, HidNpadButton_A},      {'R', HidNpadButton_X},          {'C', HidNpadButton_StickL}};
     // Alt+Enter switches the window (host-pc/main.cpp), so Enter held with Alt is not A
     const bool alt = Key(VK_MENU);
@@ -437,7 +437,7 @@ void NavStick(float& x, float& y) {
     y = r.ly / 32767.0f;
 }
 
-// MaxPayne2-nx (2026-11-24): the mouse, from the window (host-pc/main.cpp): raw counts while the window has the mouse, the
+// MPayne2-nx (2026-11-24): the mouse, from the window (host-pc/main.cpp): raw counts while the window has the mouse, the
 // wheel's notches, and whether it has the mouse (and whether the click that gave it is still held)
 void PcMouseMove(int dx, int dy) {
     std::lock_guard lock(g_mouse_lock);

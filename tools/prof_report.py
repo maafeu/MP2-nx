@@ -1,6 +1,6 @@
-"""MaxPayne2-nx: tables from the console profiler's samples (host-switch/prof.cpp, logs/prof_NNN.bin).
+"""MPayne2-nx: tables from the console profiler's samples (host-switch/prof.cpp, logs/prof_NNN.bin).
 
-    python tools/prof_report.py prof_NNN.bin build/mp2/mp2-nx.elf [--from S] [--to S] [--slot N] [--top 40]
+    python tools/prof_report.py prof_NNN.bin build/mp2/MPayne2-nx.elf [--from S] [--to S] [--slot N] [--top 40]
 
 Each 32-byte record: thread slot, time (10 ms units), pc, lr, 5 return addresses, as offsets into the NRO (ELF
 addresses). Names come from the ELF's symbol table (devkitPro's aarch64-none-elf-nm, demangled). Self time is where

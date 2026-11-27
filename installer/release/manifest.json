@@ -4,15 +4,15 @@
     {
       "edition": "Xbox disc (NTSC-U, TT-012)",
       "exe_sha256": "13a0ef7fb8cb0f18d7d371f6fe96903db817d8965206f78600bc1c2d6a4e2bfd",
-      "nro": "mp2-nx.nro",
+      "nro": "MPayne2-nx.nro",
       "files": [
         {
-          "path": "mp2-nx.toml",
-          "source": "mp2-nx.toml",
-          "sha256": "b07bd91cedc35ccd11ee0d3d68644f18897c3e35cbae7d2319091387bd5ad291"
+          "path": "MPayne2-nx.toml",
+          "source": "MPayne2-nx.toml",
+          "sha256": "d61cbd45b5e334ab1e43e4408bcbaf31d52e7d32604e78a92807e84b6b107981"
         }
       ]
     }
   ],
-  "note": "No NRO in this release: the page takes the player's own build of mp2-nx.nro (it holds the game's recompiled code)."
+  "note": "No NRO in this release: the page takes the player's own build of MPayne2-nx.nro (it holds the game's recompiled code)."
 }

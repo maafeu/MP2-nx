@@ -1,9 +1,9 @@
-// mp2-nx-recv: a file receiver for this port's own folder on the console's SD card (2026-11-22).
+// MPayne2-nx-recv: a file receiver for this port's own folder on the console's SD card (2026-11-22).
 //
 // Why: sys-ftpd-light (TCP 5000, how tools/switch_remote.py reaches the card) refused every connection on the morning
 // of 2026-11-22 while sys-botbase answered. This homebrew does what switch_remote.py needs from the card, and nothing
 // more, while it is open in the foreground: it listens on TCP 5005 (the PC connects to it; nothing on the PC listens)
-// and reads and writes files ONLY under sdmc:/switch/mp2-nx. Every path is checked: relative, no "..", no ':' or '\\',
+// and reads and writes files ONLY under sdmc:/switch/MPayne2-nx. Every path is checked: relative, no "..", no ':' or '\\',
 // no leading '/'. There is no delete, rename or truncate-in-place command.
 //
 // Protocol: one command line, '\n' ended, then any body; each reply starts with "OK" or "ERR <why>" and a '\n'.
@@ -26,7 +26,7 @@
 //   HOC_APPEND <size> <now>   then <size> bytes (at most 512) added at the END of config.ini, only when the file is
 //                       now exactly <now> bytes (unchanged since it was read), has no section for hbmenu's title
 //                       010091D01597C000 yet, and the body is printable ASCII lines holding that one section's header
-//                       and key=value lines; the file as it was is first copied to sdmc:/switch/mp2-nx/hoc_config_before.ini.
+//                       and key=value lines; the file as it was is first copied to sdmc:/switch/MPayne2-nx/hoc_config_before.ini.
 //                       Nothing in config.ini is removed or rewritten; reply OK <new size>.
 // No other path outside the port's folder is reachable, and there is still no delete, rename or truncate.
 #include <arpa/inet.h>
@@ -46,7 +46,7 @@
 
 #include <switch.h>
 
-#define ROOT "sdmc:/switch/mp2-nx"
+#define ROOT "sdmc:/switch/MPayne2-nx"
 #define PORT 5005
 #define BUF (1 << 20)
 
@@ -552,7 +552,7 @@ int main(int argc, char** argv) {
     // 2026-11-22: a 10-minute upload with no button pressed let the console sleep, which dropped the connection;
     // auto-sleep stays off while this runs (back on at exit)
     appletSetAutoSleepDisabled(true);
-    printf("mp2-nx-recv: files for %s only (no delete), and an append-only section in %s. PLUS closes.\n", ROOT,
+    printf("MPayne2-nx-recv: files for %s only (no delete), and an append-only section in %s. PLUS closes.\n", ROOT,
            HOC_INI);
     printf("started as %s\n", argc > 0 ? argv[0] : "?");
     mkdir(ROOT, 0777);

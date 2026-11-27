@@ -1,8 +1,8 @@
-# MaxPayne2-nx: one emulator run of the NRO in the user's Ryujinx with this port's own data folder (Ryujinx\MP2, made from
+# MPayne2-nx: one emulator run of the NRO in the user's Ryujinx with this port's own data folder (Ryujinx\MP2, made from
 # the SSX port's system folders: bis firmware and system keys, no sdcard). Refuses to start while any Ryujinx runs or
-# when the free commit memory is under -MinCommitGB; stops only the process it started; puts the SD's mp2-nx.toml back
+# when the free commit memory is under -MinCommitGB; stops only the process it started; puts the SD's MPayne2-nx.toml back
 # as it was after the run. Based on katamari-nx's tools/run_ryujinx.ps1.
-#   powershell -File tools/run_ryujinx.ps1 -Seconds 240 -Name emu1 [-Toml <an mp2-nx.toml for this run>]
+#   powershell -File tools/run_ryujinx.ps1 -Seconds 240 -Name emu1 [-Toml <an MPayne2-nx.toml for this run>]
 param([int]$Seconds = 240, [string]$Name = "emu", [string]$Toml = "", [double]$MinCommitGB = 8,
       [string]$Nro = "", [string]$Script = "",
       # the GL renderer's test switches for this run (gl_flags.txt beside the NRO, removed after), e.g. "noscissor"
@@ -21,14 +21,14 @@ $root = Split-Path -Parent $PSScriptRoot
 $ryuDir = (Resolve-Path $Ryujinx).Path
 $ryu = Join-Path $ryuDir "publish\Ryujinx.exe"
 $data = Join-Path $ryuDir "MP2"
-$sd = Join-Path $data "sdcard\switch\mp2-nx"
-$sdNro = Join-Path $sd "mp2-nx.nro"
+$sd = Join-Path $data "sdcard\switch\MPayne2-nx"
+$sdNro = Join-Path $sd "MPayne2-nx.nro"
 $out = Join-Path $root "build\emu_runs\$Name"
 if (Get-Process -Name Ryujinx -ErrorAction SilentlyContinue) { Write-Output "a Ryujinx is running (another port's?): not starting"; exit 2 }
 $os = Get-CimInstance Win32_OperatingSystem
 $freeCommit = $os.FreeVirtualMemory / 1MB
 if ($freeCommit -lt $MinCommitGB) { Write-Output ("free commit memory {0:N1} GB < {1} GB: not starting" -f $freeCommit, $MinCommitGB); exit 3 }
-if (-not $Nro) { $Nro = Join-Path $root "build\mp2\mp2-nx.nro" }
+if (-not $Nro) { $Nro = Join-Path $root "build\mp2\MPayne2-nx.nro" }
 if (-not (Test-Path $Nro)) { Write-Output "no NRO at $Nro"; exit 4 }
 New-Item -ItemType Directory -Force $sd | Out-Null
 # the disc files: a junction to the extracted game, not a 4 GB copy
@@ -46,7 +46,7 @@ $sdFlags = Join-Path $sd "gl_flags.txt"
 if ($GlFlags) { Set-Content -Path $sdFlags -Value $GlFlags -NoNewline } elseif (Test-Path $sdFlags) { Remove-Item $sdFlags }
 $sdDkFlags = Join-Path $sd "dk_flags.txt"
 if ($DkFlags) { Set-Content -Path $sdDkFlags -Value $DkFlags -NoNewline } elseif (Test-Path $sdDkFlags) { Remove-Item $sdDkFlags }
-$sdToml = Join-Path $sd "mp2-nx.toml"
+$sdToml = Join-Path $sd "MPayne2-nx.toml"
 $savedToml = $null
 if (Test-Path $sdToml) { $savedToml = Get-Content $sdToml -Raw }
 if ($Toml) { Copy-Item $Toml $sdToml -Force }
@@ -145,7 +145,7 @@ for ($try = 0; $try -lt 10; $try++) {
         break
     } catch { Start-Sleep -Seconds 1 }
 }
-if ($try -ge 10) { Write-Output "WARNING: the SD's mp2-nx.toml could not be put back as it was" }
+if ($try -ge 10) { Write-Output "WARNING: the SD's MPayne2-nx.toml could not be put back as it was" }
 $rlog = Get-ChildItem (Join-Path $data "Logs") -Filter "*.log" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime | Select-Object -Last 1
 if (-not $rlog) { $rlog = Get-ChildItem (Split-Path $ryu) -Recurse -Filter "*.log" -ErrorAction SilentlyContinue | Where-Object { $_.LastWriteTime -ge $started } | Sort-Object LastWriteTime | Select-Object -Last 1 }
 if ($rlog) { Copy-Item $rlog.FullName (Join-Path $out "ryujinx.log") -Force }

@@ -6,13 +6,13 @@ param([string]$Out = "$PSScriptRoot\..\..\out\package\pc", [string]$Build = "$PS
 $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path "$PSScriptRoot\..").Path
 $Build = (Resolve-Path $Build).Path
-$exe = Join-Path $Build 'mp2-nx_pc.exe'
-$pdb = Join-Path $Build 'mp2-nx_pc.pdb'
+$exe = Join-Path $Build 'MPayne2-nx_pc.exe'
+$pdb = Join-Path $Build 'MPayne2-nx_pc.pdb'
 if (-not (Test-Path $exe)) { throw "no exe in ${Build}: build it first (ferramentas\build_pc.bat exemplos\mp2)" }
 New-Item -ItemType Directory -Force $Out | Out-Null
 $Out = (Resolve-Path $Out).Path
 Copy-Item $exe $Out -Force
-Copy-Item (Join-Path $root 'package\mp2-nx_pc.toml') (Join-Path $Out 'mp2-nx.toml') -Force
+Copy-Item (Join-Path $root 'package\MPayne2-nx_pc.toml') (Join-Path $Out 'MPayne2-nx.toml') -Force
 Copy-Item (Join-Path $root 'package\README-PC.txt') (Join-Path $Out 'README.txt') -Force
 New-Item -ItemType Directory -Force (Join-Path $Out 'game') | Out-Null
 Set-Content -Path (Join-Path $Out 'game\PUT THE GAME FILES HERE.txt') -Encoding ascii -Value @(
@@ -28,14 +28,14 @@ foreach ($dll in 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll') { Cop
 $hash = (Get-FileHash $exe -Algorithm SHA256).Hash
 New-Item -ItemType Directory -Force (Join-Path $Out 'analysis') | Out-Null
 # only this exe's PDB: the ones an earlier run of this script put here match no exe in the package any more
-$keep = "mp2-nx_pc-$($hash.Substring(0, 8)).pdb"
-Get-ChildItem (Join-Path $Out 'analysis') -Filter 'mp2-nx_pc-*.pdb' | Where-Object { $_.Name -ne $keep } | Remove-Item
+$keep = "MPayne2-nx_pc-$($hash.Substring(0, 8)).pdb"
+Get-ChildItem (Join-Path $Out 'analysis') -Filter 'MPayne2-nx_pc-*.pdb' | Where-Object { $_.Name -ne $keep } | Remove-Item
 Copy-Item $pdb (Join-Path $Out "analysis\$keep") -Force
 $rev = (& git -C $root rev-parse --short HEAD)
 $dirty = (& git -C $root status --porcelain -- host-pc sdk exemplos/mp2/src | Measure-Object).Count
 Set-Content -Path (Join-Path $Out 'analysis\BUILD.txt') -Encoding ascii -Value @(
     "EXE: $hash",
-    "PDB: mp2-nx_pc-$($hash.Substring(0, 8)).pdb (the exe's own build)",
-    "Sources: git $rev of MaxPayne2-nx$(if ($dirty) { " plus $dirty uncommitted files" })",
+    "PDB: MPayne2-nx_pc-$($hash.Substring(0, 8)).pdb (the exe's own build)",
+    "Sources: git $rev of MPayne2-nx$(if ($dirty) { " plus $dirty uncommitted files" })",
     "Visual C++ runtime: $($crt.FullName)")
 Get-ChildItem $Out -Recurse -File | Select-Object @{n = 'File'; e = { $_.FullName.Substring($Out.Length + 1) } }, Length

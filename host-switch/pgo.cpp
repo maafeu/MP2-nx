@@ -1,4 +1,4 @@
-// MaxPayne2-nx: profile-guided optimisation, the training run (PORT_PGO=generate, host-switch/CMakeLists.txt). The game's
+// MPayne2-nx: profile-guided optimisation, the training run (PORT_PGO=generate, host-switch/CMakeLists.txt). The game's
 // recompiled code and the host are built with -fprofile-generate -fprofile-info-section=gcov_info: GCC's counters, and
 // a pointer to each object's gcov_info in the section gcov_info instead of a destructor that would write
 // <the object's absolute PC path>.gcda (a C:\... name the console's FAT card cannot hold). Here the port writes them

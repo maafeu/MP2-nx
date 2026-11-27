@@ -1,4 +1,4 @@
-// MaxPayne2-nx test aid (PC build only): a sampling profiler. MP2_PROF=START:SECONDS (for example 60:60) samples from START
+// MPayne2-nx test aid (PC build only): a sampling profiler. MP2_PROF=START:SECONDS (for example 60:60) samples from START
 // seconds after launch for SECONDS seconds. About every millisecond it stops each thread that used the CPU since its
 // last sample, walks the thread's stack (the recompiled code's host frames follow the guest's calls), and lets it go.
 // At the end it writes logs/prof.txt: per thread how often it was working, then the functions by self time (the

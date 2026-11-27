@@ -67,7 +67,7 @@ void SetupGuestBlocks(Thread& t, uint32_t stack_size, uint32_t tls_size) {
     W32(e + 0x12C, t.id);                       // ETHREAD.UniqueThread
 }
 
-// MaxPayne2-nx (2026-11-23): an ended thread's guest stack back to the stack range, as the Xbox kernel frees a terminated
+// MPayne2-nx (2026-11-23): an ended thread's guest stack back to the stack range, as the Xbox kernel frees a terminated
 // thread's stack. mem::FreeStack had no caller: each ended thread kept its stack (MP2's loader, one per level load:
 // 192 KB committed and 256 KB of the 256 MB range each, about a thousand loads). Only once no guest code will run on
 // it again: after the thread's routine returned, or in ExitThread, which never returns to the guest. The KPCR and
@@ -123,7 +123,7 @@ void NameHostThread(const char* name) {
 }
 
 #ifdef __SWITCH__
-// MaxPayne2-nx: the guest threads' host handles in the order they started, for the console's thread census
+// MPayne2-nx: the guest threads' host handles in the order they started, for the console's thread census
 // (host-switch/clocks.cpp); and where they may run. libnx's pthreads start on the process's default core with only that
 // core in their mask, so every guest thread shared one core while the application's other two idled (console runs,
 // 2026-11-22). thread_cores = 1 gives each the application's three cores (0-2), its preferred core in turn: the threads
@@ -131,7 +131,7 @@ void NameHostThread(const char* name) {
 std::mutex g_host_threads_lock;
 std::vector<Handle> g_host_threads;
 
-// MaxPayne2-nx (2026-11-23): libnx gives a thread's stack back only when the thread is joined (threadClose), and detach is a
+// MPayne2-nx (2026-11-23): libnx gives a thread's stack back only when the thread is joined (threadClose), and detach is a
 // stub here (host-switch/stubs.cpp), so every guest thread that ended kept its 64 MB host stack until the process
 // exited. The game makes a loader thread at every level change: after about 20 changes the heap had no 64 MB left,
 // the next loader could not be made, and the title's thread waited for it at 100% for good (the level-change hang,
@@ -237,7 +237,7 @@ std::vector<uint32_t> HostThreadHandles() {
     return std::vector<uint32_t>(g_host_threads.begin(), g_host_threads.end());
 }
 
-// MaxPayne2-nx: a host thread that does the title's work elsewhere (the render thread) joins the list, so the thread census
+// MPayne2-nx: a host thread that does the title's work elsewhere (the render thread) joins the list, so the thread census
 // and the sampling profiler see it too
 void AddHostThread(uint32_t handle) {
     std::lock_guard<std::mutex> lock(g_host_threads_lock);

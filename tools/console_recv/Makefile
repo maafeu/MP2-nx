@@ -37,9 +37,9 @@ include $(DEVKITPRO)/libnx/switch_rules
 #   of a homebrew executable (.nro). This is intended to be used for sysmodules.
 #   NACP building is skipped as well.
 #---------------------------------------------------------------------------------
-TARGET		:=	mp2-nx-recv
-APP_TITLE	:=	mp2-nx-recv
-APP_AUTHOR	:=	MaxPayne2-nx
+TARGET		:=	MPayne2-nx-recv
+APP_TITLE	:=	MPayne2-nx-recv
+APP_AUTHOR	:=	MPayne2-nx
 APP_VERSION	:=	1.0.0
 BUILD		:=	build
 SOURCES		:=	source

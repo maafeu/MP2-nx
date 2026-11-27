@@ -108,7 +108,7 @@ self.onmessage = async ({ data }) => {
       startLz4: (n) => tool('./lz4_worker.js', n, (pool) => (bytes, level) =>
         pool.run({ bytes, level }, [bytes.buffer]).then((r) => r.bytes)),
     };
-    // mp2-nx (2026-11-24): the player's own build of the NRO when the release has none (the public page); the
+    // MPayne2-nx (2026-11-24): the player's own build of the NRO when the release has none (the public page); the
     // release's other files (the settings) still come from release/, checked against the manifest
     const fromRelease = data.nro
       ? async (name, hash) => (name === game.nro ? new Uint8Array(await data.nro.arrayBuffer()) : fetchRelease(name, hash))

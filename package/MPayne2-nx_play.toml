@@ -1,4 +1,4 @@
-# Max Payne 2 (MaxPayne2-nx) settings for playing: the shipped ones (the diagnostics are files: input_script.txt,
+# Max Payne 2 (MPayne2-nx) settings for playing: the shipped ones (the diagnostics are files: input_script.txt,
 # gl_flags.txt, capture; none of them in the SD folder by default). The port writes this file at its first start when
 # it is missing; these are its defaults, written out, except render_wide (the port's own default is 0). Every value
 # keeps the original picture except the output shape (see display below) and render_wide (on: the frame drawn

@@ -73,7 +73,7 @@ uint32_t KernelThunkAddress(uint32_t ordinal) { return kKernelThunkBase + ordina
 
 void x86_icall(X86Context& ctx, uint8_t* base, uint32_t target) {
     ctx.last_icall = target;
-    // MaxPayne2-nx: a small per-thread cache of recent targets in front of the address-indexed tables (the function table
+    // MPayne2-nx: a small per-thread cache of recent targets in front of the address-indexed tables (the function table
     // spans the whole code range, about 25 MB, so a lookup was a cache miss or two: x86_icall was 1.7% of the title's
     // thread on the console, run 9). Only targets that are not catch continuations go in (that set is fixed at boot).
     struct Entry {

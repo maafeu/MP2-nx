@@ -16,7 +16,7 @@ public static class W {
 New-Item -ItemType Directory -Force $Out | Out-Null
 $p = $null
 foreach ($i in 1..120) {
-    $p = Get-Process -Name 'mp2-nx_pc' -ErrorAction SilentlyContinue | Select-Object -First 1
+    $p = Get-Process -Name 'MPayne2-nx_pc' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($p -and $p.MainWindowHandle -ne [IntPtr]::Zero) { break }
     Start-Sleep -Milliseconds 500
 }

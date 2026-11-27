@@ -34,7 +34,7 @@ public:
     // SyncLate in two for the render thread: DeliverLate (any thread) writes the newest finished copy to guest memory,
     // false when there is none recent; RecordLate (in order with the draws) starts a copy for a later lock
     virtual bool DeliverLate(uint32_t) { return false; }
-    // MaxPayne2-nx: the calling thread makes every call from now on (render_thread.cpp's worker, at its start, after Init
+    // MPayne2-nx: the calling thread makes every call from now on (render_thread.cpp's worker, at its start, after Init
     // ran on the title's thread); a renderer that checks its caller's thread takes this one
     virtual void Adopt() {}
     virtual void RecordLate(uint32_t) {}

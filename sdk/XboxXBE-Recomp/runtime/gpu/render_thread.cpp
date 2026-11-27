@@ -388,7 +388,7 @@ private:
         if (auto set = reinterpret_cast<SetDescription>(
                 reinterpret_cast<void*>(GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "SetThreadDescription"))))
             set(GetCurrentThread(), L"render");
-        // MaxPayne2-nx: the renderer is this thread's from here on (Backend::Adopt; a no-op for D3D12, deko3d checks its
+        // MPayne2-nx: the renderer is this thread's from here on (Backend::Adopt; a no-op for D3D12, deko3d checks its
         // caller's thread)
         inner_->Adopt();
         for (;;) {

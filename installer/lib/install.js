@@ -28,7 +28,7 @@ async function* chunks(file, size = 8 << 20) {
 }
 
 // The build of release/manifest.json this default.xex is, or throws.
-// mp2-nx: exe names the executable (game.json "exe"; default.xbe for an original Xbox port), its hash exe_sha256
+// MPayne2-nx: exe names the executable (game.json "exe"; default.xbe for an original Xbox port), its hash exe_sha256
 export async function findBuild(manifest, files, exe = 'default.xex') {
   const xex = files.find((f) => f.path.toLowerCase() === exe.toLowerCase());
   if (!xex) throw new Error(`no ${exe} in the folder: choose the folder the game was extracted to, or the disc image`);
@@ -55,7 +55,7 @@ export async function buildPackage({ game, manifest, files, dlc = [], fetchRelea
   const stopAll = () => { for (const r of running.splice(0)) r.stop(); };
   try {
     const { build, xex } = await findBuild(manifest, files, game.exe);
-    const gameDir = game.game_dir || 'game_root';  // mp2-nx: the kit's ports read switch/<package>/game/
+    const gameDir = game.game_dir || 'game_root';  // MPayne2-nx: the kit's ports read switch/<package>/game/
     const shaders = game.shaders && build.shaders;
     if (!shaders) compile = false;
     // the shares of the bar: the shaders take the time, the zip the bytes

@@ -1,4 +1,4 @@
-// MaxPayne2-nx: a sampling profiler for the console, ported from the COLD-FEAR-NX-PORT base's (src/switch_nx.c,
+// MPayne2-nx: a sampling profiler for the console, ported from the COLD-FEAR-NX-PORT base's (src/switch_nx.c,
 // RECOMP_NX_PROFILE). The console has no profiler and the emulator's and the PC's costs are not the console's. A thread
 // above the game's wakes every millisecond, pauses each busy guest thread (svcSetThreadActivity), reads its pc, lr and
 // up to five return addresses up the x29 chain (svcGetThreadContext3) and lets it run again. "Busy" is decided every
@@ -7,7 +7,7 @@
 // lr, 5 return addresses) as offsets into the NRO; tools/prof_report.py turns the file into per-function tables with
 // the run's ELF. Nothing is resolved on the console. Costs a few percent of one core while on.
 //
-// On with `profile = 1` in mp2-nx.toml (a test aid, never written back); `profile_after = <s>` starts it later.
+// On with `profile = 1` in MPayne2-nx.toml (a test aid, never written back); `profile_after = <s>` starts it later.
 #include <switch.h>
 
 #include <cstdint>

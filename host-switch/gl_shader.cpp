@@ -1,4 +1,4 @@
-// MaxPayne2-nx: SPIR-V to GLSL for the OpenGL renderer, through SPIRV-Cross (third_party/spirv-cross, Apache-2.0)
+// MPayne2-nx: SPIR-V to GLSL for the OpenGL renderer, through SPIRV-Cross (third_party/spirv-cross, Apache-2.0)
 #include "gl_shader.h"
 
 #include <exception>

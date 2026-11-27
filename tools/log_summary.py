@@ -1,4 +1,4 @@
-"""MaxPayne2-nx: one table from a port log (PC, Ryujinx or the console).
+"""MPayne2-nx: one table from a port log (PC, Ryujinx or the console).
 
     python tools/log_summary.py logs/mp2_NNN.log [more logs...]
 

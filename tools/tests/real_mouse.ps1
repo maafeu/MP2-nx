@@ -20,7 +20,7 @@ public static class M {
 }
 "@
 $exeDir = (Resolve-Path "$PSScriptRoot\..\..\build\mp2-pc").Path
-$p = Get-Process -Name 'mp2-nx_pc' | Select-Object -First 1
+$p = Get-Process -Name 'MPayne2-nx_pc' | Select-Object -First 1
 $h = $p.MainWindowHandle
 $before = [M]::GetForegroundWindow()
 [M]::keybd_event(0x12, 0, 0, [IntPtr]::Zero); [M]::keybd_event(0x12, 0, 2, [IntPtr]::Zero)  # Alt, so the focus may move

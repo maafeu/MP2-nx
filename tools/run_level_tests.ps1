@@ -23,7 +23,7 @@ $tag = if ($Renderer -eq 'vk') { 'vk' } else { '' }
 $out = Join-Path $root 'build\level_tests'
 New-Item -ItemType Directory -Force $out | Out-Null
 $summary = Join-Path $out 'summary.txt'
-$toml = Join-Path $root 'build\mp2-pc\mp2-nx.toml'
+$toml = Join-Path $root 'build\mp2-pc\MPayne2-nx.toml'
 foreach ($lv in $list) {
     Set-Content -Path $toml -Value "test_level = $lv" -Encoding ascii
     Remove-Item -Recurse -Force (Join-Path $root 'build\mp2-pc\shots') -ErrorAction SilentlyContinue

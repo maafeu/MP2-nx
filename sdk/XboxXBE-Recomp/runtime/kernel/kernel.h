@@ -20,12 +20,12 @@
 namespace kernel {
 
 #ifdef __SWITCH__
-// MaxPayne2-nx: thread_cores from the settings (host-switch/main.cpp sets it before Boot; threads.cpp): 0 libnx's default
+// MPayne2-nx: thread_cores from the settings (host-switch/main.cpp sets it before Boot; threads.cpp): 0 libnx's default
 // (the process's core), 1 the application's three cores for every guest thread; and the guest threads' host handles in
 // the order they started, for the console's thread census (host-switch/clocks.cpp)
 extern int g_thread_cores;
 std::vector<uint32_t> HostThreadHandles();
-void AddHostThread(uint32_t handle);  // MaxPayne2-nx: the render thread, for the census and the profiler
+void AddHostThread(uint32_t handle);  // MPayne2-nx: the render thread, for the census and the profiler
 #endif
 
 // NTSTATUS values the kernel hands back
@@ -198,7 +198,7 @@ bool ReadGameFile(const std::string& xbox_path, std::vector<uint8_t>& out);  // 
 // boot
 bool Boot(std::vector<uint8_t> xbe, const std::string& xbe_name, const std::string& game_dir, const std::string& data_dir);
 [[noreturn]] void Shutdown(int code);
-// MaxPayne2-nx: called by Shutdown before the process ends (up to 4; the Switch build ends it without atexit)
+// MPayne2-nx: called by Shutdown before the process ends (up to 4; the Switch build ends it without atexit)
 void OnExit(void (*fn)());
 // the title leaves on its own (its quit option, a return to the dashboard): on the Switch the system is told first
 [[noreturn]] void Quit();

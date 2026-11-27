@@ -11,7 +11,7 @@ takes only commands that cannot reach the card or write memory. The Album is rea
 console run needs the console owner's word first. One exception, given by the console owner on 2026-11-23: the hoc-*
 commands below reach Horizon-OC's config.ini (listed, read, one title section appended, never rewritten).
 
-MaxPayne2-nx's copy (2026-11-22) adds mkdir and put-tree, for the disc's files (a folder tree) on the card: both refuse any
+MPayne2-nx's copy (2026-11-22) adds mkdir and put-tree, for the disc's files (a folder tree) on the card: both refuse any
 path outside the port's folder, like put, and neither deletes anything. sys-ftpd-light refused every connection that
 morning, so it also adds netload (hbmenu's nxlink protocol, the file name always inside the port's folder) and the r*
 commands for tools/console_recv, a receiver that runs in the foreground and serves only the port's folder.
@@ -31,11 +31,16 @@ commands for tools/console_recv, a receiver that runs in the foreground and serv
   put LOCAL REMOTE           ftp upload (overwrites a file of that name in the folder)
   mkdir [PATH]               a folder in the port's folder (or the port's folder itself); one already there is kept
   put-tree LOCAL REMOTE      a PC folder uploaded with its subfolders; a file already on the card at its size is kept
+  rename OLD NEW             ftp rename (RNFR/RNTO) inside the port's folder; refused when NEW is already there, so
+                             nothing is overwritten or lost
+  move-root /switch/OLD      the port's folder itself renamed from /switch/OLD (one folder under /switch, the port's
+                             earlier name) to --root, refused when --root is already there. The console owner's word,
+                             2026-11-26: the port renamed from mp2-nx to MPayne2-nx (another port uses switch/mp2-nx)
   netload LOCAL.nro          hbmenu's netloader (TCP 28280, after Y in hbmenu): the NRO saved as <port folder>/<its
                              name> under hbmenu's /switch and started. hbmenu does not make folders: with the port's
                              folder missing it reports an error and writes nothing
   rls [PATH] | rget REMOTE [LOCAL] | rput LOCAL REMOTE | rput-tree LOCAL REMOTE | rmkdir PATH | rquit
-                             the same through tools/console_recv (mp2-nx-recv, TCP 5005, started with netload), for
+                             the same through tools/console_recv (MPayne2-nx-recv, TCP 5005, started with netload), for
                              when sys-ftpd-light does not answer; it reaches only the port's folder and cannot delete
   cfg-ls [NAME]              read only: the listing of /config or of /config/NAME (names and sizes), through the receiver
   svc-has                    whether Horizon-OC's (hoc:clk) and sys-clk's (sys:clk) services run (1 yes, 0 no, -1 unknown)
@@ -403,7 +408,7 @@ def netload(host, nro):
 
 
 class Recv:
-    """tools/console_recv (mp2-nx-recv) on TCP 5005: line commands, OK/ERR replies; paths relative to its root, which
+    """tools/console_recv (MPayne2-nx-recv) on TCP 5005: line commands, OK/ERR replies; paths relative to its root, which
     is the port's folder (it refuses anything else on its side too)."""
 
     def __init__(self, host):
@@ -649,6 +654,48 @@ def main():
             remote = album_path(rest[0])
             local = rest[1] if len(rest) > 1 else os.path.basename(remote)
             print(local, ftp_get_file(host, remote, local), 'bytes')
+    elif cmd in ('rename', 'move-root'):
+        # MPayne2-nx (2026-11-26): no retries here, since a rename whose reply was lost must not be sent twice; the
+        # state is read back instead. Nothing is deleted or overwritten: the target must not exist.
+        if cmd == 'rename':
+            if len(rest) != 2:
+                sys.exit('usage: rename OLD NEW (both in %s)' % SD_ROOT)
+            src, dst = sd_path(rest[0]), sd_path(rest[1])
+            if SD_ROOT in (src, dst):
+                sys.exit('refused: rename takes paths inside %s, not the folder itself (move-root)' % SD_ROOT)
+        else:
+            if len(rest) != 1 or not SD_ROOT:
+                sys.exit('usage: move-root /switch/OLD (the folder becomes --root)')
+            if ':' in rest[0]:
+                sys.exit('refused: %s looks like a Windows path (set MSYS_NO_PATHCONV=1 in Git Bash)' % rest[0])
+            src = posixpath.normpath('/' + rest[0].replace('\\', '/').lstrip('/'))
+            if not src.startswith('/switch/') or src.count('/') != 2 or src == SD_ROOT:
+                sys.exit('refused: move-root takes one folder under /switch/ other than %s (got %s)' % (SD_ROOT, src))
+            dst = SD_ROOT
+        parent_dst = posixpath.dirname(dst)
+        names_src = ftp_names(host, posixpath.dirname(src))
+        names_dst = ftp_names(host, parent_dst)
+        if posixpath.basename(src) not in names_src:
+            sys.exit('not there: %s' % src)
+        if posixpath.basename(dst) in names_dst:
+            sys.exit('refused: %s is already there (nothing is overwritten)' % dst)
+        f = ftp_open(host)
+        try:
+            try:
+                f.rename(src, dst)
+            except Exception as e:
+                print('the rename answered', e, '- reading the state back')
+        finally:
+            try:
+                f.quit()
+            except Exception:
+                f.close()
+        time.sleep(0.5)
+        done = posixpath.basename(dst) in ftp_names(host, parent_dst) and \
+            posixpath.basename(src) not in ftp_names(host, posixpath.dirname(src))
+        print('%s -> %s: %s' % (src, dst, 'done' if done else 'NOT done'))
+        if not done:
+            sys.exit(1)
     elif cmd in ('ls', 'get', 'put', 'mkdir', 'put-tree'):
         # Refused before any connection is made: the card path is rest[1] for put, rest[0] for the others.
         sd_path(rest[1] if cmd in ('put', 'put-tree') else (rest[0] if rest else ''))

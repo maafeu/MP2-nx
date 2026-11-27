@@ -1229,7 +1229,7 @@ KERNEL_EXPORT(29, ExSaveNonVolatileSetting, 4) {
 // widescreen (a 4:3 output plays the console's 4:3), 480p
 static uint32_t VideoFlags() { return (app::Widescreen() ? 0x00010000 : 0) | (app::g_video_480p ? 0x00080000 : 0); }
 
-// MaxPayne2-nx: the host's offset from UTC now, in minutes east (UTC-6 gives -360). The Switch's C library keeps local time
+// MPayne2-nx: the host's offset from UTC now, in minutes east (UTC-6 gives -360). The Switch's C library keeps local time
 // as UTC, so there it comes from the console's own time zone (libnx's startup opens the time service).
 static int UtcOffsetMinutes() {
 #ifdef __SWITCH__
@@ -1255,7 +1255,7 @@ static int UtcOffsetMinutes() {
 #endif
 }
 
-// MaxPayne2-nx: XC_MAX_OS (0xFF), the EEPROM's user section (its 0x60 bytes from 0x60). XAPI's time zone (0027C54F in Max
+// MPayne2-nx: XC_MAX_OS (0xFF), the EEPROM's user section (its 0x60 bytes from 0x60). XAPI's time zone (0027C54F in Max
 // Payne 2, read when a save is named) takes the bias at +4, the zone names at +8 and +0xC, the change dates at +0x18
 // and +0x1C, and the standard and daylight biases at +0x28 and +0x2C. A real console has the zone its dashboard set;
 // here it is the host's offset now with no daylight change dates, so the title's local time is the host's (the save

@@ -275,7 +275,7 @@ void Relaunch(const char* exe) {
 #endif
 }
 
-// MaxPayne2-nx: work that must happen at a clean exit (the Switch build ends the process at once below, without atexit):
+// MPayne2-nx: work that must happen at a clean exit (the Switch build ends the process at once below, without atexit):
 // host-switch/pgo.cpp writes its profile here
 namespace {
 void (*g_exit_hooks[4])() = {};

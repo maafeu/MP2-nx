@@ -2,7 +2,7 @@
 // renderer (harness/reference_renderer.cpp) draws the title's calls into its surfaces in guest memory, as the
 // console's GPU would, and each present scales the front buffer into libnx's framebuffer (1280x720, the game's aspect:
 // 16:9 when the game draws widescreen, as Max Payne 2 does when told the TV is). No GPU and no Vulkan: for bringing a port up on the Switch and in an emulator when
-// no NVK build is at hand (MaxPayne2-nx docs/MP2-notes.md, "the Switch renderer"). Slow; the real renderer is a GPU one.
+// no NVK build is at hand (MPayne2-nx docs/MP2-notes.md, "the Switch renderer"). Slow; the real renderer is a GPU one.
 #include <switch.h>
 
 #include <algorithm>

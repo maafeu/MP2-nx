@@ -11,7 +11,7 @@
 
 namespace gpu {
 
-// MaxPayne2-nx: an allocator whose resize leaves the new elements uninitialised: the converted vertices, the rebuilt index
+// MPayne2-nx: an allocator whose resize leaves the new elements uninitialised: the converted vertices, the rebuilt index
 // lists and the gathered vertices are each written in full right after their resize, and the zero fill before it
 // (std::vector's value initialisation) was 1% of the title's thread at Max Payne 2's level 27 on the console
 template <typename T>
@@ -78,7 +78,7 @@ struct Assembled {
     uint32_t draw_count = 0;
     int32_t base_vertex = 0;
     std::array<NoInitVector<uint8_t>, 16> gathered;  // raw vertices copied in draw order when the indices are sparse
-    NoInitVector<uint32_t> seq;  // converted path's scratch: the draw's vertices in draw order (MaxPayne2-nx: a member, not
+    NoInitVector<uint32_t> seq;  // converted path's scratch: the draw's vertices in draw order (MPayne2-nx: a member, not
                                  // a thread_local, whose every access was a __aarch64_read_tp call under -mtp=soft)
 };
 

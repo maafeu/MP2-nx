@@ -172,12 +172,12 @@ struct State {
     uint32_t vs_handle = 0;  // programmable when bit 0 set, otherwise an FVF
     std::shared_ptr<VertexShader> vs;
     std::shared_ptr<PixelShader> ps;
-    // MaxPayne2-nx: the vsc registers written since a render thread last took the constants (vsc_lo..vsc_hi; vsc_lo >
+    // MPayne2-nx: the vsc registers written since a render thread last took the constants (vsc_lo..vsc_hi; vsc_lo >
     // vsc_hi: none), widened by the writes that move vsc_gen (the game's D3D layer); render_thread.cpp compares only
     // those, resets them, and compares all 192 when vsc_gen moved without a span. Outside the state it sends.
     mutable uint16_t vsc_lo = 0xFFFF, vsc_hi = 0;
     std::array<std::array<float, 4>, 192> vsc{};  // hardware order: D3D register + 96
-    // MaxPayne2-nx: moved by every write to vsc (the game's D3D layer, exemplos/mp2/src/d3d/d3d8.cpp), so the GL renderer
+    // MPayne2-nx: moved by every write to vsc (the game's D3D layer, exemplos/mp2/src/d3d/d3d8.cpp), so the GL renderer
     // skips comparing the 3 KB block when nothing wrote it since its last upload. Only a D3D layer that moves it at
     // every write sets vsc_gen_tracked; without it the renderer compares as before.
     uint32_t vsc_gen = 0;

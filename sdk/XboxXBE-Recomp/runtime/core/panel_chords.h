@@ -1,6 +1,6 @@
 #pragma once
 // The options panel's two chords on player 1's pad, for the hosts' input Poll (host-switch/input.cpp,
-// host-pc/input.cpp), before the pad is hidden from the game while the panel is open or a chord is held. MaxPayne2-nx,
+// host-pc/input.cpp), before the pad is hidden from the game while the panel is open or a chord is held. MPayne2-nx,
 // 2026-11-24:
 // - Back + R3 opens and closes the panel (the PC's F10 sends both). The games checked it in their own pad hook
 //   (common/game_info.cpp), on the pad Poll had already emptied while the panel was open, so it opened the panel but

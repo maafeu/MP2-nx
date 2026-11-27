@@ -91,10 +91,10 @@ toml::table Table() {
 
 }  // namespace
 
-// MaxPayne2-nx (2026-11-22, the user's target "60 fps locked"): 60 frames a second, locked to 30 while the console falls
+// MPayne2-nx (2026-11-22, the user's target "60 fps locked"): 60 frames a second, locked to 30 while the console falls
 // well short of 60 (fps_adaptive, fps_adaptive_ms), the CPU at 1581 MHz and the memory at 1600 for the run (cpu_clock,
 // mem_clock; the old clocks back at exit; a clock manager on the console, such as Horizon-OC, may hold them lower);
-// vsync on, the frame at the screen's height. mp2-nx_30.toml in the package: 30 fps at the system's clock (cooler,
+// vsync on, the frame at the screen's height. MPayne2-nx_30.toml in the package: 30 fps at the system's clock (cooler,
 // longer on battery). The clocks (2026-11-23, the console survey): 1581 MHz with the memory at 1600 (the docked rate)
 // is the lowest pair measured that holds 60 in every level tested; 1428 or 1581 alone, or 1428 with memory 1600, left
 // the heaviest fights at 57-58.7 fps.
@@ -221,11 +221,11 @@ std::atomic<uint32_t> g_hold_fps{0};
 std::atomic<int64_t> g_hold_until{0};  // steady clock ticks
 }  // namespace
 
-// MaxPayne2-nx: the cap the last Pace used (after fps_adaptive and HoldFrameRate), for the swap interval
+// MPayne2-nx: the cap the last Pace used (after fps_adaptive and HoldFrameRate), for the swap interval
 std::atomic<uint32_t> g_cap_now{0};
 uint32_t FrameCapNow() { return g_cap_now; }
 
-// MaxPayne2-nx: the render thread's handle (render_thread = 1), whose CPU time the adaptive cap weighs with the title's
+// MPayne2-nx: the render thread's handle (render_thread = 1), whose CPU time the adaptive cap weighs with the title's
 std::atomic<uint32_t> g_render_thread{0};
 void SetRenderThread(uint32_t handle) { g_render_thread = handle; }
 
@@ -245,7 +245,7 @@ void HoldFrameRate(uint32_t fps) {
     g_hold_until = (std::chrono::steady_clock::now() + std::chrono::milliseconds(250)).time_since_epoch().count();
 }
 
-// MaxPayne2-nx (2026-11-23): when the last frame was paced (system ticks), for the clock keeper's stall report
+// MPayne2-nx (2026-11-23): when the last frame was paced (system ticks), for the clock keeper's stall report
 // (host-switch/clocks.cpp): a level change hung twice on the console with the title's thread busy and no frame
 std::atomic<uint64_t> g_last_frame_tick{0};
 uint64_t LastFrameTick() { return g_last_frame_tick.load(std::memory_order_relaxed); }
@@ -257,13 +257,13 @@ void Pace() {
     g_last_frame_tick.store(armGetSystemTick(), std::memory_order_relaxed);
     uint32_t cap = Get().fps_cap;
     auto now = clock::now();
-    // MaxPayne2-nx: adaptive 60. The frame's work is the title's thread's CPU time since the last Pace; while its average
+    // MPayne2-nx: adaptive 60. The frame's work is the title's thread's CPU time since the last Pace; while its average
     // stays over 16 ms (60 cannot be held, vsync would show 40-57 fps with uneven frames) the cap drops to 30, and it
     // comes back to 60 once the average has stayed under 14.5 ms for 3 s. The game times itself by the clock, so its speed is the
     // same either way. Console figures (2026-11-22): chapter 1 about 17.5 ms a frame at 1020 MHz and 12 at 1785; level
     // 27 about 25 ms at 1020 (GL renderer). With the deko3d renderer chapter 1 takes about 13 ms at 1020 MHz (run dk2):
     // the way back was 13 ms, which it would not have met after a dip; 14.5 leaves 2 ms of the 16.7 ms frame.
-    // MaxPayne2-nx (2026-11-23, the user's choice "let them run free"): the line is fps_adaptive_ms, 20 by default, and the
+    // MPayne2-nx (2026-11-23, the user's choice "let them run free"): the line is fps_adaptive_ms, 20 by default, and the
     // way back 1.5 ms under it (16 gives the old 16 / 14.5). With the render thread the heaviest scenes at 1020 MHz take
     // 17-18 ms (55-58 fps free) and the worst 20-23 (43-50 fps; survey3): under 20 they run free with a repeated frame
     // now and then, past it the frames would be uneven enough that a steady 30 reads better.
@@ -275,7 +275,7 @@ void Pace() {
         // the title's thread's own CPU time since the last Pace (the kernel's tick count for this thread, 13.0.0+): the
         // wait in the swap, which paces the frame at 30 with swap interval 2, is not work (wall time stayed at 33 ms
         // there and never let the cap come back to 60; run 14); wall time where the tick count is not available
-        // MaxPayne2-nx: with the renderer on its own thread (render_thread), a frame is as long as the busier of the two
+        // MPayne2-nx: with the renderer on its own thread (render_thread), a frame is as long as the busier of the two
         static uint64_t last_ticks = 0, last_render_ticks = 0;
         double work = ThreadWorkMs(threadGetCurHandle(), last_ticks);
         if (work < 0) work = std::chrono::duration<double, std::milli>(now - last_end).count();
@@ -301,7 +301,7 @@ void Pace() {
     }
     if (uint32_t hold = g_hold_fps; hold && now.time_since_epoch().count() < g_hold_until) cap = hold;
     g_cap_now = cap;
-    // MaxPayne2-nx: at 60 or 30 with vsync on, the swap interval paces (1 or 2 vblanks, gl_backend.cpp SwapWindow): a timer
+    // MPayne2-nx: at 60 or 30 with vsync on, the swap interval paces (1 or 2 vblanks, gl_backend.cpp SwapWindow): a timer
     // on top of vsync beat against it at 30 (frames of 40-50 ms when it released just after a vblank; run 13)
     if (!cap || (Get().vsync && (cap == 60 || cap == 30))) {
         next = now;
