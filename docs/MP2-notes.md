@@ -1597,3 +1597,14 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
   answers 404 for it; MP2-nx and https://maafeu.github.io/MP2-nx/ are untouched. The links above to the old repository,
   its release and its page are history now and lead nowhere. The local clone `mp2-nx-installer-public` (its remote
   is gone) and the private `mp2-nx-installer` are kept on the PC.
+- **Renamed MaxPayne2-nx** (the user, 11-26: "can we change it everywhere to have it named MaxPayne2-nx"): the GitHub
+  repository is now https://github.com/maafeu/MaxPayne2-nx (GitHub sends the old repository address there, for the
+  web and for git) and the web installer https://maafeu.github.io/MaxPayne2-nx/ (Pages does not redirect: the old
+  page address is a 404 now). In the files, every `MP2-nx` (161 places in 71 files: the source's comments, the
+  window title, `PORT_AUTHOR`, the scripts, README, LICENSE, the installer) became `MaxPayne2-nx`; the installer
+  page shows game.json's new `name` (heading, title, "Create MaxPayne2-nx.zip"). **Kept, deliberately:** the file
+  and folder names `mp2-nx.nro`, `mp2-nx.toml` and the SD card folder `switch/mp2-nx/` (the player's settings and
+  saves are there, and the card's layout and every guide use it), `exemplos/mp2`, this local folder's name `MP2-nx`
+  (the tools' paths), and these history notes, which keep the name each step had. The v1.0.0 release is "MaxPayne2-nx
+  1.0.0", its link updated. Checked live: the page's heading, button, links and service worker under the new name,
+  the zip's folder still `switch/mp2-nx/`, no console errors.

@@ -478,3 +478,6 @@ Times are the PC's local time (ABT).
   old path); both v1.0.0 release notes link the new address.
 - 11-24 ~00:00 The old repository maafeu/MP2-nx-installer deleted (the user's word); the installer lives only in
   `installer/` here, at https://maafeu.github.io/MP2-nx/.
+- 11-26 18:05-18:20 Renamed MaxPayne2-nx: the GitHub repository, the installer page
+  (https://maafeu.github.io/MaxPayne2-nx/), every MP2-nx in the files and the v1.0.0 release; the file names
+  (`mp2-nx.nro`, `switch/mp2-nx/`) kept.
