@@ -25,13 +25,23 @@ See [docs/MP2-notes.md](docs/MP2-notes.md) for every decision, fix and measureme
 **Building:** `ferramentas/recompilar.ps1 exemplos/mp2` makes the C++ from your own `default.xbe`; then
 `ferramentas\build_pc.bat exemplos\mp2` for the PC, and in devkitPro's msys2
 `CMAKE_EXTRA='-DPORT_RENDERER=dk -DPYTHON_EXECUTABLE=<python.exe>' ./ferramentas/build_switch.sh exemplos/mp2` for the
-Switch NRO (`-DPORT_RENDERER=gl` for the OpenGL fallback). `tools/make_package.ps1` and `tools/make_package_pc.ps1`
+Switch NRO; it needs devkitPro's `deko3d` package (`dkp-pacman -S deko3d`), and without it the configure stops rather
+than quietly building the less tested OpenGL fallback (`-DPORT_RENDERER=gl` builds that one on purpose). `tools/make_package.ps1` and `tools/make_package_pc.ps1`
 lay out a package for your own console or PC; `package/TESTING.md` and `package/README-PC.txt` say how to set it up.
 
 **Web installer:** [maafeu.github.io/MPayne2-nx](https://maafeu.github.io/MPayne2-nx/) packs your own disc (`.iso` or
 extracted folder, checked against the supported `default.xbe`) and your own build of `MPayne2-nx.nro` into the SD
 card layout, in your browser; it contains no game code or files. Its source is [`installer/`](installer/)
 (GPL-3.0, published by `.github/workflows/installer-pages.yml`).
+
+**Reporting a crash:** each run writes its own log, numbered, and the last 100 are kept.
+
+- Switch: `sdmc:/switch/MPayne2-nx/logs/mp2_NNN.log` (FTP, or the SD card in a PC). The highest number is the
+  latest run; after a crash and a relaunch, the crash is in the one before it. Its lines starting with `crash:` say
+  where it happened. `stderr.log` beside it holds the graphics driver's messages for the latest run only.
+- PC: `logs\mp2_NNN.log` beside `MPayne2-nx_pc.exe`, the same way.
+
+Please attach that log, your `MPayne2-nx.toml` and where in the game it happened.
 
 ## Layout
 

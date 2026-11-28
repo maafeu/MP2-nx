@@ -142,6 +142,7 @@ void Load() {
     s.profile = t["profile"].value_or(s.profile);  // test aids: read, never written back (Table leaves them out)
     s.profile_after = t["profile_after"].value_or(s.profile_after);
     s.guest_quantum_ms = t["guest_quantum_ms"].value_or(s.guest_quantum_ms);
+    s.guest_align = t["guest_align"].value_or(s.guest_align);  // boot only, never written back
     for (const Option& o : kGame.options) {
         if (o.flag) *o.flag = t[o.key].value_or(*o.flag);
         else *o.value = t[o.key].value_or(*o.value);

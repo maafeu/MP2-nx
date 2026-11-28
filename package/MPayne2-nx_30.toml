@@ -13,7 +13,7 @@ fps_adaptive = 1                # 1: locked to 30 while frames take over fps_ada
 fps_adaptive_ms = 20            # 20: scenes of 50-60 fps run free (a repeated frame now and then), slower ones
                                 # lock to 30; 16 locks to 30 as soon as 60 slips
 vsync = true
-cpu_clock = 0                   # MHz for this run (the old clock comes back at exit); 0 the system's 1020. A clock
+cpu_clock = 0                   # MHz at least (a higher clock already set is kept); 0 the system's 1020. A clock
                                 # manager on the console (Horizon-OC, sys-clk) may hold it lower; more heat and battery
 gpu_clock = 0                   # 0: the system's
 mem_clock = 0                   # 0: the system's

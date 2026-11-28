@@ -25,8 +25,8 @@ recompiled code; do not publish this package.
   ms on average, below 50 fps), back to 60 once they take 1.5 ms less; vsync paces both (swap interval 1 or 2).
   `fps_adaptive_ms = 16` locks to 30 as soon as 60 slips (the behaviour before 2026-11-23). The game times itself by
   the clock, so it plays at the same speed at 30 and 60. `cpu_clock = 1581` with `mem_clock = 1600` asks for the CPU
-  at 1581 MHz and the memory at its docked 1600 MHz for the run (the old clocks come back at exit): the lowest pair
-  measured that holds 60 in every level tested (below). **`MPayne2-nx_30.toml`**: 30 fps locked at the system's 1020 MHz
+  at 1581 MHz and the memory at its docked 1600 MHz at least (a clock manager's higher clocks are left as they are; the
+  old clocks come back at exit): the lowest pair measured that holds 60 in every level tested (below). **`MPayne2-nx_30.toml`**: 30 fps locked at the system's 1020 MHz
   (cooler, longer on battery).
 - **Measured on the console (2026-11-22, the CPU at 1020 MHz):** with deko3d chapter 1 holds **60 fps locked** (12-13
   ms of work a frame; the OpenGL build gave 57 fps); level 27, the heaviest, about 46 fps free (21 ms a frame; OpenGL

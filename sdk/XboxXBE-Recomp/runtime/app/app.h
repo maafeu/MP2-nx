@@ -42,6 +42,11 @@ struct Settings {
     // that used its whole core is taken off it for a moment (host-switch/clocks.cpp), as the Xbox's kernel shares a core
     // between threads of one priority by quantum and Horizon does not; 0 off
     uint32_t guest_quantum_ms = 0;
+    // MPayne2-nx, the Switch, read but never written back, used at boot only (2026-11-28, from MPayne-nx f1cbb90): 1
+    // places the 4 GB guest space at a 2 MB boundary and its backing heap blocks at 2 MB (64 KB for the 1 MB granules),
+    // so the kernel can map the guest's memory with large blocks instead of 4 KB pages (kernel/memory.cpp); 0 is the
+    // earlier placement (any 4 KB boundary). Only where the memory sits changes, never what the game computes
+    uint32_t guest_align = 1;
 };
 
 Settings& Get();

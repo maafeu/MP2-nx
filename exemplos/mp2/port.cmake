@@ -3,5 +3,5 @@
 set(PORT_NAME MPayne2-nx)                   # MPayne2-nx.nro, in sdmc:/switch/MPayne2-nx
 set(PORT_TITLE "Max Payne 2")
 set(PORT_AUTHOR "MPayne2-nx")
-set(PORT_VERSION "0.0.1")
+set(PORT_VERSION "1.0.2")                   # the release; the log's first line names it
 set(PORT_GYRO_MODE 0)                   # no gyro aiming until the game's aim update is found

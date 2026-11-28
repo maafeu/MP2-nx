@@ -486,3 +486,17 @@ Times are the PC's local time (ABT).
   end to end), the console's folder moved with the owner's word (settings and saves kept, the new NRO read back; the
   17 old test NROs deleted on the owner's word), `pc-test`, the private installer, the GitHub repository
   (maafeu/MPayne2-nx), the page and release v1.0.1.
+- 11-28 08:00-08:15 guest_align from MPayne-nx (f1cbb90): the guest space and its heap blocks on 2 MB boundaries,
+  so the kernel can map them with large blocks. Built (deko3d 8e8de9df), Ryujinx level 27 clean (blocks 2 MB-aligned,
+  60 fps); the console measure waits for the owner's word. README: where a crash's log is.
+- 11-28 08:30-09:00 Console series align1 (the owner's word): guest_align on the console, ABBA on the owner's save
+  at 1581 MHz: the title's work a frame 9.007 / 8.962 ms off, 8.707 / 8.732 ms on (-2.9 %). The card restored (the
+  owner's settings and saves as before; `MPayne2-nx_align.nro` left, logs mp2_064-067). Not released yet.
+- 11-28 09:00-09:30 A player's logs (mp2_001-010, v1.0.0-era, the OpenGL renderer, an overclocked console): no
+  crash line; four runs cut off mid-play, three with the file system unclosed; the port's clock keeper fought their
+  clock manager every second (memory 2133 -> 1600 -> 2133). Fixed for 1.0.2: the clock settings are a floor (kept
+  when higher, raised when lower, left to a manager that keeps pulling them down); no quiet OpenGL build without
+  deko3d; the log names the build (`switch-1.0.2-dk`). Built (b3d08272), Ryujinx level 27 as before.
+- 11-28 11:30-11:40 Console check clk1 (the owner's word): the clock floor on the console. Asked under Horizon-OC's
+  profile: "stays at", nothing switched; asked over it: raised, pulled back three times, then left to Horizon-OC.
+  The card restored (settings and saves as before). 1.0.2 ready, not released.

@@ -1643,3 +1643,94 @@ load the last saved game") and closed by the session (HOME, X, A) to complete th
   the page https://maafeu.github.io/MPayne2-nx/ (the MaxPayne2-nx page address is a 404). Release **v1.0.1** ("MPayne2-nx
   1.0.1", Latest, tag on 15ed1f8): v1.0.0's notes with the new names and how to move a 1.0.0 install; v1.0.0 is
   "MPayne2-nx 1.0.0" with a line saying 1.0.1 supersedes it (its source still builds `mp2-nx.nro`).
+
+## The guest space on 2 MB boundaries (2026-11-28; the user: "Yes please")
+
+- From the Max Payne port (MPayne-nx f1cbb90), which shares this kit's `kernel/memory.cpp`: the kernel maps memory
+  with the largest block (2 MB, or 64 KB) that the virtual address, the physical address and the length allow, else
+  4 KB pages. The 4 GB guest space sat at any 4 KB boundary `virtmemFindAslr` gave and its backing heap blocks at
+  4 KB, so the guest's memory was mapped 4 KB at a time and the A57's translation cache (1024 entries: 4 MB that way)
+  can miss on the game's scattered reads. There, 2 MB placement cut 2.8 % off the frame in Docks B-1 at 1020 MHz,
+  repeatably.
+- The same change here: `guest_align` (`app.h`, read by `host-switch/main.cpp`, boot only, never written back,
+  default 1) reserves the space plus 2 MB and starts it at the first 2 MB boundary; each backing block is
+  `memalign`ed at 2 MB when it is 2 MB long and on a 2 MB guest boundary, else 64 KB, falling back to 4 KB rather
+  than failing. 0 keeps the earlier placement. Only where the memory sits changes, never what the game computes.
+- Built: deko3d NRO 8e8de9df (v1.0.1's cef3fcfd kept in the scratchpad as the baseline). Ryujinx `align_dk1`
+  (level 27, 180 s): `memory: guest_align 1`, the four blocks at 0x200a00000, 0x204c00000, 0x20a600000 and
+  0x20b000000 (all 2 MB-aligned), menu and level drawn right, 60 fps, the same 13 stall-report error lines as
+  v1.0.1's `rename_dk2`.
+- **The console** (series align1, 2026-11-28 07:34-07:57 console time; the owner: "Yes, measure it"; the Max Payne
+  session held its runs meanwhile): one NRO (8e8de9df, netloaded as `MPayne2-nx_align.nro` from hbmenu on the
+  Arkanoid tile, title `010091D01597C000` checked each time), the owner's settings with a free frame rate
+  (`fps_adaptive = 0`) and `guest_align` 0 or 1, ABBA; input script `mp2_resume_console.txt` (Resume Game, then no
+  presses): the owner's newest save, Max standing before a police officer in 20_Third_Dream, the same 118 draws and
+  1236 KB a frame in every run. Handheld, CPU 1581 MHz, memory 1600 (Horizon-OC's profile and the settings agree).
+  The measure: the title thread's work a frame, 16.667 ms less its wait for the frame before (the `dk:` row, to
+  0.01 ms), median of the 5 s windows from 105 s to the HOME press (22-23 windows a run):
+
+  | Run (log) | guest_align | Work a frame | Spread in the run | GPU |
+  |---|---|---|---|---|
+  | 1 (mp2_064) | 0 | 9.007 ms | 8.99-9.03 | 11.02 ms |
+  | 2 (mp2_065) | 1 | 8.707 ms | 8.70-8.79 | 10.98 ms |
+  | 3 (mp2_066) | 1 | 8.732 ms | 8.72-8.76 | 11.02 ms |
+  | 4 (mp2_067) | 0 | 8.962 ms | 8.95-8.98 | 11.02 ms |
+
+  **0.27 ms less a frame with the space aligned (8.720 against 8.985, -2.9 %)**, every aligned run under every
+  unaligned one, as Max Payne measured (-2.8 %). The aligned runs' heap blocks were at 2 MB boundaries
+  (0x3f7ce00000 ...), the unaligned at any 4 KB one (0x30b7253000 ...). No crash; clean `Exit (0)`; the GPU unchanged.
+- **The card afterwards:** the owner's `MPayne2-nx.toml` (c3d3c6e6) and the inert `input_script.txt` (fd3005cd) put
+  back and read back; the three saves and `Max2Options.cfg` untouched (copied off first to
+  `out/console/align1/card_before`, their dates unchanged, no new save); the installed `MPayne2-nx.nro` (v1.0.1,
+  cef3fcfd) untouched. New: `MPayne2-nx_align.nro` (the test NRO; the console tool cannot delete) and logs
+  mp2_064-067.
+- The README gained "Reporting a crash": the log is `sdmc:/switch/MPayne2-nx/logs/mp2_NNN.log` on the Switch
+  (numbered per run, the last 100 kept; `crash:` lines; `stderr.log` beside it for the driver, latest run only) and
+  `logs\mp2_NNN.log` beside the exe on the PC.
+
+## A player's logs: the clocks fought a clock manager (2026-11-28; the user: "inspect these log files")
+
+Ten logs from another console (`mp2_001`-`010`, 2026-11-25 to 11-28; `sdmc:/switch/mp2-nx`, so a v1.0.0-era build,
+`build switch-0.0.1`), read in an isolated folder, nothing run from them:
+- **The OpenGL renderer** (`gl: 4.3 Mesa 20.1.0-rc3 ... nouveau`, the renderer on the title's thread), not the deko3d one
+  every release is tested with: a build made without devkitPro's `deko3d` package (the CMake default then quietly
+  became GL) or the package's `fallback/MPayne2-nx-gl.nro`, which was only ever checked in Ryujinx. Their settings:
+  the shipped clocks (1581 / 1600), `vsync = false`, `fps_counter = true`, `oled_screen = 2`, `brightness = 6`.
+- **A clock manager on that console** (CPU 1963 MHz, memory 1866 or 2133: an overclock). The port's keeper set the asked
+  1581 / 1600 back every second whenever the clock differed, higher included (`clocks.cpp`; logged only 8 times a
+  run, so the logs show it only in their first 4 s): for whole sessions the memory clock went 2133 -> 1600 -> 2133
+  about once a second, each switch a RAM retraining. In mp2_006 the opposite: the CPU held at 1030 MHz under the 1581
+  asked, set again every 10 s.
+- **Four runs ended without `Exit (0)` and without a `crash:` line**, mid-play: mp2_001 (~161 s, 03_first_hospital),
+  mp2_003 (~346 s, 05_First_Vodka), mp2_004 (~502 s, 05_First_Vodka), mp2_009 (~1744 s, four seconds after loading a
+  save, after a 24 minute sleep). mp2_003, 004 and 009 end in binary garbage: the file system was not closed, which a
+  killed game does not do (the system closes its files) but a console that froze or rebooted does. Frames were still
+  drawn within the last flushed seconds (no 10 s stall report), so it was sudden. Not proven: the clock fight at an
+  overclocked memory rate is the likeliest cause these logs show; Atmosphere's `crash_reports` / `fatal_reports` from
+  those times would tell.
+- Everything else matches this console's healthy runs: the 13 stall-report error lines, `xapi: launch of refused`,
+  the dsound exports line, the idle-wait warnings; six runs ended cleanly, one of 6.5 hours with sleeps.
+
+The fixes (1.0.2):
+- **`host-switch/clocks.cpp`: the settings are a floor.** A clock already at or above the setting is left as it is
+  (`clock: CPU stays at N MHz`); the keeper only raises a clock that fell below it (dock, undock, sleep); a clock
+  pulled under it more than three times in a minute is left to whatever holds it (logged once). `test_gpu_clocks`
+  still sets exact rates. The shipped settings' comments say "MHz at least" (the installer's `release/MPayne2-nx.toml`
+  with them, its SHA-256 in the manifest updated: d2ec2848...).
+- **No quiet OpenGL build:** without deko3d the configure stops with what to install, unless `-DPORT_RENDERER=gl` is
+  given (checked in a minimal project: dk goes on, gl or soft without the option stop, gl with it goes on). The README
+  says so.
+- **The log names the build:** `PORT_VERSION` 1.0.2 and the renderer in the first line (`build switch-1.0.2-dk`); every
+  build said `switch-0.0.1` before.
+- **Checked on the console** (series clk1, 2026-11-28 11:30-11:39 console time; the owner: "Yes, check it"; the Max
+  Payne session held its runs): NRO b3d08272 (`switch-1.0.2-dk`, netloaded over the earlier test file
+  `MPayne2-nx_align.nro`), the owner's settings with only the clocks changed, Resume Game; Horizon-OC's profile holds
+  1581 / 1600 for this title.
+  - mp2_068, asked **1020 / 1331** (under the profile, the player's case): `clock: CPU stays at 1581 MHz (asked at
+    least 1020)`, `memory stays at 1600 MHz (asked at least 1331)`; no "was reset" line; the CPU 1571-1582 MHz in
+    every census for 150 s; `Exit (0)`. The old keeper would have set 1020 / 1331 and fought the profile every second.
+  - mp2_069, asked **1785** (over the profile): `CPU 1581 -> 1785`; Horizon-OC put 1581 back at 1.3, 2.3 and 3.3 s
+    (raised each time), and at 4.3 s `CPU pulled under 1785 MHz 4 times in a minute (now 1581 MHz): left to the clock
+    manager holding it`; 1576-1583 MHz for the rest of the run, nothing switched again; `Exit (0)`.
+  - The card afterwards: the owner's settings (c3d3c6e6) and the inert script (fd3005cd) put back and read back, the
+    three saves and `Max2Options.cfg` untouched (dates unchanged); logs mp2_068-069.

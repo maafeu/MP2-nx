@@ -4,6 +4,14 @@
 // at 1785 / 921.6 / 1600 MHz; the old rates come back at exit. The system resets clocks on dock, undock and after
 // sleep, so a thread sets them again every second while the game has focus.
 //
+// MPayne2-nx (2026-11-28, a player's logs mp2_001-010): the settings are a floor, never a ceiling. That console ran an
+// overclock tool (CPU 1963, memory 1866 / 2133 MHz) and the keeper put the asked 1581 / 1600 back every second, so for
+// whole sessions the memory clock was switched down and up again about once a second (each switch retrains the RAM),
+// and three of those sessions ended with the console's file system left unclosed (the logs' last blocks garbage). Now
+// a clock already at or above the setting is left as it is, the keeper only raises a clock that fell below it (dock,
+// undock, sleep), and a clock pulled back down more than three times in a minute is left to whatever holds it (logged
+// once). Only test_gpu_clocks still sets an exact rate.
+//
 // Why: the console's first runs (2026-11-22) put chapter 1 at about 20 ms of CPU a frame on the title's thread at the
 // system's 1020 MHz (the recompiled game about 11 ms, the GL renderer and Mesa about 9 ms). 60 fps needs under 16.7 ms.
 // More heat and battery: the settings decide (docs/MP2-notes.md, "60 fps").
@@ -32,7 +40,12 @@ struct Clock {
     PcvModule mod;
     PcvModuleId id;
     uint32_t cap_hz;
-    uint32_t old_hz = 0, set_hz = 0;
+    uint32_t old_hz = 0, set_hz = 0;  // set_hz: the rate this run set (0: unchanged, nothing to put back at exit)
+    uint32_t min_hz = 0;               // the floor the keeper holds (0: none)
+    bool exact = false;                // test_gpu_clocks: keep set_hz itself, lower or higher
+    bool given_up = false;             // pulled down too often: left to whatever holds it
+    unsigned raises = 0;               // raises in the current minute
+    uint64_t window = 0;               // when that minute started (system ticks)
     bool open = false;
     ClkrstSession s{};
 };
@@ -93,6 +106,30 @@ void Restore() {
     g_rst = -1;
 }
 
+// a clock below its floor set back up to it, unless it was pulled down more than three times this minute: then a clock
+// manager holds it, and fighting it every second would switch the clock (the memory's retrains the RAM) for the whole
+// run. True when it was set.
+bool Raise(int i) {
+    Clock& c = g_clk[i];
+    if (c.given_up) return false;
+    const uint64_t now = armGetSystemTick(), freq = armGetSystemTickFreq();
+    if (!c.window || now - c.window > 60 * freq) {
+        c.window = now;
+        c.raises = 0;
+    }
+    if (++c.raises > 3) {
+        c.given_up = true;
+        uint32_t hz = 0;
+        Get(i, &hz);
+        LOGI("clock: %s pulled under %u MHz %u times in a minute (now %u MHz): left to the clock manager holding it",
+             c.name, c.min_hz / 1000000u, c.raises, hz / 1000000u);
+        return false;
+    }
+    Set(i, c.exact ? c.set_hz : c.min_hz);
+    if (!c.exact) c.set_hz = c.min_hz;
+    return true;
+}
+
 Handle g_main = 0;  // the host's main thread, for the census
 double MeasureMhzOwnTicks();
 
@@ -128,11 +165,9 @@ void Census() {
     if (span <= 0) return;
     const double mhz = MeasureMhzOwnTicks();
     LOGI("threads: %s; CPU at %.0f MHz", n ? line : "none over 2%", mhz);
-    // the clock asked for but not running (clkrst reads back what was asked): asked again
-    if (g_clk[0].set_hz && mhz > 0 && mhz < 0.9 * double(g_clk[0].set_hz) / 1e6) {
-        Set(0, g_clk[0].set_hz);
-        LOGI("clock: CPU measured at %.0f MHz under the %u asked: set again", mhz, g_clk[0].set_hz / 1000000u);
-    }
+    // the clock asked for but not running (clkrst reads back what was asked): asked again, as a raise
+    if (g_clk[0].min_hz && mhz > 0 && mhz < 0.9 * double(g_clk[0].min_hz) / 1e6 && Raise(0))
+        LOGI("clock: CPU measured at %.0f MHz under the %u asked: set again", mhz, g_clk[0].min_hz / 1000000u);
 }
 
 uint32_t NroOff(uint64_t a) {
@@ -251,12 +286,15 @@ void Keeper(void*) {
         StallCheck();
         if (++seconds % 10 == 0) Census();
         for (int i = 0; i < 3; i++) {
+            Clock& c = g_clk[i];
             uint32_t hz = 0;
-            if (!g_clk[i].set_hz || R_FAILED(Get(i, &hz)) || hz == g_clk[i].set_hz) continue;
-            Set(i, g_clk[i].set_hz);
-            if (logged++ < 8)
-                LOGI("clock: %s was reset to %u MHz, back to %u MHz", g_clk[i].name, hz / 1000000u,
-                     g_clk[i].set_hz / 1000000u);
+            if (!c.min_hz || R_FAILED(Get(i, &hz))) continue;
+            // a floor: at or above it is kept as it is (a clock manager's higher rate included); test_gpu_clocks'
+            // exact rate is kept either way
+            if (c.exact ? hz == c.set_hz : hz >= c.min_hz) continue;
+            if (Raise(i) && logged++ < 8)
+                LOGI("clock: %s was reset to %u MHz, back to %u MHz", c.name, hz / 1000000u,
+                     (c.exact ? c.set_hz : c.min_hz) / 1000000u);
         }
     }
 }
@@ -278,7 +316,8 @@ bool Up() {
     return true;
 }
 
-void Want(int i, uint32_t want_hz) {
+// the clock at want_hz or more (exact: at want_hz, test_gpu_clocks): a rate already at or above it is left as it is
+void Want(int i, uint32_t want_hz, bool exact = false) {
     if (want_hz > g_clk[i].cap_hz) want_hz = g_clk[i].cap_hz;
     if (!Up()) return;
     if (g_rst && !g_clk[i].open) {
@@ -289,12 +328,24 @@ void Want(int i, uint32_t want_hz) {
         g_clk[i].open = true;
     }
     if (!g_clk[i].old_hz) Get(i, &g_clk[i].old_hz);
-    uint32_t hz = Pick(i, want_hz), now = 0;
+    Clock& c = g_clk[i];
+    uint32_t hz = Pick(i, want_hz), now = 0, cur = 0;
+    c.exact = exact;
+    c.given_up = false;
+    c.raises = 0;
+    if (!exact && R_SUCCEEDED(Get(i, &cur)) && cur >= hz) {
+        c.min_hz = hz;  // held from now on, should it fall under the floor
+        LOGI("clock: %s stays at %u MHz (asked at least %u)", c.name, cur / 1000000u, want_hz / 1000000u);
+        return;
+    }
     Result rc = Set(i, hz);
     Get(i, &now);
-    if (R_SUCCEEDED(rc)) g_clk[i].set_hz = now ? now : hz;
-    LOGI("clock: %s %u -> %u MHz (asked %u)%s", g_clk[i].name, g_clk[i].old_hz / 1000000u, now / 1000000u,
-         want_hz / 1000000u, R_FAILED(rc) ? " -- refused" : "");
+    if (R_SUCCEEDED(rc)) {
+        c.set_hz = now ? now : hz;
+        c.min_hz = exact ? c.set_hz : hz;
+    }
+    LOGI("clock: %s %u -> %u MHz (asked %u)%s", c.name, c.old_hz / 1000000u, now / 1000000u, want_hz / 1000000u,
+         R_FAILED(rc) ? " -- refused" : "");
 }
 
 // the CPU's real clock on this core: a chain of dependent adds (one a cycle on the Cortex-A57), eight an iteration
@@ -360,7 +411,7 @@ void TestGpu(uint32_t mhz) {
     if (!Up()) return;
     Clock& c = g_clk[1];
     if (mhz) {
-        Want(1, mhz * 1000000u);
+        Want(1, mhz * 1000000u, true);
     } else {
         if (g_rst && !c.open) {
             if (Result rc = clkrstOpenSession(&c.s, c.id, 3); R_FAILED(rc)) {
@@ -371,6 +422,8 @@ void TestGpu(uint32_t mhz) {
         }
         if (c.set_hz && c.old_hz) Set(1, c.old_hz);
         c.set_hz = 0;
+        c.min_hz = 0;
+        c.exact = false;
     }
     uint32_t hz = 0;
     if (!g_rst || c.open) Get(1, &hz);

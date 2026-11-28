@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.2",
   "builds": [
     {
       "edition": "Xbox disc (NTSC-U, TT-012)",
@@ -9,7 +9,7 @@
         {
           "path": "MPayne2-nx.toml",
           "source": "MPayne2-nx.toml",
-          "sha256": "d61cbd45b5e334ab1e43e4408bcbaf31d52e7d32604e78a92807e84b6b107981"
+          "sha256": "d2ec2848543bfc41b19e58dfdf0ea0a88ee53fbf2336016b0d9de7f70f07e9fd"
         }
       ]
     }

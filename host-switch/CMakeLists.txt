@@ -57,6 +57,14 @@ elseif(EXISTS ${DEVKITPRO}/portlibs/switch/lib/libEGL.a)
 else()
     set(PORT_RENDERER_DEFAULT soft)
 endif()
+# MPayne2-nx (2026-11-28): no quiet fallback. A player's build made without devkitPro's deko3d package came out with the
+# OpenGL renderer (their logs mp2_001-010: Mesa on the title's thread, the less tested path), while every release is
+# tested with deko3d; such a build now stops here unless it names its renderer
+if(NOT DEFINED CACHE{PORT_RENDERER} AND NOT PORT_RENDERER_DEFAULT MATCHES "^(dk|nvk)$")
+    message(FATAL_ERROR "deko3d was not found (${DEVKITPRO}/libnx/lib/libdeko3d.a, ${KIT}/third_party/uam/uam_api.h): "
+            "the renderer every release is tested with needs devkitPro's deko3d package (dkp-pacman -S deko3d). "
+            "To build the OpenGL fallback instead, pass -DPORT_RENDERER=gl.")
+endif()
 set(PORT_RENDERER ${PORT_RENDERER_DEFAULT} CACHE STRING "nvk, gl, dk or soft")
 message(STATUS "renderer: ${PORT_RENDERER}")
 
@@ -76,7 +84,7 @@ endforeach()
 file(SHA1 ${XBE} xbe_sha1)
 file(CONFIGURE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/image_sha1.cpp CONTENT "extern const char kImageSha1[] = \"${xbe_sha1}\";\n")
 file(CONFIGURE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/build_info.h CONTENT
-     "#define PORT_BUILD \"switch-${PORT_VERSION}\"\n#define PORT_NAME \"${PORT_NAME}\"\n#define PORT_TITLE \"${PORT_TITLE}\"\n#define PORT_GYRO_MODE ${PORT_GYRO_MODE}\n")
+     "#define PORT_BUILD \"switch-${PORT_VERSION}-${PORT_RENDERER}\"\n#define PORT_NAME \"${PORT_NAME}\"\n#define PORT_TITLE \"${PORT_TITLE}\"\n#define PORT_GYRO_MODE ${PORT_GYRO_MODE}\n")
 
 # glslang with its HLSL front end (the SDK's shaders are HLSL), built here for the Switch
 set(ENABLE_OPT OFF CACHE BOOL "" FORCE)

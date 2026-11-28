@@ -14,11 +14,11 @@ fps_adaptive = 1                # 1: locked to 30 while frames take over fps_ada
 fps_adaptive_ms = 20            # 20: scenes of 50-60 fps run free (a repeated frame now and then), slower ones
                                 # lock to 30; 16 locks to 30 as soon as 60 slips
 vsync = true
-cpu_clock = 1581                # MHz for this run (the old clock comes back at exit); 0 the system's 1020. With
+cpu_clock = 1581                # MHz at least (a higher clock already set is kept); 0 the system's 1020. With
                                 # mem_clock 1600 the lowest pair measured that holds 60 everywhere (2026-11-23). A clock
                                 # manager (Horizon-OC, sys-clk) may hold it lower: give it the same pair (TESTING.md)
 gpu_clock = 0                   # 0: the system's
-mem_clock = 1600                # MHz: the docked rate, also in handheld (1331 there by default); 0 the system's
+mem_clock = 1600                # MHz at least: the docked rate, also in handheld (1331 by default); 0 the system's
 thread_cores = 0
 render_thread = 1               # 1: the renderer on a core of its own (the deko3d NRO; the GL fallback draws on the title's thread)
 anisotropic_filtering = 0       # 0: as the game asks

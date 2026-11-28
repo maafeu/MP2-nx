@@ -6,6 +6,7 @@
 #include <mutex>
 #include <vector>
 
+#include "app/app.h"
 #include "core/log.h"
 
 #ifdef _WIN32
@@ -50,6 +51,16 @@ static std::vector<uint8_t> g_nx_backed((1ull << 32) / kNxGranule, 0);
 static constexpr uint64_t kNxBlock = 8u << 20;
 static int g_nx_objects = 0;
 
+// MPayne2-nx (2026-11-28, from MPayne-nx f1cbb90, which measured 2.8 % off Max Payne's frame on the console): the
+// kernel maps memory with the largest block (2 MB, or 64 KB) that the virtual address, the physical address and the
+// length all allow, else 4 KB pages. The guest space sat at any 4 KB boundary that virtmemFindAslr gave and its heap
+// blocks at 4 KB, so the guest's memory was mapped 4 KB at a time and the CPU's translation cache (the A57's 1024
+// entries reach 4 MB that way) can miss on the game's scattered reads. With guest_align = 1 the space starts at a 2 MB
+// boundary and each block is 2 MB-aligned (64 KB for the 1 MB granules), so a block the heap holds in 2 MB physical
+// pieces can be mapped with 2 MB entries. Only where the memory sits changes.
+static constexpr uint64_t kNxHuge = 2u << 20;
+static bool g_nx_align = false;
+
 static bool NxBlockRange(uint64_t a) {
     return (a >= kSystemBase && a < uint64_t(kSystemBase) + kSystemSize) ||
            (a >= kStackBase && a < uint64_t(kStackBase) + kStackSize);
@@ -66,8 +77,11 @@ static bool NxBack(uint32_t va, uint32_t size) {
         uint64_t run = g;
         while (run < end && !g_nx_backed[size_t(run / kNxGranule)]) run += kNxGranule;
         size_t len = size_t(run - g);
-        LOGI("memory: backing %08X+%X (code memory object %d)", uint32_t(g), uint32_t(len), g_nx_objects + 1);
-        void* src = memalign(0x1000, len);
+        const size_t align = !g_nx_align ? 0x1000 : (len >= kNxHuge && g % kNxHuge == 0) ? kNxHuge : 0x10000;
+        void* src = memalign(align, len);
+        if (!src && align > 0x1000) src = memalign(0x1000, len);  // the earlier placement rather than none
+        LOGI("memory: backing %08X+%X (code memory object %d, heap block %p)", uint32_t(g), uint32_t(len),
+             g_nx_objects + 1, src);
         Handle h = 0;
         Result rc = src ? svcCreateCodeMemory(&h, src, len) : MAKERESULT(Module_Libnx, LibnxError_OutOfMemory);
         const char* step = "create";
@@ -93,11 +107,15 @@ static bool NxBack(uint32_t va, uint32_t size) {
 bool Init() {
     const uint64_t size = 1ull << 32;
 #ifdef __SWITCH__
+    g_nx_align = app::Get().guest_align != 0;
     virtmemLock();
-    void* at = virtmemFindAslr(size, 0x10000);
-    if (at) virtmemAddReservation(at, size);
+    // with guest_align, room for the space plus 2 MB, and the space at the first 2 MB boundary in it
+    uintptr_t at = uintptr_t(virtmemFindAslr(size + (g_nx_align ? kNxHuge : 0), 0x10000));
+    if (at && g_nx_align) at = (at + kNxHuge - 1) & ~uintptr_t(kNxHuge - 1);
+    if (at) virtmemAddReservation(reinterpret_cast<void*>(at), size);
     virtmemUnlock();
-    g_base = static_cast<uint8_t*>(at);
+    g_base = reinterpret_cast<uint8_t*>(at);
+    LOGI("memory: guest_align %d", g_nx_align ? 1 : 0);
     if (g_base && !NxBack(kContiguousBase, kPhysicalSize)) g_base = nullptr;
     // the low 64 MB, where the image and the title's own allocations go, as one block: backed a megabyte at a time
     // as the title reaches it, the blocks and the driver's mappings ran the kernel out of memory blocks
